@@ -961,12 +961,12 @@ footer{
   </div>
   <div class="nav-links">
     <button class="nav-btn active" onclick="goTo('home')">Нүүр</button>
+    <button class="nav-btn" onclick="goTo('news')">Мэдээ</button>
     <button class="nav-btn" onclick="goTo('quiz')">Мэдлэгийн шалгалт</button>
     <button class="nav-btn" onclick="goTo('lessons')">Сургалт</button>
     <button class="nav-btn" onclick="goTo('games')">Интерактив тоглоом</button>
     <button class="nav-btn" onclick="goTo('bigfive')">Зан төлөв</button>
     <button class="nav-btn" onclick="goTo('checker')">Шалгуур</button>
-    <button class="nav-btn" onclick="goTo('news')">Мэдээ</button>
   </div>
   <div class="nav-status">
     <div class="status-dot"></div>
@@ -979,12 +979,12 @@ footer{
 
 <div class="nav-mobile-menu" id="mobile-menu">
   <button class="nav-mobile-btn active" onclick="goToMobile('home')">Нүүр</button>
+  <button class="nav-mobile-btn" onclick="goToMobile('news')">Мэдээ</button>
   <button class="nav-mobile-btn" onclick="goToMobile('quiz')">Мэдлэгийн шалгалт</button>
   <button class="nav-mobile-btn" onclick="goToMobile('lessons')">Сургалт</button>
   <button class="nav-mobile-btn" onclick="goToMobile('games')">Интерактив тоглоом</button>
   <button class="nav-mobile-btn" onclick="goToMobile('bigfive')">Зан төлөв</button>
   <button class="nav-mobile-btn" onclick="goToMobile('checker')">Шалгуур</button>
-  <button class="nav-mobile-btn" onclick="goToMobile('news')">Мэдээ</button>
 </div>
 
 <!-- HOME -->
@@ -1043,6 +1043,90 @@ footer{
   </div>
 </div>
 </section>
+<section id="news">
+<div class="container">
+  <div class="page-header">
+    <div class="page-tag">МЭДЭЭ & ЗӨВЛӨМЖ</div>
+    <h2 class="page-title">Кибер аюулгүй байдлын мэдээ</h2>
+    <p class="page-sub">Монгол болон олон улсын хэмжээнд гарч буй кибер аюулгүй байдлын сүүлийн үеийн мэдээ, анхааруулга, халдлагын мэдээлэл болонхамгаалалтын зөвлөмжүүдийг нэг дороос хүлээн аваарай.</p>
+  </div>
+  <div class="alert-strip">
+    <div class="alert-strip-label">Анхааруулга</div>
+    <div class="alert-strip-text">Сүүлийн үед Монгол Улсад Telegram луйвар болон банкны нэрийг дуурайсан фишинг мессеж эрчимтэй тархаж байна. <strong>Зогс — Бод — Үйлд</strong> зарчмыг дагаарай.</div>
+  </div>
+  <div class="news-layout">
+    <div class="news-main">
+      <div class="news-featured" onclick="toggleFeatured()">
+        <div class="nf-label">Онцлох мэдээ · 2026.04</div>
+        <div class="nf-title">Монголд Telegram-ын луйвар шинэ дээд хэмжээнд хүрлээ</div>
+        <div class="nf-body">2026 оны эхний улиралд Монгол Улсад Telegram платформоор дамжсан луйврын тохиолдол өмнөх оны мөн үетэй харьцуулахад 340% өссөн байна. Гол хэлбэр нь найзын нэрийг дуурайж яаралтай мөнгө шилжүүлэхийг шаардах арга юм. Цагдаагийн газрын мэдээлснээр нийт хохирогчдын 68% нь гүйлгээ хийсний дараа л луйварт өртсөнөө мэдсэн байна.</div>
+        <div class="nf-meta"><span>Эх сурвалж: МУ Цагдаагийн Ерөнхий Газар</span></div>
+      </div>
+      <div id="featured-detail" style="display:none;background:var(--card);border:1px solid var(--border);border-top:none;padding:1.5rem">
+        <p style="font-size:.85rem;color:var(--text2);line-height:1.8;margin-bottom:1rem">Луйварын гол механизм нь хохирогчийн найзын Telegram акаунтыг эхлээд хулгайлж, дараа нь тухайн хэрэглэгчийн нэрийн өмнөөс найзуудад мессеж илгээх явдал юм. Мессеж нь ихэвчлэн яаралтай тусламж хүсэх, гадаадад гацсан, эмнэлэгт ороод мөнгө хэрэгтэй болсон зэрэг сэтгэл хөдлөлийн дарамт үзүүлдэг.</p>
+        <p style="font-size:.85rem;color:var(--text2);line-height:1.8;margin-bottom:1rem">Судалгаанаас харахад хохирогчдын дундаж хохирол 250,000–500,000 MNT байсан бөгөөд нийт хохирлыг буцааж авах боломж туйлын бага байна.</p>
+        <div style="background:var(--danger-light);border-left:3px solid var(--danger);padding:.875rem 1rem;font-size:.82rem;color:var(--text2);line-height:1.7"><strong style="color:var(--danger)">Хамгаалах арга:</strong> Telegram-аас мөнгө хүссэн ямар ч мессеж ирвэл тухайн хүнтэйгээ утсаар холбогдож баталгаажуулна уу. Акаунтаа 2FA-р хамгаалах нь хулгайлагдахаас сэргийлдэг.</div>
+      </div>
+      <div class="news-list" id="ngrid"></div>
+    </div>
+    <div class="news-sidebar">
+      <div class="nsidebar-box">
+        <div class="nsb-title">Аюулын түвшин · МУ, 2026</div>
+        <div class="threat-level">
+          <div class="tl-row">
+            <span class="tl-label">Telegram луйвар</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">Фишинг имэйл</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">Утасны луйвар</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">SMS фишинг</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">Ransomware</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot"></div><div class="tl-dot"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nsidebar-box">
+        <div class="nsb-title">Холбоо барих</div>
+        <div style="font-size:.78rem;color:var(--text2);line-height:1.8">
+          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Цагдаа:</span> 102</div>
+          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Кибер гэмт хэрэг:</span> 1800-1234</div>
+          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Банкны хэрэглэгч:</span> Картын ар тал</div>
+          <div style="margin-top:.75rem;font-size:.72rem;color:var(--text3)">Хохирогч болсон бол нотлох баримт (дэлгэцийн зураг, гүйлгээний дэлгэрэнгүй) хадгалаад холбогдоорой.</div>
+        </div>
+      </div>
+      <div class="nsidebar-box">
+        <div class="nsb-title">Сүүлийн 30 хоногийн статистик</div>
+        <div style="font-size:.78rem;color:var(--text2);line-height:1.8">
+          <div class="sidebar-stat"><span class="sidebar-stat-label">Мэдэгдсэн луйвар</span><span class="sidebar-stat-val">1,240+</span></div>
+          <div class="sidebar-stat"><span class="sidebar-stat-label">Нийт хохирол</span><span class="sidebar-stat-val">~890M</span></div>
+          <div class="sidebar-stat"><span class="sidebar-stat-label">Шийдвэрлэлт</span><span class="sidebar-stat-val">23%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
 
 <!-- LESSONS -->
 <section id="lessons">
@@ -1319,90 +1403,6 @@ footer{
 </section>
 
 <!-- NEWS -->
-<section id="news">
-<div class="container">
-  <div class="page-header">
-    <div class="page-tag">МЭДЭЭ & ЗӨВЛӨМЖ</div>
-    <h2 class="page-title">Кибер аюулгүй байдлын мэдээ</h2>
-    <p class="page-sub">Монгол болон олон улсын хэмжээнд гарч буй кибер аюулгүй байдлын сүүлийн үеийн мэдээ, анхааруулга, халдлагын мэдээлэл болонхамгаалалтын зөвлөмжүүдийг нэг дороос хүлээн аваарай.</p>
-  </div>
-  <div class="alert-strip">
-    <div class="alert-strip-label">Анхааруулга</div>
-    <div class="alert-strip-text">Сүүлийн үед Монгол Улсад Telegram луйвар болон банкны нэрийг дуурайсан фишинг мессеж эрчимтэй тархаж байна. <strong>Зогс — Бод — Үйлд</strong> зарчмыг дагаарай.</div>
-  </div>
-  <div class="news-layout">
-    <div class="news-main">
-      <div class="news-featured" onclick="toggleFeatured()">
-        <div class="nf-label">Онцлох мэдээ · 2026.04</div>
-        <div class="nf-title">Монголд Telegram-ын луйвар шинэ дээд хэмжээнд хүрлээ</div>
-        <div class="nf-body">2026 оны эхний улиралд Монгол Улсад Telegram платформоор дамжсан луйврын тохиолдол өмнөх оны мөн үетэй харьцуулахад 340% өссөн байна. Гол хэлбэр нь найзын нэрийг дуурайж яаралтай мөнгө шилжүүлэхийг шаардах арга юм. Цагдаагийн газрын мэдээлснээр нийт хохирогчдын 68% нь гүйлгээ хийсний дараа л луйварт өртсөнөө мэдсэн байна.</div>
-        <div class="nf-meta"><span>Эх сурвалж: МУ Цагдаагийн Ерөнхий Газар</span></div>
-      </div>
-      <div id="featured-detail" style="display:none;background:var(--card);border:1px solid var(--border);border-top:none;padding:1.5rem">
-        <p style="font-size:.85rem;color:var(--text2);line-height:1.8;margin-bottom:1rem">Луйварын гол механизм нь хохирогчийн найзын Telegram акаунтыг эхлээд хулгайлж, дараа нь тухайн хэрэглэгчийн нэрийн өмнөөс найзуудад мессеж илгээх явдал юм. Мессеж нь ихэвчлэн яаралтай тусламж хүсэх, гадаадад гацсан, эмнэлэгт ороод мөнгө хэрэгтэй болсон зэрэг сэтгэл хөдлөлийн дарамт үзүүлдэг.</p>
-        <p style="font-size:.85rem;color:var(--text2);line-height:1.8;margin-bottom:1rem">Судалгаанаас харахад хохирогчдын дундаж хохирол 250,000–500,000 MNT байсан бөгөөд нийт хохирлыг буцааж авах боломж туйлын бага байна.</p>
-        <div style="background:var(--danger-light);border-left:3px solid var(--danger);padding:.875rem 1rem;font-size:.82rem;color:var(--text2);line-height:1.7"><strong style="color:var(--danger)">Хамгаалах арга:</strong> Telegram-аас мөнгө хүссэн ямар ч мессеж ирвэл тухайн хүнтэйгээ утсаар холбогдож баталгаажуулна уу. Акаунтаа 2FA-р хамгаалах нь хулгайлагдахаас сэргийлдэг.</div>
-      </div>
-      <div class="news-list" id="ngrid"></div>
-    </div>
-    <div class="news-sidebar">
-      <div class="nsidebar-box">
-        <div class="nsb-title">Аюулын түвшин · МУ, 2026</div>
-        <div class="threat-level">
-          <div class="tl-row">
-            <span class="tl-label">Telegram луйвар</span>
-            <div class="tl-bar">
-              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div>
-            </div>
-          </div>
-          <div class="tl-row">
-            <span class="tl-label">Фишинг имэйл</span>
-            <div class="tl-bar">
-              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot"></div>
-            </div>
-          </div>
-          <div class="tl-row">
-            <span class="tl-label">Утасны луйвар</span>
-            <div class="tl-bar">
-              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot"></div><div class="tl-dot"></div>
-            </div>
-          </div>
-          <div class="tl-row">
-            <span class="tl-label">SMS фишинг</span>
-            <div class="tl-bar">
-              <div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot"></div><div class="tl-dot"></div>
-            </div>
-          </div>
-          <div class="tl-row">
-            <span class="tl-label">Ransomware</span>
-            <div class="tl-bar">
-              <div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot"></div><div class="tl-dot"></div><div class="tl-dot"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="nsidebar-box">
-        <div class="nsb-title">Холбоо барих</div>
-        <div style="font-size:.78rem;color:var(--text2);line-height:1.8">
-          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Цагдаа:</span> 102</div>
-          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Кибер гэмт хэрэг:</span> 1800-1234</div>
-          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Банкны хэрэглэгч:</span> Картын ар тал</div>
-          <div style="margin-top:.75rem;font-size:.72rem;color:var(--text3)">Хохирогч болсон бол нотлох баримт (дэлгэцийн зураг, гүйлгээний дэлгэрэнгүй) хадгалаад холбогдоорой.</div>
-        </div>
-      </div>
-      <div class="nsidebar-box">
-        <div class="nsb-title">Сүүлийн 30 хоногийн статистик</div>
-        <div style="font-size:.78rem;color:var(--text2);line-height:1.8">
-          <div class="sidebar-stat"><span class="sidebar-stat-label">Мэдэгдсэн луйвар</span><span class="sidebar-stat-val">1,240+</span></div>
-          <div class="sidebar-stat"><span class="sidebar-stat-label">Нийт хохирол</span><span class="sidebar-stat-val">~890M</span></div>
-          <div class="sidebar-stat"><span class="sidebar-stat-label">Шийдвэрлэлт</span><span class="sidebar-stat-val">23%</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-
 <!-- MODAL -->
 <div class="moverlay" id="mov" onclick="closeMod(event)">
   <div class="mbox" id="mbox"><div id="mbody"></div></div>
@@ -2514,7 +2514,7 @@ function renderNews(){
 }
 
 // NAV
-const secMap={home:0,quiz:1,lessons:2,games:3,bigfive:4,checker:5,news:6};
+const secMap={home:0,news:1,quiz:2,lessons:3,games:4,bigfive:5,checker:6};
 function goTo(id){
   const target=document.getElementById(id);
   if(!target)return;
