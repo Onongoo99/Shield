@@ -1,0 +1,2534 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shield.mn — Монгол Улсын Кибер Боловсролын Платформ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:wght@400;600&display=swap');
+
+:root {
+  --bg: #523aec57;
+  --bg2: #5e2aed;
+  --bg3: #5a1eae;
+  --card: #ffffff;
+  --border: #eddede;
+  --border2: #8d8d8d;
+  --accent: #0f62fe;
+  --accent2: #0043ce;
+  --accent-light: #d0e2ff;
+  --danger: #da1e28;
+  --danger-light: #fff1f1;
+  --success: #198038;
+  --success-light: #defbe6;
+  --warn: #8a3800;
+  --warn-light: #fff2e2;
+  --text: #161616;
+  --text2: #0d0707;
+  --text3: #131010;
+  --text4: #1a1717;
+  --mono: 'IBM Plex Mono', monospace;
+  --serif: 'IBM Plex Serif', serif;
+  --sans: 'IBM Plex Sans', sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:48px;background:var(--text);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
+.logo{font-family:var(--mono);font-size:.8rem;font-weight:600;color:#ffffff;letter-spacing:.05em;display:flex;align-items:center;gap:.75rem}
+.logo-mark{width:20px;height:20px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;letter-spacing:0}
+.nav-links{display:flex;gap:0}
+.nav-btn{background:none;border:none;border-bottom:2px solid transparent;color:#c6c6c6;font-family:var(--sans);font-size:.78rem;font-weight:400;padding:.6rem 1rem;cursor:pointer;transition:all .15s;letter-spacing:.01em;height:48px}
+.nav-btn:hover{color:#ffffff;background:rgba(255,255,255,.08)}
+.nav-btn.active{color:#ffffff;border-bottom-color:var(--accent);font-weight:600}
+.nav-status{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.68rem;color:#6f6f6f}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#42be65}
+
+/* ── LAYOUT ── */
+section{display:none;min-height:100vh;padding:80px 0 60px}
+section.active{display:block}
+.container{max-width:1056px;margin:0 auto;padding:0 1.5rem}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:2.5rem 0 2rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.page-tag{font-family:var(--mono);font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+.page-title{font-family:var(--serif);font-size:2rem;font-weight:600;letter-spacing:-.02em;line-height:1.2;margin-bottom:.5rem}
+.page-sub{font-size:.875rem;color:var(--text3);max-width:520px}
+
+/* ── HERO ── */
+.hero-grid{display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start;padding:3rem 0}
+.hero-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:1.2rem}
+.hero-h1{font-family:var(--serif);font-size:2.8rem;font-weight:600;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.2rem;color:var(--text)}
+.hero-h1 .hl{color:var(--accent)}
+.hero-p{font-size:.925rem;color:var(--text2);line-height:1.75;max-width:440px;margin-bottom:2rem}
+.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#ffffff;border:none;padding:.7rem 1.5rem;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:background .15s;letter-spacing:.01em}
+.btn-primary:hover{background:var(--accent2)}
+.btn-secondary{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:.7rem 1.5rem;font-family:var(--sans);font-size:.85rem;cursor:pointer;transition:all .15s}
+.btn-secondary:hover{background:var(--accent-light)}
+.hero-stats-panel{background:var(--text);color:#ffffff;padding:2rem}
+.stat-row{padding:.875rem 0;border-bottom:1px solid #393939;display:flex;align-items:baseline;gap:1rem}
+.stat-row:last-child{border-bottom:none}
+.stat-num{font-family:var(--mono);font-size:1.6rem;font-weight:600;color:var(--accent);min-width:70px}
+.stat-label{font-size:.78rem;color:#c6c6c6;line-height:1.4}
+
+/* ── AGE GRID ── */
+.age-section{padding:2rem 0;border-top:1px solid var(--border)}
+.section-label{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:1.25rem}
+.age-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.age-card{background:var(--card);padding:1.5rem;cursor:pointer;transition:background .15s;position:relative}
+.age-card:hover{background:#f0f4ff}
+.age-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent);opacity:0;transition:opacity .15s}
+.age-card:hover::after{opacity:1}
+.age-range{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.05em;margin-bottom:.5rem;text-transform:uppercase}
+.age-title{font-size:.95rem;font-weight:600;margin-bottom:.5rem}
+.age-desc{font-size:.78rem;color:var(--text3);line-height:1.55}
+
+/* ── SECTION HEADER ── */
+.sh{margin-bottom:1.75rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.sh-tag{font-family:var(--mono);font-size:.68rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+.sh h2{font-family:var(--serif);font-size:1.6rem;font-weight:600;letter-spacing:-.02em;margin-bottom:.3rem}
+.sh p{font-size:.85rem;color:var(--text3)}
+
+/* ── LESSONS ── */
+.filter-row{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center}
+.flt{background:var(--card);border:1px solid var(--border);color:var(--text3);padding:.35rem .9rem;font-family:var(--sans);font-size:.78rem;cursor:pointer;transition:all .15s}
+.flt:hover{border-color:var(--accent);color:var(--accent)}
+.flt.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.lessons-layout{display:grid;grid-template-columns:260px 1fr;gap:2rem;align-items:start}
+.lessons-sidebar{position:sticky;top:64px}
+.sidebar-section{margin-bottom:1.5rem}
+.sidebar-label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:.625rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.sidebar-stat{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.8rem}
+.sidebar-stat:last-child{border-bottom:none}
+.sidebar-stat-label{color:var(--text2)}
+.sidebar-stat-val{font-family:var(--mono);font-weight:600;color:var(--accent)}
+.sidebar-info-box{background:var(--accent);color:#fff;padding:1rem 1.25rem;margin-top:1rem}
+.sidebar-info-title{font-size:.8rem;font-weight:700;margin-bottom:.375rem}
+.sidebar-info-text{font-size:.75rem;line-height:1.6;color:rgba(22, 20, 20, 0.85)}
+.lessons-grid{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
+.lcard{background:var(--card);padding:1.5rem;cursor:pointer;transition:background .15s;border-left:4px solid transparent;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start}
+.lcard:hover{background:#f4f8ff;border-left-color:var(--accent)}
+.lcard-main{}
+.lcard-side{text-align:right;min-width:110px}
+.lcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem}
+.lcard-cat{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3)}
+.lv-badge{font-family:var(--mono);font-size:.65rem;padding:.15rem .5rem;font-weight:500;letter-spacing:.05em}
+.lv-e{background:var(--success-light);color:var(--success)}.lv-m{background:var(--warn-light);color:var(--warn)}.lv-h{background:var(--danger-light);color:var(--danger)}
+.lcard-title{font-size:1rem;font-weight:600;margin-bottom:.4rem;line-height:1.35;letter-spacing:-.01em}
+.lcard-desc{font-size:.82rem;color:var(--text3);line-height:1.65;margin-bottom:.75rem}
+.lcard-body-preview{font-size:.8rem;color:var(--text2);line-height:1.75;margin-bottom:.75rem;padding:.75rem 1rem;background:var(--bg);border-left:3px solid var(--border)}
+.lcard-tips-preview{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.875rem}
+.lcard-tip-item{font-size:.75rem;color:var(--text2);padding:.3rem .625rem;background:var(--bg);display:flex;gap:.5rem;align-items:flex-start;border-bottom:1px solid var(--border)}
+.lcard-tip-item:last-child{border-bottom:none}
+.lcard-tip-num{font-family:var(--mono);font-size:.65rem;color:var(--accent);flex-shrink:0;font-weight:700;min-width:18px}
+.lcard-foot{display:flex;gap:1.25rem;font-size:.7rem;color:var(--text4);font-family:var(--mono)}
+.lcard-meta-stack{display:flex;flex-direction:column;gap:.375rem;align-items:flex-end}
+.lcard-age-badge{font-family:var(--mono);font-size:.65rem;padding:.2rem .5rem;background:var(--bg);border:1px solid var(--border);color:var(--text3)}
+.lcard-read-time{font-family:var(--mono);font-size:.68rem;color:var(--text4)}
+.lcard-open-btn{font-family:var(--mono);font-size:.7rem;color:var(--accent);background:none;border:1px solid var(--accent-light);cursor:pointer;padding:.3rem .625rem;transition:all .15s;margin-top:.5rem}
+.lcard-open-btn:hover{background:var(--accent-light)}
+
+/* ── NEWS EXPANDED ── */
+.news-layout{display:grid;grid-template-columns:1fr 300px;gap:2rem;align-items:start}
+.news-main{}
+.news-sidebar{position:sticky;top:64px}
+.news-featured{background:var(--text);color:#fff;padding:2rem;margin-bottom:1px;cursor:pointer;transition:opacity .15s;border-top:4px solid var(--accent)}
+.news-featured:hover{opacity:.92}
+.nf-label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.75rem}
+.nf-title{font-family:var(--serif);font-size:1.35rem;font-weight:600;line-height:1.3;margin-bottom:.75rem;letter-spacing:-.02em}
+.nf-body{font-size:.82rem;color:#c6c6c6;line-height:1.75;margin-bottom:1rem}
+.nf-meta{font-family:var(--mono);font-size:.68rem;color:#6f6f6f;display:flex;gap:1.25rem}
+.news-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
+.ncard{background:var(--card);padding:1.25rem 1.5rem;cursor:pointer;transition:background .15s;border-left:4px solid transparent;display:grid;grid-template-columns:1fr 80px;gap:1rem;align-items:start}
+.ncard:hover{background:#f4f8ff;border-left-color:var(--accent)}
+.ncat-tag{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;font-weight:600}
+.ncat-tag.cat-warn{color:var(--danger)}
+.ncat-tag.cat-tip{color:var(--success)}
+.ncat-tag.cat-know{color:var(--accent)}
+.ncat-tag.cat-research{color:#6929c4}
+.ntitle{font-size:.9rem;font-weight:600;margin-bottom:.4rem;line-height:1.4;letter-spacing:-.01em}
+.ntext{font-size:.78rem;color:var(--text3);line-height:1.65;margin-bottom:.5rem}
+.nbody-full{font-size:.82rem;color:var(--text2);line-height:1.8;margin:.625rem 0;padding:.875rem 1rem;background:var(--bg);border-left:3px solid var(--border);display:none}
+.nbody-full.expanded{display:block}
+.nkey-points{margin-top:.75rem;display:none}
+.nkey-points.expanded{display:block}
+.nkp-label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.375rem}
+.nkp-item{font-size:.75rem;color:var(--text2);padding:.3rem .625rem;background:var(--bg);border-left:2px solid var(--accent);margin-bottom:.25rem}
+.nmeta{font-family:var(--mono);font-size:.68rem;color:var(--text4);display:flex;gap:1rem;flex-direction:column;text-align:right}
+.nread-more{font-family:var(--mono);font-size:.68rem;color:var(--accent);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
+.nsidebar-box{background:var(--card);border:1px solid var(--border);padding:1.25rem;margin-bottom:1rem}
+.nsb-title{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:.875rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.nsb-item{padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.78rem;cursor:pointer;transition:color .15s}
+.nsb-item:last-child{border-bottom:none}
+.nsb-item:hover{color:var(--accent)}
+.nsb-item-cat{font-family:var(--mono);font-size:.63rem;color:var(--text4);display:block;margin-bottom:.15rem;text-transform:uppercase;letter-spacing:.05em}
+.threat-level{display:flex;flex-direction:column;gap:.375rem}
+.tl-row{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;padding:.375rem 0;border-bottom:1px solid var(--border)}
+.tl-row:last-child{border-bottom:none}
+.tl-label{color:var(--text2)}
+.tl-bar{display:flex;gap:2px}
+.tl-dot{width:10px;height:10px;background:var(--border)}
+.tl-dot.filled-high{background:var(--danger)}
+.tl-dot.filled-mid{background:#f1c21b}
+.tl-dot.filled-low{background:var(--success)}
+
+/* ── MODAL ── */
+.moverlay{display:none;position:fixed;inset:0;background:rgba(22,22,22,.7);z-index:200;align-items:center;justify-content:center;padding:1.5rem}
+.moverlay.open{display:flex}
+.mbox{background:var(--card);max-width:600px;width:100%;max-height:88vh;overflow-y:auto;animation:mIn .2s ease;border:1px solid var(--border)}
+@keyframes mIn{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.mbox-head{padding:1.5rem 1.75rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;background:var(--card)}
+.mbox-hl{display:flex;gap:.875rem;align-items:flex-start}
+.mbox-cat-tag{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.3rem}
+.mbox-title{font-size:1.1rem;font-weight:600;letter-spacing:-.01em}
+.mbox-meta-line{font-family:var(--mono);font-size:.68rem;color:var(--text3);margin-top:.2rem}
+.mclose{background:none;border:1px solid var(--border);color:var(--text2);width:28px;height:28px;cursor:pointer;font-size:.8rem;transition:all .15s}
+.mclose:hover{background:var(--danger);border-color:var(--danger);color:#fff}
+.mbox-body{padding:1.5rem 1.75rem 2rem}
+.mbody-intro{font-size:.875rem;color:var(--text2);line-height:1.8;margin-bottom:1.5rem;padding:1rem 1.25rem;background:var(--accent-light);border-left:3px solid var(--accent)}
+.tip-list{display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.5rem}
+.tip{display:flex;gap:.875rem;align-items:flex-start;padding:.75rem 1rem;background:var(--bg);border:1px solid var(--border)}
+.tip-label{font-size:.78rem;line-height:1.6;color:var(--text2)}
+.tip-marker{font-family:var(--mono);font-size:.7rem;font-weight:600;color:var(--accent);flex-shrink:0;margin-top:.1rem;width:20px}
+.mbtn{width:100%;background:var(--accent);color:#fff;border:none;padding:.8rem;font-family:var(--sans);font-weight:600;font-size:.875rem;cursor:pointer;transition:background .15s}
+.mbtn:hover{background:var(--accent2)}
+.lesson-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:2}
+.lesson-tab{flex:1;padding:.65rem .5rem;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;text-align:center;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--sans)}
+.lesson-tab:hover{color:var(--accent)}
+.lesson-tab.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--card)}
+.lesson-section{display:none;padding:1.5rem 1.75rem 2rem}
+.lesson-section.active{display:block}
+.theory-block h3{font-size:.9rem;font-weight:600;color:var(--text1);margin-bottom:.5rem;margin-top:1.1rem}
+.theory-block h3:first-child{margin-top:0}
+.theory-block p{font-size:.85rem;color:var(--text2);line-height:1.75;margin-bottom:.6rem}
+.theory-highlight{background:var(--accent-light);border-left:3px solid var(--accent);padding:.75rem 1rem;font-size:.82rem;color:var(--text2);margin:.75rem 0;line-height:1.6;font-style:italic}
+.theory-list{list-style:none;padding:0;margin:.5rem 0 .75rem}
+.theory-list li{padding:.35rem 0 .35rem 1.1rem;position:relative;font-size:.83rem;color:var(--text2);line-height:1.6}
+.theory-list li::before{content:'';position:absolute;left:0;top:.7rem;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.sc-card{background:var(--bg);border:1px solid var(--border);padding:1rem 1.1rem;margin-bottom:.875rem}
+.sc-tag{font-family:var(--mono);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;display:block}
+.sc-title{font-size:.88rem;font-weight:600;margin-bottom:.4rem;color:var(--text1)}
+.sc-text{font-size:.82rem;color:var(--text2);line-height:1.65;margin-bottom:.4rem}
+.sc-q{font-size:.82rem;font-weight:600;color:var(--text1);margin-top:.4rem}
+.sc-answer{background:var(--card);border:1px solid var(--border);padding:.65rem .85rem;margin-top:.5rem;font-size:.8rem;color:var(--text2);line-height:1.55;display:none}
+.sc-answer.show{display:block}
+.sc-toggle{background:none;border:1px solid var(--border);padding:.3rem .75rem;font-size:.75rem;font-weight:600;cursor:pointer;color:var(--text2);margin-top:.5rem;font-family:var(--sans);transition:all .15s}
+.sc-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.quiz-q-block{background:var(--bg);border:1px solid var(--border);padding:1rem 1.1rem;margin-bottom:.75rem}
+.quiz-q-text{font-size:.875rem;font-weight:600;color:var(--text1);margin-bottom:.75rem;line-height:1.5}
+.quiz-opts{display:flex;flex-direction:column;gap:.35rem}
+.quiz-opt{display:flex;align-items:center;gap:.6rem;padding:.5rem .75rem;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:.82rem;color:var(--text2);text-align:left;font-family:var(--sans);transition:all .15s}
+.quiz-opt:hover:not(.disabled){border-color:var(--accent);color:var(--accent)}
+.quiz-opt.correct{background:#d1fae5;border-color:#10b981;color:#065f46}
+.quiz-opt.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+.quiz-opt.disabled{cursor:default}
+.quiz-opt-letter{width:20px;height:20px;border:1.5px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0;opacity:.6}
+.quiz-fb{margin-top:.5rem;font-size:.78rem;font-weight:500;padding:.45rem .75rem;display:none}
+.quiz-fb.show.ok{display:block;background:#d1fae5;color:#065f46}
+.quiz-fb.show.fail{display:block;background:#fee2e2;color:#991b1b}
+.quiz-score{background:var(--accent-light);border:1px solid var(--border);padding:1rem 1.25rem;text-align:center;margin-top:.75rem;display:none}
+.quiz-score.show{display:block}
+.quiz-score-num{font-size:2rem;font-weight:700;color:var(--accent);font-family:var(--mono)}
+.quiz-score-lbl{font-size:.8rem;color:var(--text3);margin-top:.2rem}
+
+
+/* ── QUIZ ── */
+.quiz-wrap{max-width:680px;margin:0 auto}
+.qpbar-wrap{height:3px;background:var(--border);margin-bottom:2rem}
+.qpbar{height:100%;background:var(--accent);transition:width .35s ease}
+.qcard{background:var(--card);border:1px solid var(--border);padding:2rem;border-top:3px solid var(--accent)}
+.qnum{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:1rem}
+.qq{font-size:1rem;font-weight:600;line-height:1.55;margin-bottom:1.75rem;letter-spacing:-.01em}
+.qopts{display:flex;flex-direction:column;gap:.5rem}
+.qopt{background:var(--card);border:1px solid var(--border);padding:.875rem 1rem;cursor:pointer;font-family:var(--sans);font-size:.875rem;color:var(--text2);text-align:left;transition:all .15s;display:flex;align-items:center;gap:.875rem}
+.qopt-letter{width:24px;height:24px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.7rem;font-weight:600;flex-shrink:0;transition:all .15s}
+.qopt:hover:not(:disabled){border-color:var(--accent);color:var(--text)}
+.qopt:hover:not(:disabled) .qopt-letter{background:var(--accent-light);border-color:var(--accent);color:var(--accent)}
+.qopt.correct{border-color:var(--success)!important;background:var(--success-light)!important;color:var(--success)!important}
+.qopt.correct .qopt-letter{background:var(--success);border-color:var(--success);color:#fff}
+.qopt.wrong{border-color:var(--danger)!important;background:var(--danger-light)!important;color:var(--danger)!important}
+.qopt.wrong .qopt-letter{background:var(--danger);border-color:var(--danger);color:#fff}
+.qfb{margin-top:1rem;padding:.875rem 1rem;font-size:.83rem;line-height:1.7;display:none;border-left:3px solid}
+.qfb.show{display:block}
+.qfb.ok{background:var(--success-light);border-color:var(--success);color:#0d3d20}
+.qfb.fail{background:var(--danger-light);border-color:var(--danger);color:#6b0000}
+.qnext{margin-top:1.25rem;display:none;background:var(--accent);color:#fff;border:none;padding:.7rem 1.5rem;font-family:var(--sans);font-weight:600;font-size:.85rem;cursor:pointer;transition:background .15s}
+.qnext.show{display:inline-flex;align-items:center;gap:.5rem}
+.qnext:hover{background:var(--accent2)}
+.qscore{text-align:center;padding:3rem 2rem;display:none;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--accent)}
+.qscore.show{display:block}
+.score-display{margin:0 auto 1.5rem;width:110px;height:110px;background:var(--text);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.score-num{font-family:var(--mono);font-size:2rem;font-weight:600;color:var(--accent);line-height:1}
+.score-denom{font-family:var(--mono);font-size:.75rem;color:#6f6f6f}
+.score-title{font-family:var(--serif);font-size:1.3rem;font-weight:600;margin-bottom:.4rem}
+.score-sub{font-size:.85rem;color:var(--text3);margin-bottom:1.5rem;line-height:1.6}
+
+/* ── BIG FIVE ── */
+.bf-intro-box{background:var(--text);color:#fff;padding:1.75rem;margin-bottom:1.75rem;display:flex;gap:1.75rem;align-items:flex-start}
+.bf-intro-accent{width:4px;background:var(--accent);flex-shrink:0;align-self:stretch;min-height:60px}
+.bf-intro h3{font-size:.95rem;font-weight:600;margin-bottom:.4rem;color:#fff}
+.bf-intro p{font-size:.8rem;color:#c6c6c6;line-height:1.7}
+.bf-wrap{max-width:700px;margin:0 auto}
+.bf-qcard{background:var(--card);border:1px solid var(--border);padding:1.75rem;margin-bottom:.75rem;border-left:3px solid var(--border)}
+.bf-qcard.active-q{border-left-color:var(--accent)}
+.bf-qnum{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.625rem}
+.bf-qq{font-size:.925rem;font-weight:500;line-height:1.55;margin-bottom:1.25rem}
+.bf-scale{display:flex;gap:.5rem;align-items:center}
+.bf-scale-label{font-size:.72rem;color:var(--text3);font-family:var(--mono);width:80px;line-height:1.3}
+.bf-scale-label:last-child{text-align:right}
+.bf-opts{display:flex;gap:.375rem;flex:1}
+.bf-opt{flex:1;height:38px;border:1px solid var(--border);background:var(--bg);cursor:pointer;transition:all .15s;font-family:var(--mono);font-size:.78rem;color:var(--text3)}
+.bf-opt:hover{border-color:var(--accent);color:var(--accent)}
+.bf-opt.sel{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.bf-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem}
+.bf-back{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:.6rem 1.25rem;font-family:var(--sans);cursor:pointer;transition:all .15s;font-size:.83rem}
+.bf-back:hover{border-color:var(--accent);color:var(--accent)}
+.bf-fwd{background:var(--accent);color:#fff;border:none;padding:.6rem 1.5rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:background .15s;font-size:.83rem}
+.bf-fwd:hover{background:var(--accent2)}
+.bf-progress-info{font-family:var(--mono);font-size:.72rem;color:var(--text3)}
+.result-wrap{display:none}.result-wrap.show{display:block}
+.result-header{background:var(--text);color:#fff;padding:2rem;margin-bottom:1.25rem}
+.result-type-label{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:#6f6f6f;margin-bottom:.375rem}
+.result-title-main{font-family:var(--serif);font-size:1.75rem;font-weight:600;margin-bottom:.5rem;color:#fff}
+.result-summary{font-size:.85rem;color:#c6c6c6;line-height:1.7;max-width:480px;margin-bottom:1.25rem}
+.risk-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .875rem;font-family:var(--mono);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.risk-low{background:rgba(25,128,56,.2);color:#a7f0ba}
+.risk-mid{background:rgba(138,56,0,.2);color:#ffd9be}
+.risk-high{background:rgba(218,30,40,.2);color:#ffb3b8}
+.trait-bars-wrap{margin-top:1.25rem}
+.tbar-row{display:flex;align-items:center;gap:.875rem;margin-bottom:.5rem}
+.tbar-label{font-family:var(--mono);font-size:.7rem;color:#a8a8a8;width:130px;flex-shrink:0}
+.tbar-track{flex:1;height:6px;background:#393939}
+.tbar-fill{height:100%;transition:width 1.2s ease}
+.tbar-val{font-family:var(--mono);font-size:.68rem;color:#6f6f6f;width:30px;text-align:right;flex-shrink:0}
+.result-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.25rem}
+.result-card{background:var(--card);padding:1.25rem}
+.rc-head{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.875rem;padding-bottom:.875rem;border-bottom:1px solid var(--border)}
+.rc-trait-code{font-family:var(--mono);font-size:1.1rem;font-weight:700;width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--border);color:var(--accent);flex-shrink:0}
+.rc-title{font-size:.875rem;font-weight:600;letter-spacing:-.01em}
+.rc-subtitle{font-family:var(--mono);font-size:.65rem;color:var(--text3)}
+.rc-body{font-size:.78rem;color:var(--text3);line-height:1.65;margin-bottom:.75rem}
+.rc-tips-list{display:flex;flex-direction:column;gap:.3rem}
+.rc-tip-item{font-size:.75rem;color:var(--text2);padding:.3rem .625rem;background:var(--bg);border-left:2px solid var(--accent)}
+.restart-btn{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:.7rem 1.5rem;font-family:var(--sans);cursor:pointer;transition:all .15s;font-size:.83rem;margin-right:.75rem}
+.restart-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── CHECKER ── */
+.checker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.ccard{background:var(--card);padding:1.5rem}
+.ccard-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.875rem;border-bottom:1px solid var(--border)}
+.ccard-icon-box{width:32px;height:32px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;font-family:var(--mono);color:var(--accent)}
+.ccard-title{font-size:.9rem;font-weight:600}
+.citems{list-style:none;display:flex;flex-direction:column;gap:.375rem}
+.citem{display:flex;align-items:flex-start;gap:.625rem;padding:.5rem .5rem;cursor:pointer;transition:background .12s;font-size:.8rem}
+.citem:hover{background:var(--bg)}
+.citem.done{opacity:.6}
+.cbox{width:16px;height:16px;border:1px solid var(--border2);flex-shrink:0;margin-top:.1rem;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:.6rem}
+.citem.done .cbox{background:var(--success);border-color:var(--success);color:#fff}
+.citem.done .clabel{text-decoration:line-through;color:var(--text4)}
+.clabel{line-height:1.5;color:var(--text2)}
+.cbar-wrap{margin-top:.875rem;height:3px;background:var(--border)}
+.cbar{height:100%;background:var(--accent);transition:width .35s ease}
+.cscore{font-family:var(--mono);font-size:.68rem;color:var(--text3);margin-top:.4rem;text-align:right}
+
+/* ── NEWS ── */
+.alert-strip{display:flex;gap:1rem;align-items:flex-start;background:var(--danger-light);border-left:4px solid var(--danger);padding:1rem 1.25rem;margin-bottom:1.75rem}
+.alert-strip-label{font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--danger);flex-shrink:0;margin-top:.1rem}
+.alert-strip-text{font-size:.83rem;color:var(--text2);line-height:1.65}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.ncard{background:var(--card);padding:1.5rem;cursor:pointer;transition:background .15s;border-top:3px solid transparent}
+.ncard:hover{background:#f4f8ff;border-top-color:var(--accent)}
+.ncat-tag{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:.5rem;font-weight:600}
+.ntitle{font-size:.925rem;font-weight:600;margin-bottom:.5rem;line-height:1.4;letter-spacing:-.01em}
+.ntext{font-size:.78rem;color:var(--text3);line-height:1.65;margin-bottom:.875rem}
+.nmeta{font-family:var(--mono);font-size:.68rem;color:var(--text4);display:flex;gap:1.25rem}
+
+/* ════════════════════════════
+   GAMES
+════════════════════════════ */
+.games-hub{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:2rem}
+.game-card{background:var(--card);padding:1.75rem;cursor:pointer;transition:background .15s;border-top:3px solid var(--border)}
+.game-card:hover{background:#f4f8ff}
+.game-card.gc-a:hover,.game-card.gc-a{border-top-color:var(--danger)}
+.game-card.gc-b:hover,.game-card.gc-b{border-top-color:var(--success)}
+.game-card.gc-c:hover,.game-card.gc-c{border-top-color:var(--accent)}
+.gc-number{font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--border);margin-bottom:.875rem;line-height:1}
+.game-card.gc-a .gc-number{color:var(--danger)}
+.game-card.gc-b .gc-number{color:var(--success)}
+.game-card.gc-c .gc-number{color:var(--accent)}
+.gc-tag{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:.5rem}
+.gc-title{font-size:1rem;font-weight:700;margin-bottom:.4rem;letter-spacing:-.01em}
+.gc-desc{font-size:.78rem;color:var(--text3);line-height:1.6;margin-bottom:1.25rem}
+.gc-meta-row{display:flex;gap:1rem;font-family:var(--mono);font-size:.68rem;color:var(--text4);margin-bottom:1rem}
+.gc-play-btn{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text2);padding:.625rem;font-family:var(--sans);font-size:.83rem;font-weight:600;cursor:pointer;transition:all .15s}
+.gc-a .gc-play-btn:hover{background:var(--danger-light);border-color:var(--danger);color:var(--danger)}
+.gc-b .gc-play-btn:hover{background:var(--success-light);border-color:var(--success);color:var(--success)}
+.gc-c .gc-play-btn:hover{background:var(--accent-light);border-color:var(--accent);color:var(--accent)}
+
+/* Game Area */
+.game-area{display:none;background:var(--card);border:1px solid var(--border)}
+.game-area.active{display:block;animation:gIn .25s ease}
+@keyframes gIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.game-topbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:var(--text);color:#fff}
+.game-topbar-left{display:flex;align-items:center;gap:1rem}
+.game-name{font-size:.9rem;font-weight:600;font-family:var(--mono)}
+.game-scorebar{display:flex;gap:1.5rem;font-family:var(--mono);font-size:.75rem}
+.gs-item{display:flex;align-items:center;gap:.4rem;color:#8d8d8d}
+.gs-val{font-weight:700;font-size:.85rem}
+.gs-item.ok .gs-val{color:#42be65}
+.gs-item.ng .gs-val{color:#ff8389}
+.gs-item.tm .gs-val{color:#78a9ff}
+.gs-item.st .gs-val{color:#f1c21b}
+.game-close-btn{background:none;border:1px solid #4d4d4d;color:#a8a8a8;width:28px;height:28px;cursor:pointer;font-family:var(--mono);font-size:.75rem;transition:all .15s}
+.game-close-btn:hover{background:var(--danger);border-color:var(--danger);color:#fff}
+.game-body{padding:1.75rem}
+
+/* EMAIL GAME */
+.email-panel{max-width:620px;margin:0 auto}
+.email-progress-line{font-family:var(--mono);font-size:.68rem;color:var(--text3);text-align:right;margin-bottom:.875rem;letter-spacing:.05em}
+.email-mock{background:var(--bg);border:1px solid var(--border);margin-bottom:1.25rem}
+.email-mock-bar{background:var(--text);padding:.5rem .875rem;display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.68rem;color:#6f6f6f}
+.email-mock-dot{width:7px;height:7px;border-radius:50%}
+.email-field-row{padding:.4rem .875rem;font-size:.75rem;font-family:var(--mono);border-bottom:1px solid var(--border);display:flex;gap:.625rem}
+.efl{color:var(--text3);width:52px;flex-shrink:0;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+.efv{color:var(--text2)}
+.efv.bad-sender{color:var(--danger);text-decoration:underline dotted}
+.email-subject-line{padding:.625rem .875rem;font-size:.875rem;font-weight:600;border-bottom:1px solid var(--border)}
+.email-body-text{padding:1rem .875rem;font-size:.8rem;color:var(--text2);line-height:1.8}
+.hl-bad{background:rgba(218,30,40,.1);color:var(--danger);padding:.05rem .25rem}
+.hl-ok{background:rgba(25,128,56,.1);color:var(--success);padding:.05rem .25rem}
+.email-url{display:inline-block;font-family:var(--mono);font-size:.73rem;padding:.25rem .625rem;border:1px solid;margin:.25rem 0}
+.email-url.url-safe{border-color:var(--border);color:var(--text3)}
+.email-url.url-bad{border-color:var(--danger);color:var(--danger);background:var(--danger-light)}
+.verdict-row{display:flex;gap:.75rem;margin-top:.875rem}
+.verdict-btn{flex:1;padding:.75rem;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid}
+.verdict-btn.v-safe{background:var(--success-light);border-color:var(--success);color:var(--success)}
+.verdict-btn.v-safe:hover{background:var(--success);color:#fff}
+.verdict-btn.v-phish{background:var(--danger-light);border-color:var(--danger);color:var(--danger)}
+.verdict-btn.v-phish:hover{background:var(--danger);color:#fff}
+.verdict-fb{margin-top:.875rem;padding:.875rem 1rem;font-size:.83rem;line-height:1.7;display:none;border-left:4px solid}
+.verdict-fb.show{display:block}
+.verdict-fb.fb-ok{background:var(--success-light);border-color:var(--success)}
+.verdict-fb.fb-fail{background:var(--danger-light);border-color:var(--danger)}
+.clue-rows{margin-top:.625rem;display:flex;flex-direction:column;gap:.25rem}
+.clue-item{font-size:.75rem;padding:.3rem .625rem;font-family:var(--mono)}
+.clue-item.c-bad{background:rgba(218,30,40,.06);color:var(--danger)}
+.clue-item.c-ok{background:rgba(25,128,56,.06);color:var(--success)}
+.email-next{display:none;margin-top:.875rem;background:var(--accent);color:#fff;border:none;padding:.7rem 1.5rem;font-family:var(--sans);font-weight:600;cursor:pointer;font-size:.85rem}
+.email-next.show{display:inline-block}
+.email-next:hover{background:var(--accent2)}
+
+/* PASSWORD GAME */
+.pw-panel{max-width:560px;margin:0 auto}
+.level-track{display:flex;flex-direction:column;gap:.375rem;margin-bottom:1.25rem}
+.level-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem .875rem;background:var(--bg);border:1px solid var(--border);font-size:.8rem}
+.level-row.lv-active{border-color:var(--accent);background:var(--accent-light)}
+.level-row.lv-done{opacity:.65}
+.level-name{font-weight:600}
+.level-badge{font-family:var(--mono);font-size:.65rem;padding:.15rem .5rem}
+.lv-active .level-badge{background:var(--accent);color:#fff}
+.lv-done .level-badge{background:var(--success);color:#fff}
+.lv-locked .level-badge{background:var(--border);color:var(--text3)}
+.pw-challenge-box{background:var(--bg);border:1px solid var(--border);padding:1.5rem;margin-bottom:1rem;border-left:3px solid var(--accent)}
+.pw-challenge-label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.5rem}
+.pw-challenge-text{font-size:.875rem;font-weight:500;line-height:1.6;margin-bottom:1.25rem}
+.pw-input-wrap{position:relative}
+.pw-input{width:100%;background:#fff;border:1px solid var(--border);padding:.75rem 2.5rem .75rem .875rem;font-family:var(--mono);font-size:.9rem;color:var(--text);outline:none;transition:border-color .15s}
+.pw-input:focus{border-color:var(--accent)}
+.pw-eye{position:absolute;right:.625rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.7rem;color:var(--text3);font-weight:600}
+.pw-meter{margin-top:.625rem;height:4px;background:var(--border)}
+.pw-fill{height:100%;transition:all .3s ease;width:0%}
+.pw-strength-text{font-family:var(--mono);font-size:.7rem;margin-top:.375rem;font-weight:600}
+.pw-criteria-grid{display:grid;grid-template-columns:1fr 1fr;gap:.3rem;margin-top:.625rem}
+.pw-crit{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.7rem;color:var(--text3);transition:color .15s}
+.pw-crit.met{color:var(--success)}
+.pw-crit-mark{width:12px;height:12px;border:1px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;transition:all .15s}
+.pw-crit.met .pw-crit-mark{background:var(--success);border-color:var(--success);color:#fff}
+.pw-result-box{margin-top:.875rem;padding:.875rem 1rem;font-size:.83rem;line-height:1.7;display:none;border-left:4px solid}
+.pw-result-box.show{display:block}
+.pw-result-box.r-ok{background:var(--success-light);border-color:var(--success)}
+.pw-result-box.r-fail{background:var(--danger-light);border-color:var(--danger)}
+.pw-submit-btn{width:100%;background:var(--accent);color:#fff;border:none;padding:.8rem;font-family:var(--sans);font-weight:600;cursor:pointer;margin-top:.875rem;font-size:.875rem;transition:background .15s}
+.pw-submit-btn:hover{background:var(--accent2)}
+
+/* QUICK DECISION GAME */
+.qd-panel{max-width:580px;margin:0 auto}
+.qd-progress-bar-wrap{height:3px;background:var(--border);margin-bottom:1.5rem}
+.qd-prog-fill{height:100%;background:var(--accent);transition:width .35s}
+.qd-timer-bar-wrap{height:3px;background:var(--border);margin-bottom:1.25rem;overflow:hidden}
+.qd-timer-fill{height:100%;background:var(--accent);transition:width .1s linear}
+.qd-info-line{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;color:var(--text3);margin-bottom:1.25rem}
+.qd-type-tag{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .625rem;font-weight:600;margin-bottom:.875rem;display:inline-block}
+.qd-type-tag.t-call{background:rgba(255,131,27,.1);color:#a33b00}
+.qd-type-tag.t-msg{background:var(--accent-light);color:var(--accent2)}
+.qd-type-tag.t-email{background:#f6f2ff;color:#6929c4}
+.qd-type-tag.t-site{background:var(--warn-light);color:var(--warn)}
+.qd-scene-text{font-size:.975rem;font-weight:600;line-height:1.5;margin-bottom:.625rem;letter-spacing:-.01em}
+.qd-detail-box{font-size:.82rem;color:var(--text2);line-height:1.75;margin-bottom:1.5rem;padding:.875rem 1rem;background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--border2);font-style:italic}
+.qd-choices-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.qd-choice-btn{background:var(--card);border:1px solid var(--border);padding:.875rem;cursor:pointer;font-family:var(--sans);font-size:.8rem;color:var(--text2);transition:all .15s;line-height:1.45;text-align:left}
+.qd-choice-btn:hover:not(:disabled){border-color:var(--accent);color:var(--text);background:var(--accent-light)}
+.qd-choice-btn.qd-ok{background:var(--success-light)!important;border-color:var(--success)!important;color:var(--success)!important;font-weight:600}
+.qd-choice-btn.qd-ng{background:var(--danger-light)!important;border-color:var(--danger)!important;color:var(--danger)!important}
+.qd-choice-btn.qd-missed{background:rgba(25,128,56,.05)!important;border-color:rgba(25,128,56,.3)!important;color:rgba(25,128,56,.7)!important}
+.qd-feedback-box{margin-top:.875rem;padding:.875rem 1rem;font-size:.83rem;line-height:1.7;display:none;border-left:4px solid}
+.qd-feedback-box.show{display:block}
+.qd-feedback-box.fb-ok{background:var(--success-light);border-color:var(--success)}
+.qd-feedback-box.fb-ng{background:var(--danger-light);border-color:var(--danger)}
+.qd-feedback-box.fb-to{background:var(--warn-light);border-color:#f1c21b}
+.qd-next-btn{display:none;margin-top:.75rem;background:var(--accent);color:#fff;border:none;padding:.65rem 1.5rem;font-family:var(--sans);font-weight:600;cursor:pointer;font-size:.83rem}
+.qd-next-btn.show{display:inline-flex;align-items:center;gap:.4rem}
+.qd-next-btn:hover{background:var(--accent2)}
+
+/* GAME END */
+.game-end-panel{text-align:center;padding:3rem 2rem;display:none;background:var(--card)}
+.game-end-panel.show{display:block;animation:gIn .35s ease}
+.ge-score-box{width:100px;height:100px;background:var(--text);display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto 1.5rem}
+.ge-score-num{font-family:var(--mono);font-size:1.75rem;font-weight:700;color:var(--accent);line-height:1}
+.ge-score-max{font-family:var(--mono);font-size:.7rem;color:#6f6f6f}
+.ge-title{font-family:var(--serif);font-size:1.3rem;font-weight:600;margin-bottom:.375rem}
+.ge-sub{font-size:.85rem;color:var(--text3);margin-bottom:1.75rem;line-height:1.65;max-width:420px;margin-left:auto;margin-right:auto}
+.ge-stats-row{display:flex;justify-content:center;gap:0;margin-bottom:1.75rem;max-width:320px;margin-left:auto;margin-right:auto;border:1px solid var(--border);background:var(--border)}
+.ge-stat-cell{flex:1;background:var(--card);padding:.875rem;text-align:center}
+.ge-stat-n{font-family:var(--mono);font-size:1.35rem;font-weight:700;display:block;margin-bottom:.2rem}
+.ge-stat-l{font-size:.68rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.ge-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shake{animation:shake .25s ease}
+
+footer{background:var(--text);padding:2rem 1.5rem;color:#6f6f6f;font-size:.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+footer span{color:var(--accent);font-family:var(--mono)}
+.footer-note{font-family:var(--mono);font-size:.68rem}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2)}
+
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr}
+  .age-grid{grid-template-columns:1fr 1fr}
+  .games-hub{grid-template-columns:1fr}
+  .qd-choices-grid{grid-template-columns:1fr}
+  .pw-criteria-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hero-stats-panel{display:none}
+}
+/* ===== ULTRA MODERN STYLE OVERRIDE ===== */
+:root{
+  --bg:#070b1a;
+  --bg2:#0f172a;
+  --bg3:#1e1b4b;
+  --card:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.14);
+  --border2:rgba(255,255,255,.28);
+
+  --accent:#7c3aed;
+  --accent2:#06b6d4;
+  --accent-light:rgba(124,58,237,.18);
+
+  --danger:#fb7185;
+  --danger-light:rgba(251,113,133,.14);
+  --success:#22c55e;
+  --success-light:rgba(34,197,94,.14);
+  --warn:#facc15;
+  --warn-light:rgba(250,204,21,.14);
+
+  --text:#f8fafc;
+  --text2:#dbeafe;
+  --text3:#e2e8f0;
+  --text4:#cbd5e1;
+}
+
+body{
+  background:
+    radial-gradient(circle at 10% 10%, rgba(124,58,237,.38), transparent 30%),
+    radial-gradient(circle at 90% 5%, rgba(6,182,212,.28), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(236,72,153,.18), transparent 32%),
+    linear-gradient(135deg,#312e81,#0f172a 60%,#020617);
+  color:var(--text);
+}
+
+/* NAV */
+nav{
+  height:68px;
+  padding:0 2rem;
+  background:rgba(2,6,23,.72);
+  backdrop-filter:blur(22px);
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  font-size:.95rem;
+}
+
+.logo-mark{
+  width:36px;
+  height:36px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 30px rgba(124,58,237,.55);
+}
+
+.nav-btn{
+  color:#e2e8f0;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  color:#fff;
+  background:rgba(255,255,255,.1);
+}
+
+/* LAYOUT */
+section{
+  padding-top:105px;
+}
+
+.container{
+  max-width:1180px;
+}
+
+/* HERO */
+.hero-grid{
+  min-height:72vh;
+  align-items:center;
+}
+
+.hero-h1{
+  font-family:var(--sans);
+  font-size:clamp(2.7rem,6vw,5.8rem);
+  font-weight:900;
+  letter-spacing:-.07em;
+}
+
+.hero-h1 .hl{
+  background:linear-gradient(90deg,#22d3ee,#818cf8,#f472b6);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero-eyebrow,
+.page-tag,
+.sh-tag,
+.section-label{
+  color:#67e8f9;
+}
+
+.hero-p,
+.page-sub{
+  color:#f1f5f9;
+  font-size:1rem;
+  line-height:1.8;
+  text-shadow:0 2px 10px rgba(0,0,0,.35);
+}
+/* CARDS */
+.hero-stats-panel,
+.age-card,
+.lcard,
+.ncard,
+.ccard,
+.result-card,
+.game-card,
+.qcard,
+.qscore,
+.bf-qcard,
+.mbox,
+.game-area,
+.email-mock,
+.pw-challenge-box,
+.level-row,
+.qd-detail-box,
+.nsidebar-box,
+.bf-intro-box,
+.result-header,
+.news-featured{
+  background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.045));
+  border:1px solid var(--border);
+  border-radius:26px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 20px 70px rgba(0,0,0,.28);
+}
+
+.age-grid,
+.lessons-grid,
+.news-list,
+.news-grid,
+.checker-grid,
+.result-cards,
+.games-hub{
+  background:transparent;
+  border:0;
+  gap:1rem;
+}
+
+.age-card,
+.lcard,
+.ncard,
+.ccard,
+.game-card{
+  transition:.25s ease;
+}
+
+.age-card:hover,
+.lcard:hover,
+.ncard:hover,
+.ccard:hover,
+.game-card:hover{
+  transform:translateY(-5px);
+  background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.07));
+  box-shadow:0 28px 90px rgba(0,0,0,.38);
+}
+
+/* TITLES */
+.page-title,
+.sh h2{
+  font-family:var(--sans);
+  font-weight:900;
+  letter-spacing:-.05em;
+}
+
+.page-title{
+  font-size:clamp(2rem,4vw,3.4rem);
+}
+
+/* BUTTONS */
+.btn-primary,
+.qnext,
+.bf-fwd,
+.email-next,
+.pw-submit-btn,
+.qd-next-btn,
+.mbtn{
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 14px 35px rgba(124,58,237,.35);
+}
+
+.btn-primary:hover,
+.qnext:hover,
+.bf-fwd:hover,
+.email-next:hover,
+.pw-submit-btn:hover,
+.qd-next-btn:hover,
+.mbtn:hover{
+  filter:brightness(1.15);
+}
+
+.btn-secondary,
+.restart-btn,
+.bf-back,
+.gc-play-btn{
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+/* FILTERS */
+.flt{
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--border);
+  color:var(--text3);
+}
+
+.flt:hover,
+.flt.active{
+  color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+/* QUIZ / INPUT */
+.qopt,
+.bf-opt,
+.verdict-btn,
+.qd-choice-btn,
+.pw-input{
+  border-radius:16px;
+  background:rgba(255,255,255,.075);
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+.qopt:hover,
+.bf-opt:hover,
+.qd-choice-btn:hover{
+  background:rgba(124,58,237,.18);
+}
+
+/* GAME CARD EFFECT */
+.game-card{
+  position:relative;
+  overflow:hidden;
+}
+
+.game-card::before{
+  content:"";
+  position:absolute;
+  inset:-50%;
+  background:radial-gradient(circle,rgba(34,211,238,.22),transparent 42%);
+  opacity:0;
+  transition:.35s;
+}
+
+.game-card:hover::before{
+  opacity:1;
+}
+
+.game-card > *{
+  position:relative;
+  z-index:1;
+}
+
+.gc-number{
+  font-size:3rem;
+  opacity:.95;
+}
+
+/* TOPBAR */
+.game-topbar,
+.email-mock-bar{
+  background:rgba(2,6,23,.82);
+  border-bottom:1px solid var(--border);
+}
+
+/* SMALL FIXES */
+.lcard-body-preview,
+.lcard-tip-item,
+.rc-tip-item,
+.tip,
+.qd-detail-box{
+  background:rgba(255,255,255,.06);
+}
+
+footer{
+  background:rgba(2,6,23,.8);
+  border-top:1px solid var(--border);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-grid,.lessons-layout,.news-layout{grid-template-columns:1fr}
+  .hero-stats-panel,.lessons-sidebar,.news-sidebar{position:static}
+}
+
+/* ── HAMBURGER NAV ── */
+.nav-hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  padding:6px;
+  background:none;
+  border:1px solid var(--border);
+  border-radius:6px;
+  margin-left:auto;
+}
+.nav-hamburger span{
+  display:block;width:20px;height:2px;
+  background:var(--text);border-radius:2px;
+  transition:all .25s;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.nav-mobile-menu{
+  display:none;
+  position:fixed;
+  top:68px;left:0;right:0;
+  background:rgba(7,11,26,.97);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(22px);
+  z-index:199;
+  padding:.5rem 1rem 1rem;
+  flex-direction:column;
+  gap:2px;
+}
+.nav-mobile-menu.open{display:flex}
+.nav-mobile-btn{
+  background:none;
+  border:none;
+  color:var(--text2);
+  padding:.75rem 1rem;
+  text-align:left;
+  font-family:var(--sans);
+  font-size:.9rem;
+  cursor:pointer;
+  border-radius:6px;
+  transition:background .15s;
+}
+.nav-mobile-btn:hover,.nav-mobile-btn.active{background:rgba(255,255,255,.08);color:#fff}
+
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr}
+  .age-grid{grid-template-columns:1fr 1fr}
+  .games-hub{grid-template-columns:1fr}
+  .qd-choices-grid{grid-template-columns:1fr}
+  .pw-criteria-grid{grid-template-columns:1fr}
+  .nav-links,.nav-status,.hero-stats-panel{display:none}
+  .nav-hamburger{display:flex}
+}
+
+@media(max-width:600px){
+  nav{padding:0 1rem;height:58px}
+  section{padding-top:90px}
+
+  .age-grid,.games-hub,.result-cards,.checker-grid,.news-grid{
+    grid-template-columns:1fr
+  }
+
+  .hero-actions{flex-direction:column}
+
+  .btn-primary,.btn-secondary{width:100%}
+
+  /* Lesson cards */
+  .lcard{grid-template-columns:1fr;gap:.5rem}
+  .lcard-side{display:none}
+  .lcard-top{flex-wrap:wrap;gap:.35rem}
+  .lcard-title{font-size:.9rem}
+  .lcard-body-preview{font-size:.77rem;padding:.6rem .75rem}
+
+  /* Lesson modal */
+  .moverlay{align-items:flex-end;padding:0}
+  .mbox{max-width:100%;width:100%;max-height:92vh;border-radius:14px 14px 0 0}
+  .mbox-head{padding:1rem 1.1rem .75rem}
+  .mbox-title{font-size:.95rem}
+  .lesson-tab{font-size:.72rem;padding:.55rem .35rem}
+  .lesson-section{padding:1rem 1.1rem 1.5rem}
+  .sc-card{padding:.85rem}
+  .quiz-q-block{padding:.85rem}
+  .quiz-opt{font-size:.78rem;padding:.45rem .6rem}
+  .tip{padding:.6rem .75rem}
+  .mbtn{padding:.7rem}
+
+  /* Filter row */
+  .filter-row{flex-wrap:wrap;gap:.4rem}
+  .flt{font-size:.75rem;padding:.4rem .75rem}
+
+  /* Big Five */
+  .bf-scale{flex-direction:column;align-items:flex-start;gap:.5rem}
+  .bf-opts{gap:.35rem}
+  .bf-opt{width:36px;height:36px;font-size:.8rem}
+
+  /* Quiz */
+  .qopt{font-size:.82rem;padding:.65rem .75rem}
+  .quiz-wrap{padding:0 .25rem}
+
+  /* Checker */
+  .checker-grid{grid-template-columns:1fr}
+  .check-item{padding:.6rem .75rem}
+
+  /* News */
+  .news-grid{grid-template-columns:1fr}
+  .ncard{padding:1rem}
+
+  /* Games */
+  .email-mock{font-size:.8rem}
+  .verdict-row{flex-direction:column;gap:.5rem}
+  .verdict-row button{width:100%}
+  .pw-panel{padding:1rem}
+  .pw-input-row{flex-direction:column;gap:.5rem}
+  #pw-input{width:100%}
+
+  /* Page headers */
+  .page-title{font-size:1.5rem}
+  .page-sub{font-size:.8rem}
+
+  /* Hero */
+  .hero-title{font-size:1.6rem}
+  .hero-p{font-size:.85rem}
+
+  /* Container */
+  .container{padding:0 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-mark">SH</div>
+    Shield.mn
+  </div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="goTo('home')">Нүүр</button>
+    <button class="nav-btn" onclick="goTo('quiz')">Мэдлэгийн шалгалт</button>
+    <button class="nav-btn" onclick="goTo('lessons')">Сургалт</button>
+    <button class="nav-btn" onclick="goTo('games')">Интерактив тоглоом</button>
+    <button class="nav-btn" onclick="goTo('bigfive')">Зан төлөв</button>
+    <button class="nav-btn" onclick="goTo('checker')">Шалгуур</button>
+    <button class="nav-btn" onclick="goTo('news')">Мэдээ</button>
+  </div>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    Шууд
+  </div>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Цэс">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile-menu" id="mobile-menu">
+  <button class="nav-mobile-btn active" onclick="goToMobile('home')">Нүүр</button>
+  <button class="nav-mobile-btn" onclick="goToMobile('quiz')">Мэдлэгийн шалгалт</button>
+  <button class="nav-mobile-btn" onclick="goToMobile('lessons')">Сургалт</button>
+  <button class="nav-mobile-btn" onclick="goToMobile('games')">Интерактив тоглоом</button>
+  <button class="nav-mobile-btn" onclick="goToMobile('bigfive')">Зан төлөв</button>
+  <button class="nav-mobile-btn" onclick="goToMobile('checker')">Шалгуур</button>
+  <button class="nav-mobile-btn" onclick="goToMobile('news')">Мэдээ</button>
+</div>
+
+<!-- HOME -->
+<section id="home" class="active">
+<div class="container">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">SHIELD.MN — МОНГОЛ УЛСЫН КИБЕР БОЛОВСРОЛЫН ПЛАТФОРМ — 2026</div>
+      <h1 class="hero-h1">Дижитал орчинд<br><span class="hl">аюулгүй</span> байх<br>ухаалаг мэдлэг</h1>
+      <p class="hero-p">Судалгаанд суурилсан арга зүйгээр насны бүлэгт тохируулсан кибер аюулгүй байдлын боловсрол олгодог нэгдсэн платформ.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="goTo('games')">Интерактив тоглоом</button>
+        <button class="btn-secondary" onclick="goTo('bigfive')">Зан чанарын шинжилгээ</button>
+      </div>
+    </div>
+    <div class="hero-stats-panel">
+      <div style="font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:#6f6f6f;margin-bottom:1rem">Судалгааны үзүүлэлт — МУ, 2026</div>
+      <div class="stat-row">
+        <div class="stat-num">60.1%</div>
+        <div class="stat-label">Оролцогчид ямар нэгэн кибер халдлагад өртсөн байсан</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">57.1%</div>
+        <div class="stat-label">Кибер аюулгүй байдлын сургалтад хэзээ ч хамрагдаагүй</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">24.6%</div>
+        <div class="stat-label">Луйвар мессежид өртсөн туршлагатай</div>
+      </div>
+    </div>
+  </div>
+  <div class="age-section">
+    <div class="section-label">Насны бүлгээр үзэх</div>
+    <div class="age-grid">
+      <div class="age-card" onclick="goTo('lessons');setFilter('child')">
+        <div class="age-range">06 — 14 нас</div>
+        <div class="age-title">Хүүхэд</div>
+        <div class="age-desc">Онлайн аюулаас хамгаалах суурь дүрмүүд, нууц үг, сэжигтэй мессеж таних арга</div>
+      </div>
+      <div class="age-card" onclick="goTo('lessons');setFilter('teen')">
+        <div class="age-range">15 — 25 нас</div>
+        <div class="age-title">Залуус</div>
+        <div class="age-desc">Сошиал медиа нууцлал, фишинг илрүүлэх, 2FA, хуурамч мэдээлэл шүүмжлэх</div>
+      </div>
+      <div class="age-card" onclick="goTo('lessons');setFilter('adult')">
+        <div class="age-range">26 — 55 нас</div>
+        <div class="age-title">Насанд хүрэгч</div>
+        <div class="age-desc">Байгууллагын аюулгүй байдал, залилан таних, нийгмийн инженерчлэлийн эсрэг арга</div>
+      </div>
+      <div class="age-card" onclick="goTo('lessons');setFilter('senior')">
+        <div class="age-range">56+ нас</div>
+        <div class="age-title">Ахмад настан</div>
+        <div class="age-desc">Банкны залилан, утасны луйвар, хуурамч нэхэмжлэл таних хялбар аргачлал</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- LESSONS -->
+<section id="lessons">
+<div class="container">
+  <div class="page-header">
+    <div class="page-tag">СУРГАЛТ</div>
+    <h2 class="page-title">Хичээлийн сан</h2>
+    <p class="page-sub">Насны бүлгийн онцлогт тохируулсан сургалтын материал — нийт 17 хичээл, 4 насны бүлэг</p>
+  </div>
+  <div class="lessons-layout">
+    <div class="lessons-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Агуулгын хураангуй</div>
+        <div class="sidebar-stat"><span class="sidebar-stat-label">Нийт хичээл</span><span class="sidebar-stat-val">17</span></div>
+        <div class="sidebar-stat"><span class="sidebar-stat-label">Насны бүлэг</span><span class="sidebar-stat-val">4</span></div>
+        <div class="sidebar-stat"><span class="sidebar-stat-label">Суурь түвшин</span><span class="sidebar-stat-val">8</span></div>
+        <div class="sidebar-stat"><span class="sidebar-stat-label">Дунд түвшин</span><span class="sidebar-stat-val">6</span></div>
+        <div class="sidebar-stat"><span class="sidebar-stat-label">Дэвшилтэт түвшин</span><span class="sidebar-stat-val">3</span></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Хугацаа</div>
+        <div class="sidebar-stat"><span class="sidebar-stat-label">Дундаж унших</span><span class="sidebar-stat-val">20 мин</span></div>
+        <div class="sidebar-stat"><span class="sidebar-stat-label">Бүгдийг дуусгах</span><span class="sidebar-stat-val">~6 цаг</span></div>
+      </div>
+      <div class="sidebar-info-box">
+        <div class="sidebar-info-title">Хэрхэн ашиглах вэ?</div>
+        <div class="sidebar-info-text">Насны бүлгийн шүүлтүүрийг ашиглан өөртөө тохирох хичээлийг олоорой. Хичээл бүрд практик зөвлөмж, жишээнүүд багтсан болно.</div>
+      </div>
+    </div>
+    <div>
+      <div class="filter-row" id="frow">
+        <button class="flt active" onclick="setFilter('all',this)">Бүгд (17)</button>
+        <button class="flt" onclick="setFilter('child',this)">Хүүхэд (4)</button>
+        <button class="flt" onclick="setFilter('teen',this)">Залуус (5)</button>
+        <button class="flt" onclick="setFilter('adult',this)">Насанд хүрэгч (5)</button>
+        <button class="flt" onclick="setFilter('senior',this)">Ахмад настан (3)</button>
+      </div>
+      <div class="lessons-grid" id="lgrid"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+<div class="container">
+  <div class="page-header">
+    <div class="page-tag">МЭДЛЭГИЙН ШАЛГАЛТ</div>
+    <h2 class="page-title">Мэдлэгийн шалгалт</h2>
+    <p class="page-sub">10 асуултаар кибер аюулгүй байдлын мэдлэгээ үнэлнэ үү</p>
+  </div>
+  <div class="quiz-wrap">
+    <div class="qpbar-wrap"><div class="qpbar" id="qpbar" style="width:0%"></div></div>
+    <div class="qcard" id="qcard">
+      <div class="qnum" id="qnum"></div>
+      <div class="qq" id="qq"></div>
+      <div class="qopts" id="qopts"></div>
+      <div class="qfb" id="qfb"></div>
+      <button class="qnext" id="qnext" onclick="nextQ()">Дараах асуулт</button>
+    </div>
+    <div class="qscore" id="qscore">
+      <div class="score-display">
+        <div class="score-num" id="sn">0</div>
+        <div class="score-denom">/10</div>
+      </div>
+      <div class="score-title" id="stitle"></div>
+      <div class="score-sub" id="ssub"></div>
+      <button class="btn-primary" onclick="restartQ()">Дахин эхлэх</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- GAMES -->
+<section id="games">
+<div class="container">
+  <div class="page-header">
+    <div class="page-tag">ИНТЕРАКТИВ ТОГЛООМ</div>
+    <h2 class="page-title">Тоглож сурацгаая</h2>
+    <p class="page-sub">Бодит нөхцөл байдлыг загварчлан мэдлэгийг практик аргаар бэхжүүлнэ</p>
+  </div>
+
+  <div class="games-hub" id="games-hub">
+    <div class="game-card gc-a">
+      <div class="gc-number">01</div>
+      <div class="gc-tag">Фишинг илрүүлэх</div>
+      <div class="gc-title">Имэйл детектив</div>
+      <div class="gc-desc">Жинхэнэ болон хуурамч имэйлийг ялган таньж, хортой холбоос болон луйврын шинж тэмдгүүдийг бодит хэлбэрээр олж сурна.</div>
+      <div class="gc-meta-row"><span>8 имэйл</span><span>Дунд түвшин</span></div>
+      <button class="gc-play-btn" onclick="startEmailGame()">Тоглоом эхлүүлэх</button>
+    </div>
+    <div class="game-card gc-b">
+      <div class="gc-number">02</div>
+      <div class="gc-tag">Нууц үгийн аюулгүй байдал</div>
+      <div class="gc-title">Нууц үгийн тулаан</div>
+      <div class="gc-desc">Тодорхой нөхцөл шаардлагад нийцсэн хангалттай хүчтэй нууц үг боловсруулж, хамгаалалтын стандартыг хангана.</div>
+      <div class="gc-meta-row"><span>5 шатлал</span><span>Суурь түвшин</span></div>
+      <button class="gc-play-btn" onclick="startPasswordGame()">Тоглоом эхлүүлэх</button>
+    </div>
+    <div class="game-card gc-c">
+      <div class="gc-number">03</div>
+      <div class="gc-tag">Хурдан шийдвэр гаргалт</div>
+      <div class="gc-title">Зогс эсвэл Үйлд</div>
+      <div class="gc-desc">Хугацаатай нөхцөл байдалд зөв шийдвэр гарга. Яаралтай залилан, хортой холбоос, луйврын нөхцөл байдлуудыг загварчилна.</div>
+      <div class="gc-meta-row"><span>10 нөхцөл</span><span>Дэвшилтэт түвшин</span></div>
+      <button class="gc-play-btn" onclick="startQuickGame()">Тоглоом эхлүүлэх</button>
+    </div>
+  </div>
+
+  <!-- EMAIL GAME -->
+  <div class="game-area" id="game-email">
+    <div class="game-topbar">
+      <div class="game-topbar-left">
+        <span class="game-name">Имэйл детектив</span>
+        <div class="game-scorebar">
+          <div class="gs-item ok"><span>Зөв</span><span class="gs-val" id="eg-c">0</span></div>
+          <div class="gs-item ng"><span>Буруу</span><span class="gs-val" id="eg-w">0</span></div>
+          <div class="gs-item st"><span>Дараалал</span><span class="gs-val" id="eg-s">0</span></div>
+        </div>
+      </div>
+      <button class="game-close-btn" onclick="closeGame('game-email')">X</button>
+    </div>
+    <div class="game-body">
+      <div class="email-panel">
+        <div class="email-progress-line" id="email-prog"></div>
+        <div id="email-display"></div>
+        <div class="verdict-row" id="verdict-row">
+          <button class="verdict-btn v-safe" id="vb-safe" onclick="emailVerdict(false)">Аюулгүй имэйл</button>
+          <button class="verdict-btn v-phish" id="vb-phish" onclick="emailVerdict(true)">Фишинг / Луйвар</button>
+        </div>
+        <div class="verdict-fb" id="verdict-fb"></div>
+        <button class="email-next" id="email-next" onclick="nextEmail()">Дараагийн имэйл</button>
+      </div>
+      <div class="game-end-panel" id="email-end">
+        <div class="ge-score-box"><div class="ge-score-num" id="ee-n">0</div><div class="ge-score-max">/8</div></div>
+        <div class="ge-title" id="ee-t"></div>
+        <div class="ge-sub" id="ee-s"></div>
+        <div class="ge-stats-row">
+          <div class="ge-stat-cell"><span class="ge-stat-n" id="ee-c" style="color:var(--success)">0</span><span class="ge-stat-l">Зөв</span></div>
+          <div class="ge-stat-cell"><span class="ge-stat-n" id="ee-w" style="color:var(--danger)">0</span><span class="ge-stat-l">Буруу</span></div>
+          <div class="ge-stat-cell"><span class="ge-stat-n" id="ee-p" style="color:var(--accent)">0%</span><span class="ge-stat-l">Оноо</span></div>
+        </div>
+        <div class="ge-actions">
+          <button class="restart-btn" onclick="startEmailGame()">Дахин тоглох</button>
+          <button class="btn-primary" onclick="closeGame('game-email')">Тоглоом сонгох</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASSWORD GAME -->
+  <div class="game-area" id="game-password">
+    <div class="game-topbar">
+      <div class="game-topbar-left">
+        <span class="game-name">Нууц үгийн тулаан</span>
+        <div class="game-scorebar">
+          <div class="gs-item ok"><span>Давсан</span><span class="gs-val" id="pg-c">0</span></div>
+          <div class="gs-item tm"><span>Шатлал</span><span class="gs-val" id="pg-l">1/5</span></div>
+        </div>
+      </div>
+      <button class="game-close-btn" onclick="closeGame('game-password')">X</button>
+    </div>
+    <div class="game-body">
+      <div class="pw-panel">
+        <div class="level-track" id="pw-levels"></div>
+        <div class="pw-challenge-box" id="pw-box">
+          <div class="pw-challenge-label">Нөхцөл байдал</div>
+          <div class="pw-challenge-text" id="pw-text"></div>
+          <div class="pw-input-wrap">
+            <input class="pw-input" id="pw-input" type="password" placeholder="Нууц үгээ оруулна уу..." oninput="evalPw(this.value)" autocomplete="off">
+            <button class="pw-eye" id="pw-eye-btn" onclick="togglePwEye()">Харах</button>
+          </div>
+          <div class="pw-meter"><div class="pw-fill" id="pw-fill"></div></div>
+          <div class="pw-strength-text" id="pw-slabel" style="color:var(--text3)">Нууц үг оруулна уу</div>
+          <div class="pw-criteria-grid" id="pw-crits"></div>
+        </div>
+        <div class="pw-result-box" id="pw-result"></div>
+        <button class="pw-submit-btn" onclick="submitPw()">Шалгах</button>
+      </div>
+      <div class="game-end-panel" id="pw-end">
+        <div class="ge-score-box"><div class="ge-score-num" id="pe-n" style="color:var(--success)">0</div><div class="ge-score-max">/5</div></div>
+        <div class="ge-title">Тулаан дууслаа</div>
+        <div class="ge-sub" id="pe-s"></div>
+        <div class="ge-actions">
+          <button class="restart-btn" onclick="startPasswordGame()">Дахин тоглох</button>
+          <button class="btn-primary" onclick="closeGame('game-password')">Тоглоом сонгох</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK DECISION GAME -->
+  <div class="game-area" id="game-quick">
+    <div class="game-topbar">
+      <div class="game-topbar-left">
+        <span class="game-name">Зогс эсвэл Үйлд</span>
+        <div class="game-scorebar">
+          <div class="gs-item ok"><span>Зөв</span><span class="gs-val" id="qg-c">0</span></div>
+          <div class="gs-item ng"><span>Буруу</span><span class="gs-val" id="qg-w">0</span></div>
+          <div class="gs-item tm"><span>Хугацаа</span><span class="gs-val" id="qg-t">12</span></div>
+        </div>
+      </div>
+      <button class="game-close-btn" onclick="closeGame('game-quick')">X</button>
+    </div>
+    <div class="game-body">
+      <div class="qd-panel">
+        <div class="qd-info-line">
+          <span id="qd-progress-txt">НӨХЦӨЛ 1 / 10</span>
+          <span id="qd-score-txt" style="color:var(--accent);font-weight:600">0 зөв</span>
+        </div>
+        <div class="qd-progress-bar-wrap"><div class="qd-prog-fill" id="qd-prog" style="width:0%"></div></div>
+        <div class="qd-timer-bar-wrap"><div class="qd-timer-fill" id="qd-timer-fill" style="width:100%"></div></div>
+        <div id="qd-scenario-wrap">
+          <div class="qd-type-tag" id="qd-type"></div>
+          <div class="qd-scene-text" id="qd-scene"></div>
+          <div class="qd-detail-box" id="qd-detail"></div>
+          <div class="qd-choices-grid" id="qd-choices"></div>
+        </div>
+        <div class="qd-feedback-box" id="qd-fb"></div>
+        <button class="qd-next-btn" id="qd-next" onclick="nextQD()">Дараагийн нөхцөл</button>
+      </div>
+      <div class="game-end-panel" id="qd-end">
+        <div class="ge-score-box"><div class="ge-score-num" id="qde-n">0</div><div class="ge-score-max">/10</div></div>
+        <div class="ge-title" id="qde-t"></div>
+        <div class="ge-sub" id="qde-s"></div>
+        <div class="ge-stats-row">
+          <div class="ge-stat-cell"><span class="ge-stat-n" id="qde-c" style="color:var(--success)">0</span><span class="ge-stat-l">Зөв</span></div>
+          <div class="ge-stat-cell"><span class="ge-stat-n" id="qde-w" style="color:var(--danger)">0</span><span class="ge-stat-l">Буруу</span></div>
+          <div class="ge-stat-cell"><span class="ge-stat-n" id="qde-to" style="color:var(--warn)">0</span><span class="ge-stat-l">Хугацаа</span></div>
+        </div>
+        <div class="ge-actions">
+          <button class="restart-btn" onclick="startQuickGame()">Дахин тоглох</button>
+          <button class="btn-primary" onclick="closeGame('game-quick')">Тоглоом сонгох</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- BIG FIVE -->
+<section id="bigfive">
+<div class="container">
+  <div class="page-header">
+    <div class="page-tag">ЗАН ТӨЛӨВИЙН СУДАЛГАА</div>
+    <h2 class="page-title">Big Five шинжилгээ</h2>
+    <p class="page-sub">Зан чанарын онцлог ба кибер эрсдэлийн хамаарлыг тодорхойлно</p>
+  </div>
+  <div class="bf-intro-box">
+    <div class="bf-intro-accent"></div>
+    <div class="bf-intro">
+      <h3>Big Five зан чанарын онол</h3>
+      <p>Судалгааны үр дүнд <strong style="color:#fff">итгэмтгий байдал</strong> (r=.573), <strong style="color:#fff">яаралтай шийдвэр</strong> (r=.657), <strong style="color:#fff">стресст буруу шийдвэр</strong> (r=-.199) зэрэг зан чанарын онцлогууд кибер халдлагад өртөх эрсдэлтэй статистикийн хувьд ач холбогдолтой хамааралтай болох нь тогтоогдсон. 15 асуулт бөглөж таны хувийн эрсдэлийн зурагт бий болгоно.</p>
+    </div>
+  </div>
+  <div class="bf-wrap">
+    <div class="qpbar-wrap"><div class="qpbar" id="bfpbar" style="width:0%"></div></div>
+    <div id="bf-questions"></div>
+    <div class="result-wrap" id="bf-result"></div>
+  </div>
+</div>
+</section>
+
+<!-- CHECKER -->
+<section id="checker">
+<div class="container">
+  <div class="page-header">
+    <div class="page-tag">ХУВИЙН ШАЛГУУР</div>
+    <h2 class="page-title">Аюулгүй байдлын хяналтын жагсаалт</h2>
+    <p class="page-sub">Хамгаалалтын арга хэмжээнүүдийг шалгаж тэмдэглэнэ үү</p>
+  </div>
+  <div class="checker-grid" id="cgrid"></div>
+</div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+<div class="container">
+  <div class="page-header">
+    <div class="page-tag">МЭДЭЭ & ЗӨВЛӨМЖ</div>
+    <h2 class="page-title">Кибер аюулгүй байдлын мэдээ</h2>
+    <p class="page-sub">Монгол болон олон улсын хэмжээнд гарч буй кибер аюулгүй байдлын сүүлийн үеийн мэдээ, анхааруулга, халдлагын мэдээлэл болонхамгаалалтын зөвлөмжүүдийг нэг дороос хүлээн аваарай.</p>
+  </div>
+  <div class="alert-strip">
+    <div class="alert-strip-label">Анхааруулга</div>
+    <div class="alert-strip-text">Сүүлийн үед Монгол Улсад Telegram луйвар болон банкны нэрийг дуурайсан фишинг мессеж эрчимтэй тархаж байна. <strong>Зогс — Бод — Үйлд</strong> зарчмыг дагаарай.</div>
+  </div>
+  <div class="news-layout">
+    <div class="news-main">
+      <div class="news-featured" onclick="toggleFeatured()">
+        <div class="nf-label">Онцлох мэдээ · 2026.04</div>
+        <div class="nf-title">Монголд Telegram-ын луйвар шинэ дээд хэмжээнд хүрлээ</div>
+        <div class="nf-body">2026 оны эхний улиралд Монгол Улсад Telegram платформоор дамжсан луйврын тохиолдол өмнөх оны мөн үетэй харьцуулахад 340% өссөн байна. Гол хэлбэр нь найзын нэрийг дуурайж яаралтай мөнгө шилжүүлэхийг шаардах арга юм. Цагдаагийн газрын мэдээлснээр нийт хохирогчдын 68% нь гүйлгээ хийсний дараа л луйварт өртсөнөө мэдсэн байна.</div>
+        <div class="nf-meta"><span>Эх сурвалж: МУ Цагдаагийн Ерөнхий Газар</span></div>
+      </div>
+      <div id="featured-detail" style="display:none;background:var(--card);border:1px solid var(--border);border-top:none;padding:1.5rem">
+        <p style="font-size:.85rem;color:var(--text2);line-height:1.8;margin-bottom:1rem">Луйварын гол механизм нь хохирогчийн найзын Telegram акаунтыг эхлээд хулгайлж, дараа нь тухайн хэрэглэгчийн нэрийн өмнөөс найзуудад мессеж илгээх явдал юм. Мессеж нь ихэвчлэн яаралтай тусламж хүсэх, гадаадад гацсан, эмнэлэгт ороод мөнгө хэрэгтэй болсон зэрэг сэтгэл хөдлөлийн дарамт үзүүлдэг.</p>
+        <p style="font-size:.85rem;color:var(--text2);line-height:1.8;margin-bottom:1rem">Судалгаанаас харахад хохирогчдын дундаж хохирол 250,000–500,000 MNT байсан бөгөөд нийт хохирлыг буцааж авах боломж туйлын бага байна.</p>
+        <div style="background:var(--danger-light);border-left:3px solid var(--danger);padding:.875rem 1rem;font-size:.82rem;color:var(--text2);line-height:1.7"><strong style="color:var(--danger)">Хамгаалах арга:</strong> Telegram-аас мөнгө хүссэн ямар ч мессеж ирвэл тухайн хүнтэйгээ утсаар холбогдож баталгаажуулна уу. Акаунтаа 2FA-р хамгаалах нь хулгайлагдахаас сэргийлдэг.</div>
+      </div>
+      <div class="news-list" id="ngrid"></div>
+    </div>
+    <div class="news-sidebar">
+      <div class="nsidebar-box">
+        <div class="nsb-title">Аюулын түвшин · МУ, 2026</div>
+        <div class="threat-level">
+          <div class="tl-row">
+            <span class="tl-label">Telegram луйвар</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">Фишинг имэйл</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">Утасны луйвар</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot filled-high"></div><div class="tl-dot"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">SMS фишинг</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <span class="tl-label">Ransomware</span>
+            <div class="tl-bar">
+              <div class="tl-dot filled-mid"></div><div class="tl-dot filled-mid"></div><div class="tl-dot"></div><div class="tl-dot"></div><div class="tl-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nsidebar-box">
+        <div class="nsb-title">Холбоо барих</div>
+        <div style="font-size:.78rem;color:var(--text2);line-height:1.8">
+          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Цагдаа:</span> 102</div>
+          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Кибер гэмт хэрэг:</span> 1800-1234</div>
+          <div style="margin-bottom:.5rem"><span style="font-family:var(--mono);font-weight:600;color:var(--text)">Банкны хэрэглэгч:</span> Картын ар тал</div>
+          <div style="margin-top:.75rem;font-size:.72rem;color:var(--text3)">Хохирогч болсон бол нотлох баримт (дэлгэцийн зураг, гүйлгээний дэлгэрэнгүй) хадгалаад холбогдоорой.</div>
+        </div>
+      </div>
+      <div class="nsidebar-box">
+        <div class="nsb-title">Сүүлийн 30 хоногийн статистик</div>
+        <div style="font-size:.78rem;color:var(--text2);line-height:1.8">
+          <div class="sidebar-stat"><span class="sidebar-stat-label">Мэдэгдсэн луйвар</span><span class="sidebar-stat-val">1,240+</span></div>
+          <div class="sidebar-stat"><span class="sidebar-stat-label">Нийт хохирол</span><span class="sidebar-stat-val">~890M</span></div>
+          <div class="sidebar-stat"><span class="sidebar-stat-label">Шийдвэрлэлт</span><span class="sidebar-stat-val">23%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- MODAL -->
+<div class="moverlay" id="mov" onclick="closeMod(event)">
+  <div class="mbox" id="mbox"><div id="mbody"></div></div>
+</div>
+
+<footer>
+  <span>Shield.mn</span>
+  <div class="footer-note">Судалгаанд тулгуурласан: Big Five зан чанарын онол · Олон улсын жишиг загварууд (Эстони, Финланд, Чех, Канад) · 2025</div>
+</footer>
+
+<script>
+// ════════════════════════════════
+// DATA
+// ════════════════════════════════
+const lessons=[
+  {id:1,age:'child',cat:'Суурь мэдлэг',title:'Нууц үг гэж юу вэ?',desc:'Найдвартай нууц үг хэрхэн үүсгэх, хэнд хэлж болохгүйг сурна.',lv:'e',mins:15,content:'Нууц үг бол таны онлайн гэрийн хаалганы түлхүүр юм. Хэн нэгэн таны нууц үгийг мэдвэл таны мэдлэлд нэвтэрч, найзуудтай чинь харилцаж болно.',tips:[{t:'Нууц үгдээ том үсэг, тоо, тэмдэгт хавсарга — жишээ: Нохой@2024'},{t:'Нэр, төрсөн он, утасны дугаараа нууц үг болгож болохгүй'},{t:'Нууц үгээ найздаа ч хэлж болохгүй'},{t:'Өөр өөр сайтад өөр өөр нууц үг ашигла'}]},
+  {id:2,age:'child',cat:'Аюулгүй байдал',title:'Танихгүй мессеж таних',desc:'Аюулт мессеж, холбоосыг хэрхэн таних арга.',lv:'e',mins:20,content:'Онлайн орчинд хэн нэгэн чамтай найр тогтоохыг хүсвэл болгоомжтой байгаарай.',tips:[{t:'Танихгүй хүнээс ирсэн мессежийн холбоос дарж болохгүй'},{t:'"Чамд шагнал хожсон" мессеж бол бараг л луйвар'},{t:'Сэжигтэй зүйл олвол яаралтай эцэг эхдээ хэл'},{t:'Утасны дугаар, гэрийн хаягаа онлайнд хэлж болохгүй'}]},
+  {id:3,age:'child',cat:'Суурь дүрэм',title:'Онлайн аюулгүй байдлын 5 дүрэм',desc:'Интернэт ашиглахдаа мөрдвөл зохих 5 гол дүрэм.',lv:'e',mins:10,content:'Интернэт бол гайхалтай орон зай — гэхдээ аюулгүй байхын тулд дүрмийг мэдэж байх хэрэгтэй.',tips:[{t:'Хувийн мэдээллээ хэзээ ч онлайнд хуваалцаж болохгүй'},{t:'Танихгүй хүнтэй уулзахаар тохирч болохгүй'},{t:'Хэн нэгэн чамаас нууц үг асуувал татгалз'},{t:'Сэжигтэй зүйл тохиолдвол эцэг эхдээ хэл'},{t:'Экраны цагийг хязгаарла'}]},
+  {id:4,age:'child',cat:'Тоглоомын аюулгүй байдал',title:'Онлайн тоглоомын аюулгүй байдал',desc:'Онлайн тоглоомд кибер аюулаас хэрхэн хамгаалах.',lv:'e',mins:15,content:'Онлайн тоглоом хөгжилтэй — гэхдээ тоглоомын найз нь бодит амьдрал дахь найзынх чинь адил биш.',tips:[{t:'Тоглоомд өөрийн нэрийг ашиглахгүй — хуурамч нэр ашигла'},{t:'Тоглоомд мөнгөний мэдээлэл оруулахаар эцэг эхдээ хэл'},{t:'Тоглоомын найз ч гэсэн гэрийн хаягаа хэлж болохгүй'},{t:'Зурагаа тоглоомын найзуудад илгээж болохгүй'}]},
+  {id:5,age:'teen',cat:'Нийгмийн сүлжээ',title:'Сошиал медиа нууцлал',desc:'Instagram, Facebook, TikTok-ын нууцлалын тохиргоо.',lv:'m',mins:25,content:'Нийгмийн сүлжээнд нийтэлсэн зүйл интернэтэд мөнхөд үлддэг.',tips:[{t:'Акаунтаа "хувийн" болгон тохируулах'},{t:'Байршлын геотэгийг унтраах'},{t:'Хэн найзаа нэмж болохыг хязгаарлах'},{t:'Хуучин нэвтрэлтийн мэдээллийг тогтмол шалгах'}]},
+  {id:6,age:'teen',cat:'Фишинг',title:'Фишинг таних',desc:'Хуурамч имэйл, мессеж, сайтыг хэрхэн таних.',lv:'m',mins:30,content:'Фишинг бол онлайн луйварын хамгийн түгээмэл хэлбэр. Монголд оролцогчдын 14.8% фишинг имэйлд өртсөн байна.',tips:[{t:'Холбоос дарахын өмнө URL-ийг шалгах'},{t:'"Яаралтай!" гэсэн мессеж луйврын шинж тэмдэг'},{t:'Банк SMS-ээр нууц үг асуудаггүй'},{t:'Илгээгчийн имэйл хаягийг нарийн шалгах'}]},
+  {id:7,age:'teen',cat:'Баталгаажуулалт',title:'2FA — Хоёр шатлалт баталгаажуулалт',desc:'Акаунтаа хамгаалах хамгийн хүчтэй арга.',lv:'m',mins:20,content:'2FA идэвхжүүлсэн акаунтад нэвтрэхийн тулд нууц үг болон нэмэлт код хоёулаа шаардлагатай.',tips:[{t:'2FA-д зориулсан authenticator апп ашиглах'},{t:'Google Authenticator нь SMS-ээс найдвартай'},{t:'Нөөц кодуудаа аюулгүй газар хадгалах'},{t:'2FA код асуувал — луйврын шинж тэмдэг'}]},
+  {id:8,age:'teen',cat:'Мэдээллийн шүүмж',title:'Хуурамч мэдээллийг таних',desc:'Хуурамч мэдээллийг хэрхэн ялгах арга.',lv:'m',mins:20,content:'Хуурамч мэдээлэл нийгмийн сүлжээгээр хурдтай тархдаг.',tips:[{t:'Эх сурвалжийг шалгах'},{t:'Нийтлэгдсэн огноог шалгах'},{t:'Олон эх сурвалжаар баталгаажуулах'},{t:'Хүчтэй сэтгэл хөдлөл өдөөдөг мэдээнд болгоомжтой хандах'}]},
+  {id:9,age:'teen',cat:'Хамгаалалт',title:'Кибер дарамтын эсрэг арга хэмжээ',desc:'Онлайн дарамттай хэрхэн тэмцэх.',lv:'m',mins:25,content:'Кибер дарамт бол хуулиар хориглосон үйлдэл.',tips:[{t:'Дарамтын мессежийн дэлгэцийн зургийг хадгалах'},{t:'Дарамтлагчийг хааж, хаягийг тайлагнах'},{t:'Найдвартай насанд хүрэгчид мэдэгдэх'},{t:'Аюул заналхийлбэл цагдаад мэдэгдэх — 102'}]},
+  {id:10,age:'adult',cat:'Байгуулгын аюулгүй байдал',title:'Байгууллагын мэдээлэл хамгаалах',desc:'Ажлын мэдээллийг зөв хамгаалах арга.',lv:'h',mins:35,content:'Нэг ажилтны алдаа бүхэл байгууллагад хохирол учруулж болно.',tips:[{t:'Нууц мэдээллийг хувийн имэйлд дамжуулахгүй байх'},{t:'VPN ашиглах'},{t:'Нууц баримтыг хэвлэсний дараа устгах'},{t:'Гаднаас олдсон USB холбогчийг компьютерт холбохгүй байх'}]},
+  {id:11,age:'adult',cat:'Нийгмийн инженерчлэл',title:'Нийгмийн инженерчлэлийн эсрэг',desc:'Зогс — Бод — Үйлд арга зүй.',lv:'h',mins:30,content:'Яаралтай шийдвэр гаргах хандлага нь луйварт өртөх эрсдэлийг нэмэгдүүлдэг.',tips:[{t:'ЗОГС: Яаралтай мэдэгдэл ирвэл тэр даруй хариу өгөхгүй байх'},{t:'БОД: Яагаад надаас энэ зүйлийг шаардаж байна вэ?'},{t:'ҮЙЛД: Баталгаажуулсны дараа л арга хэмжээ авах'},{t:'Банкны дугаараар дахин залгаж шалгах'}]},
+  {id:12,age:'adult',cat:'Санхүүгийн аюулгүй байдал',title:'Онлайн худалдааны аюулгүй байдал',desc:'Цахим гүйлгээг аюулгүй хийх арга.',lv:'h',mins:25,content:'Монголд онлайн худалдааны хэрэглэгчдийн тоо жил бүр нэмэгдэж байна.',tips:[{t:'Зөвхөн HTTPS сайтад картын мэдээлэл оруулах'},{t:'Хэт хямд санал нь сэжигтэй'},{t:'Банкны апп-аа зөвхөн официал дэлгүүрээс татах'},{t:'Гүйлгээний мэдэгдлийг идэвхжүүлэх'}]},
+  {id:13,age:'adult',cat:'Нууц үгийн удирдлага',title:'Нууц үгийн менежмент',desc:'Нууц үгийн менежер ашиглах аргачлал.',lv:'m',mins:20,content:'Дундаж хэрэглэгч 100 гаруй акаунттай байдаг. Нууц үгийн менежер ашиглах нь чухал.',tips:[{t:'Bitwarden, 1Password зэрэг менежер ашиглах'},{t:'16+ тэмдэгтийн санамсаргүй нууц үг үүсгэх'},{t:'6 сар тутам нууц үгийг шинэчлэх'},{t:'Мастер нууц үгийг маш найдвартай болгох'}]},
+  {id:14,age:'adult',cat:'Сүлжээний аюулгүй байдал',title:'VPN ба аюулгүй холболт',desc:'Нийтийн Wi-Fi дээр аюулгүй ажиллах арга.',lv:'h',mins:25,content:'Нийтийн Wi-Fi дэх сүлжээний урсгалыг гуравдагч этгээд хянах боломжтой.',tips:[{t:'Нийтийн Wi-Fi-д банкны апп ашиглахаас зайлсхийх'},{t:'VPN ашиглавал сүлжээний урсгал шифрлэгдэнэ'},{t:'Автоматаар Wi-Fi-д холбогдох тохиргоог унтраах'},{t:'Гэрийн чиглүүлэгчийн нууц үгийг хүчтэй болгох'}]},
+  {id:15,age:'senior',cat:'Утасны луйвар',title:'Утасны луйвараас хамгаалах',desc:'Банк, цагдаагийн нэрийг дуурайсан залилангаас хамгаалах.',lv:'e',mins:20,content:'Ахмад настнуудыг онилсон утасны луйвар нэмэгдэж байна.',tips:[{t:'Банк утсаар нууц үг асуудаггүй'},{t:'Яаралтай мөнгө шилжүүлэхийг шаардвал татгалзах'},{t:'Эргэлзвэл хүүхэддээ эхлэж хэлэх'},{t:'Картын ар талаас дугаарыг шалгаж дахин залгах'}]},
+  {id:16,age:'senior',cat:'Мессежийн луйвар',title:'Имэйл ба мессежийн луйвар',desc:'Шагнал, тусламжийн мэдэгдлийн хуурмаг байдлыг таних.',lv:'e',mins:15,content:'Хуурамч мэдэгдлүүд маш итгэлтэй харагддаг болсон.',tips:[{t:'"Чамд 1 сая төгрөг хожсон" — хэзээ ч үнэн биш'},{t:'Мессежийн холбоосыг дарахаас зайлсхийх'},{t:'Апп татаж авахыг шаардвал татгалзах'},{t:'Нэхэмжлэх ирвэл банкаар очиж шалгах'}]},
+  {id:17,age:'senior',cat:'Утасны аюулгүй байдал',title:'Ухаалаг утасны аюулгүй байдал',desc:'Утасны суурь хамгаалалтыг хэрхэн хийх.',lv:'e',mins:15,content:'Ухаалаг утас бол орчин үеийн дижитал амьдралын гол хэрэгсэл болсон.',tips:[{t:'Утсандаа PIN эсвэл хурууны хээ тохируулах'},{t:'Апп болон системийн шинэчлэлтийг тогтмол хийх'},{t:'Зөвхөн Play Store / App Store-оос апп татах'},{t:'Нийтийн цэнэглэгч ашиглахдаа болгоомжтой байх'}]}
+];
+
+const quizData=[
+  {q:'Банкны ажилтан утсаар нууц үгийг асуувал та юу хийх вэ?',opts:['Хэлнэ — итгэмжтэй хүн юм чинь','Татгалзаж, банкны дугаараар дахин залгана','Зөвхөн сүүлийн 4 оронг хэлнэ','Нэхэмжлэхийг хүснэ'],ans:1,exp:'Банк хэзээ ч утсаар нууц үг асуудаггүй. Энэ бол нийгмийн инженерчлэлийн классик жишээ.'},
+  {q:'"Яаралтай! Таны акаунт хаагдах гэж байна" гэсэн мессеж ирвэл?',opts:['Яаралтай нэвтэрнэ','Мессежийн холбоос дарна','Зогсоно, оффициал сайтаас шалгана','Найзуудаа мэдэгдэнэ'],ans:2,exp:'"Яаралтай" гэсэн мессеж нь яаралтай халдлагын шинж тэмдэг. Зогс — Бод — Үйлд аргыг хэрэглэнэ үү.'},
+  {q:'Хамгийн найдвартай нууц үг аль нь вэ?',opts:['password123','1990оны02сарын14','!mX#9kL@2pQw','нэр_утасны_дугаар'],ans:2,exp:'Урт, том жижиг үсэг, тоо, тэмдэгт хавсарсан санамсаргүй нууц үг хамгийн найдвартай.'},
+  {q:'2FA (хоёр шатлалт баталгаажуулалт) гэж юу вэ?',opts:['2 өөр нууц үг ашиглах','Нэвтрэхдээ нууц үг + нэмэлт код шаардах','2 компьютераас нэвтрэх','2 дахин нэвтрэх'],ans:1,exp:'2FA нь нууц үг дээр нэмэлт баталгаажуулалт шаарддаг.'},
+  {q:'Нийтийн Wi-Fi дээр аль үйлдэл харьцангуй аюулгүй вэ?',opts:['Банкны апп нэвтрэх','Имэйл нэвтрэх','VPN-тэй нийтлэг сайт үзэх','Нийгмийн сүлжээний нууц үг солих'],ans:2,exp:'VPN ашиглавал нийтийн Wi-Fi дэх сүлжээний урсгал шифрлэгдэнэ.'},
+  {q:'Фишинг имэйлийн гол шинж тэмдэг аль нь вэ?',opts:['Сайн бичгийн соёлтой','Яаралтай байдал, холбоос дарахыг шаардах','Байгууллагын лого байгаа','Уншихад хялбар'],ans:1,exp:'Фишинг имэйл ихэвчлэн яаралтай байдал үүсгэж хэрэглэгчийг хуурдаг.'},
+  {q:'Нууц үгийн менежер ашиглахын давуу тал юу вэ?',opts:['Нэг нууц үгийг бүх сайтад ашиглана','Нууц үгийг санахгүй болно','Нэг акаунтад нэвтэрвэл бүгд нэвтэрнэ','Хүчтэй нууц үг үүсгэж аюулгүй хадгална'],ans:3,exp:'Нууц үгийн менежер хүчтэй, өвөрмөц нууц үг үүсгэж шифрлэгдсэн байдлаар хадгалдаг.'},
+  {q:'Танихгүй хүнийг онлайнд найз болгоход хамгийн эрсдэлтэй юу вэ?',opts:['Хязгааргүй хувийн мэдээлэл хуваалцах','Зөвхөн нэрээ хэлэх','Зургийг нь харах','Профайлыг нь харах'],ans:0,exp:'Хувийн мэдээллийн хуваалцалтыг хязгаарлах шаардлагатай.'},
+  {q:'Кибер дарамтад өртвөл эхлээд юу хийх вэ?',opts:['Хариу мессеж бичих','Дэлгэцийн зураг хадгалаад насанд хүрэгчид хэлэх','Акаунтаа устгах','Чимээгүй байх'],ans:1,exp:'Нотлох баримт хадгалах нь хуулийн хүрээнд чухал.'},
+  {q:'"Зогс — Бод — Үйлд" аргыг хэзээ хэрэглэх вэ?',opts:['Зөвхөн банкны гүйлгээнд','Яаралтай мэдэгдэл, шахалт мэдрэхэд','Зөвхөн компьютер ашиглахад','Зөвхөн имэйл уншихад'],ans:1,exp:'Яаралтай байдал мэдрэх бүрт энэ аргыг хэрэглэх нь үр дүнтэй.'}
+];
+
+const bfQuestions=[
+  {id:'C1',trait:'C',q:'Холбоос дарахаасаа өмнө эх сурвалжийг шалгадаг.',r:true},
+  {id:'N1',trait:'N',q:'Яаралтай мэдэгдэл ирвэл тэр даруй үйлдэл хийхийг хүснэ.',r:false},
+  {id:'A1',trait:'A',q:'Надаас тусламж хүсвэл "үгүй" гэж хэлэхэд хэцүү байдаг.',r:false},
+  {id:'O1',trait:'O',q:'Шинэ технологи, апп туршихдаа болгоомжгүй байдаг.',r:false},
+  {id:'E1',trait:'E',q:'Сошиал медиад өдөр тутмын амьдралаа идэвхтэй нийтэлдэг.',r:false},
+  {id:'C2',trait:'C',q:'Акаунт бүрт өөр нууц үг хэрэглэдэг.',r:true},
+  {id:'N2',trait:'N',q:'Стресстэй байхдаа алдаа гаргаж болохыг мэддэг учир болгоомжтой байдаг.',r:true},
+  {id:'A2',trait:'A',q:'Танихгүй хүн мэдээлэл хүсвэл ихэвчлэн хуваалцдаг.',r:false},
+  {id:'O2',trait:'O',q:'Шинэ вэбсайтад бүртгүүлэхдээ нарийн уншдаггүй.',r:false},
+  {id:'E2',trait:'E',q:'Онлайн бүлэг, форумд идэвхтэй оролцдог.',r:false},
+  {id:'C3',trait:'C',q:'Компьютер, утасны шинэчлэлтийг тогтмол хийдэг.',r:true},
+  {id:'N3',trait:'N',q:'"Яаралтай мөнгө хэрэгтэй" гэвэл тэр даруй тусалдаг.',r:false},
+  {id:'A3',trait:'A',q:'"Таны найзын нэрийн өмнөөс" гэж хэлсэн тохиолдолд итгэдэг.',r:false},
+  {id:'O3',trait:'O',q:'Маш сонирхолтой санал ирхэд хэт хурдан итгэдэг.',r:false},
+  {id:'E3',trait:'E',q:'Онлайнаар танилцахдаа хувийн мэдээллээ хурдан хуваалцдаг.',r:false}
+];
+
+const checkerData=[
+  {code:'PW',title:'Нууц үгийн аюулгүй байдал',items:['12+ тэмдэгтийн нууц үг ашигладаг','Өөр өөр сайтад өөр нууц үг хэрэглэдэг','Нууц үгийн менежер ашигладаг','Нууц үгийг бичгээр хаана ч хадгалаагүй']},
+  {code:'2FA',title:'Баталгаажуулалтын систем',items:['Имэйлд 2FA идэвхжүүлсэн','Нийгмийн сүлжээнд 2FA идэвхжүүлсэн','Банкны апп-д PIN/биометр тавьсан','Мэдэгдлийн тохиргоог шалгасан']},
+  {code:'SYS',title:'Төхөөрөмжийн хамгаалалт',items:['Утас, компьютер шинэчлэгдсэн байна','Зөвхөн официал дэлгүүрээс апп татдаг','Нийтийн Wi-Fi-д VPN ашигладаг','Вирусын эсрэг програм суулгасан']},
+  {code:'BEH',title:'Зан үйлийн аюулгүй байдал',items:['Холбоосыг дарахын өмнө URL шалгадаг','Танихгүй дуудлагад хувийн мэдээлэл өгдөггүй','Сошиал медиа нууцлалын тохиргоо шалгасан','Сэжигтэй зүйлийг мэдэгдэх журам мэддэг']}
+];
+
+
+// EMAIL GAME DATA
+const emailData=[
+  {phish:true,from:'support@mongolbank-secure.tk',subject:'ЯАРАЛТАЙ: Таны данс хаагдах гэж байна',
+   body:'Таны банкны данс <span class="hl-bad">сэжигтэй үйл ажиллагааны улмаас</span> 24 цагийн дотор хаагдах болно.\n<span class="hl-bad">Дансаа хамгаалахын тулд доорх холбоосоор нэвтэрнэ үү.</span>',
+   link:'mongolbank-secure-login.tk/verify',badLink:true,
+   clues:['Хуурамч домэйн: mongolbank-secure.tk','Яаралтай дарамт — аюулгүй байдлын арга','Сэжигтэй .tk домэйн руу чиглүүлж байна','Жинхэнэ банк имэйлээр нэвтрэхийг шаарддаггүй'],good:[],
+   exp:'Фишинг имэйл. Хуурамч домэйн, яаралтай дарамт, .tk гэсэн луйврын домэйн нь гол шинж тэмдгүүд.'},
+  {phish:false,from:'newsletter@medium.com',subject:'Энэ 7 хоногийн шилдэг нийтлэлүүд',
+   body:'Сайн байна уу,\n\n<span class="hl-ok">Энэ 7 хоногийн хамгийн их уншигдсан</span> нийтлэлүүдийг хуваалцаж байна.\n\nТехнологийн шинэ чиг хандлага\nАмьдралын зөвлөгөө',
+   link:'medium.com/weekly-digest',badLink:false,
+   clues:[],good:['Жинхэнэ medium.com домэйн','Яаралтай байдал байхгүй','Нэвтрэх хүсэлт байхгүй','Мэдээллийн товхимол — нэмэлт мэдээлэл шаарддаггүй'],
+   exp:'Аюулгүй имэйл. Medium.com-ийн жинхэнэ мэдааллийн товхимол.'},
+  {phish:true,from:'prize@mongolshop-event.xyz',subject:'Та 500,000 MNT хожлоо — 2 цагийн хугацаа',
+   body:'БАЯР ХҮРГЭЕ!\n\nТа манай <span class="hl-bad">500,000 төгрөгийн шагнал хожлоо!</span>\n\n<span class="hl-bad">2 цагийн дотор</span> иргэний үнэмлэх, банкны дансны дугаар илгээнэ үү.',
+   link:null,badLink:false,
+   clues:['.xyz домэйн — луйврын шинж тэмдэг','Оролцоогүй тоглоомоос шагнал хожих боломжгүй','2 цагийн яаралтай дарамт','Иргэний болон банкны мэдээлэл хүсч байна'],good:[],
+   exp:'Луйвар. Оролцоогүй тоглоомоос шагнал хожих боломжгүй. Хувийн мэдээлэл хүсэх нь хулгайн оролдлого.'},
+  {phish:false,from:'security@google.com',subject:'Шинэ төхөөрөмжөөс нэвтэрсэн байна',
+   body:'Таны Google акаунтад <span class="hl-ok">шинэ төхөөрөмжөөс нэвтэрсэн</span> байна.\n\nБайршил: Улаанбаатар, Монгол\nWindows 10, Chrome браузер\nОнцлог цаг: 14:32\n\nЭнэ та биш бол мэдэгдэнэ үү.',
+   link:'myaccount.google.com/security',badLink:false,
+   clues:[],good:['security@google.com — жинхэнэ домэйн','myaccount.google.com — жинхэнэ хаяг','Нэвтэрсэн байршил, цаг тодорхой','Нэвтрэх болон мөнгөний мэдээлэл шаарддаггүй'],
+   exp:'Аюулгүй имэйл. Google-ийн жинхэнэ аюулгүй байдлын мэдэгдэл.'},
+  {phish:true,from:'admin@tax-return-mn.ru',subject:'ТАТВАРЫН БУЦААН ОЛГОЛТ — 7 хоногийн хугацаа',
+   body:'Монгол Улсын Татварын Ерөнхий Газар\n\nТаны 2024 оны татварын <span class="hl-bad">буцаан олголт 180,000 MNT батлагдлаа.</span>\n\n<span class="hl-bad">7 хоногийн дотор</span> нэхэмжлэхгүй бол хугацаа дуусна.\n\nБанкны дансны дугаараа доорх холбоосоор оруулна уу:',
+   link:'tax-return-mn.ru/claim',badLink:true,
+   clues:['.ru — Оросын домэйн, Монголын байгууллага биш','Хуурамч байгууллагын нэр ашигласан','7 хоногийн яаралтай дарамт','Банкны данс оруулахыг шаардаж байна'],good:[],
+   exp:'Фишинг. Татварын газар имэйлээр дансны дугаар асуудаггүй. .ru домэйн нь Монголын байгууллага биш.'},
+  {phish:false,from:'orders@amazon.com',subject:'Таны захиалга хүргэгдлээ — #AMZ-284710',
+   body:'Таны захиалга амжилттай хүргэгдлээ.\n\nЗахиалгын дугаар: #AMZ-284710\n<span class="hl-ok">Хүргэгдсэн:</span> Өнөөдөр 11:20\nГэрийн хаяг\n\nЗахиалгын дэлгэрэнгүйг харахыг хүсвэл:',
+   link:'amazon.com/your-orders',badLink:false,
+   clues:[],good:['orders@amazon.com — жинхэнэ домэйн','Захиалгын дугаар тодорхой','amazon.com — жинхэнэ линк','Нэмэлт мэдээлэл шаарддаггүй'],
+   exp:'Аюулгүй имэйл. Amazon-ийн жинхэнэ захиалгын мэдэгдэл.'},
+  {phish:true,from:'noreply@gmai1.com',subject:'Таны Gmail нэвтрэх нууц үг устах болно',
+   body:'Таны нэвтрэх нууц үг <span class="hl-bad">идэвхгүй байдлаас болж 24 цагт устна.</span>\n\nАкаунтаа хадгалахын тулд <span class="hl-bad">нэвтрэх мэдээллээ баталгаажуулна уу.</span>',
+   link:'gmai1-secure.com/verify',badLink:true,
+   clues:['"gmai1.com" — "l" үсгийн оронд "1" тоо ашигласан','Жинхэнэ gmail.com биш','gmai1-secure.com — хуурамч сайт','Gmail нууц үг мэдэхгүй болно гэж мэдэгддэггүй'],good:[],
+   exp:'Фишинг. "gmai1.com" бол хуурамч домэйн — нэг тоог харах хэрэгтэй.'},
+  {phish:false,from:'billing@netflix.com',subject:'Таны Netflix сарын тооцооны мэдэгдэл',
+   body:'Таны сарын захиалгын төлбөр амжилттай боловсруулагдлаа.\n\nДүн: $15.49\nОгноо: 2025-04-01\n<span class="hl-ok">Дугаар: INV-8847123</span>\n\nДэлгэрэнгүйг харахыг хүсвэл:',
+   link:'netflix.com/account',badLink:false,
+   clues:[],good:['billing@netflix.com — жинхэнэ домэйн','netflix.com — жинхэнэ линк','Тодорхой дүн, огноо, дугаар','Нэмэлт мэдээлэл шаарддаггүй'],
+   exp:'Аюулгүй имэйл. Netflix-ийн жинхэнэ тооцооны мэдэгдэл.'}
+];
+
+let egIdx=0,egC=0,egW=0,egS=0,egAns=false;
+function startEmailGame(){
+  egIdx=0;egC=0;egW=0;egS=0;egAns=false;
+  document.getElementById('games-hub').style.display='none';
+  const ga=document.getElementById('game-email');ga.classList.add('active');
+  document.getElementById('email-end').className='game-end-panel';
+  document.getElementById('eg-c').textContent=0;document.getElementById('eg-w').textContent=0;document.getElementById('eg-s').textContent=0;
+  document.getElementById('verdict-row').style.display='';
+  renderEmail();
+}
+function renderEmail(){
+  if(egIdx>=emailData.length){showEmailEnd();return;}
+  egAns=false;
+  const e=emailData[egIdx];
+  document.getElementById('email-prog').textContent='ИМЭЙЛ '+String(egIdx+1)+' / '+emailData.length;
+  document.getElementById('verdict-fb').className='verdict-fb';
+  document.getElementById('email-next').className='email-next';
+  document.getElementById('vb-safe').disabled=false;
+  document.getElementById('vb-phish').disabled=false;
+  const bodyHtml=e.body.replace(/\n/g,'<br>');
+  let linkHtml='';
+  if(e.link) linkHtml='<br><br><span class="email-url '+(e.badLink?'url-bad':'url-safe')+'">'+e.link+'</span>';
+  document.getElementById('email-display').innerHTML=
+    '<div class="email-mock">'+
+    '<div class="email-mock-bar"><div class="email-mock-dot" style="background:#da1e28"></div><div class="email-mock-dot" style="background:#f1c21b"></div><div class="email-mock-dot" style="background:#24a148"></div><span style="margin-left:.5rem">Ирсэн имэйл</span></div>'+
+    '<div class="email-field-row"><span class="efl">Илгээгч</span><span class="efv '+(e.phish?'bad-sender':'')+'">'+e.from+'</span></div>'+
+    '<div class="email-field-row"><span class="efl">Хүлээн</span><span class="efv">та@gmail.com</span></div>'+
+    '<div class="email-subject-line">'+e.subject+'</div>'+
+    '<div class="email-body-text">'+bodyHtml+linkHtml+'</div>'+
+    '</div>';
+}
+function emailVerdict(isPhish){
+  if(egAns)return;egAns=true;
+  document.getElementById('vb-safe').disabled=true;
+  document.getElementById('vb-phish').disabled=true;
+  const e=emailData[egIdx];
+  const ok=(isPhish===e.phish);
+  if(ok){egC++;egS++;}else{egW++;egS=0;}
+  document.getElementById('eg-c').textContent=egC;
+  document.getElementById('eg-w').textContent=egW;
+  document.getElementById('eg-s').textContent=egS;
+  const fb=document.getElementById('verdict-fb');
+  const clueHtml=e.clues.map(c=>'<div class="clue-item c-bad">'+c+'</div>').join('')+e.good.map(c=>'<div class="clue-item c-ok">'+c+'</div>').join('');
+  fb.className='verdict-fb show '+(ok?'fb-ok':'fb-fail');
+  fb.innerHTML='<strong>'+(ok?(e.phish?'Зөв. Фишинг илрүүллээ.':'Зөв. Аюулгүй имэйл мэдлээ.'):(e.phish?'Буруу. Энэ фишинг байсан.':'Буруу. Энэ аюулгүй байсан.'))+'</strong><br>'+e.exp+'<div class="clue-rows">'+clueHtml+'</div>';
+  document.getElementById('email-next').className='email-next show';
+}
+function nextEmail(){egIdx++;renderEmail();}
+function showEmailEnd(){
+  document.getElementById('email-display').innerHTML='';
+  document.getElementById('verdict-row').style.display='none';
+  document.getElementById('verdict-fb').className='verdict-fb';
+  document.getElementById('email-next').className='email-next';
+  const pct=Math.round((egC/emailData.length)*100);
+  const end=document.getElementById('email-end');
+  end.className='game-end-panel show';
+  document.getElementById('ee-n').textContent=egC;
+  document.getElementById('ee-t').textContent=pct>=80?'Мэргэжлийн детектив':pct>=50?'Сайн ажиллалаа':'Дадлага шаардлагатай';
+  document.getElementById('ee-s').textContent=pct>=80?'Та фишинг имэйлийг маш сайн таних чадвартай байна.':pct>=50?'Зарим тэмдгийг таньсан — практик ажиллагаагаар улам сайжрана.':'Илгээгчийн хаяг, домэйн, холбоосыг нарийн шалгах дадлага хийх хэрэгтэй.';
+  document.getElementById('ee-c').textContent=egC;
+  document.getElementById('ee-w').textContent=egW;
+  document.getElementById('ee-p').textContent=pct+'%';
+}
+
+// PASSWORD GAME
+const pwLevels=[
+  {text:'9 настай хүүхдийн онлайн тоглоомын акаунтыг хамгаалах нууц үг боловсруулна уу. Тоо агуулж, хамгийн багадаа 8 тэмдэгт байна.',minLen:8,upper:false,num:true,special:false,forbid:['123','abc','pass'],label:'Суурь'},
+  {text:'Нийгмийн сүлжээний акаунтын нууц үгийг шинэчилнэ үү. Хамгийн багадаа 10 тэмдэгт, том үсэг болон тоо агуулна.',minLen:10,upper:true,num:true,special:false,forbid:['name','нэр','2024','1234'],label:'Дунд'},
+  {text:'Банкны онлайн акаунтын нууц үгийг солино уу. 12+ тэмдэгт, том үсэг, тоо болон тусгай тэмдэгт агуулна.',minLen:12,upper:true,num:true,special:true,forbid:['bank','password','монгол','2024'],label:'Хүчтэй'},
+  {text:'Байгууллагын системд нэвтрэх нууц үг боловсруулна уу. IT хэлтсийн шаардлага: 14+ тэмдэгт, бүх төрлийн тэмдэгт.',minLen:14,upper:true,num:true,special:true,forbid:['company','ажил','admin','2024'],label:'Байгуулага'},
+  {text:'Нууц үгийн менежерийн мастер нууц үгийг тохируулна уу. Хамгийн хүчтэй байх шаардлагатай: 16+ тэмдэгт, бүх шаардлага.',minLen:16,upper:true,num:true,special:true,forbid:['master','password','нууц','2024','admin'],label:'Мастер'}
+];
+let pgIdx=0,pgC=0,pwEye=false;
+function startPasswordGame(){
+  pgIdx=0;pgC=0;pwEye=false;
+  document.getElementById('games-hub').style.display='none';
+  const ga=document.getElementById('game-password');ga.classList.add('active');
+  document.getElementById('pw-end').className='game-end-panel';
+  document.getElementById('pg-c').textContent=0;
+  document.getElementById('pw-box').style.display='';
+  document.getElementById('pw-levels').style.display='';
+  document.querySelector('.pw-submit-btn').style.display='';
+  renderPwLevel();
+}
+function renderPwLevel(){
+  if(pgIdx>=pwLevels.length){showPwEnd();return;}
+  const lv=pwLevels[pgIdx];
+  document.getElementById('pg-l').textContent=(pgIdx+1)+'/'+pwLevels.length;
+  document.getElementById('pw-text').textContent=lv.text;
+  document.getElementById('pw-input').value='';
+  document.getElementById('pw-input').type='password';
+  pwEye=false;
+  document.getElementById('pw-eye-btn').textContent='Харах';
+  document.getElementById('pw-fill').style.width='0%';
+  document.getElementById('pw-fill').style.background='var(--danger)';
+  document.getElementById('pw-slabel').textContent='Нууц үг оруулна уу';
+  document.getElementById('pw-slabel').style.color='var(--text3)';
+  document.getElementById('pw-result').className='pw-result-box';
+  renderPwCrits('');
+  const track=document.getElementById('pw-levels');
+  track.innerHTML=pwLevels.map((l,i)=>{
+    let cls='level-row '+(i<pgIdx?'lv-done':i===pgIdx?'lv-active':'lv-locked');
+    let badge=i<pgIdx?'Давсан':i===pgIdx?'Одоогийн':'Хаалттай';
+    return '<div class="'+cls+'"><span class="level-name">Шатлал '+(i+1)+': '+l.label+'</span><span class="level-badge">'+badge+'</span></div>';
+  }).join('');
+}
+function renderPwCrits(val){
+  const lv=pwLevels[pgIdx];
+  const crits=[
+    {label:lv.minLen+'+ тэмдэгт',met:val.length>=lv.minLen},
+    lv.upper?{label:'Том үсэг (A-Z)',met:/[A-Z]/.test(val)}:null,
+    lv.num?{label:'Тоо (0-9)',met:/[0-9]/.test(val)}:null,
+    lv.special?{label:'Тусгай тэмдэгт',met:/[^A-Za-z0-9]/.test(val)}:null
+  ].filter(Boolean);
+  document.getElementById('pw-crits').innerHTML=crits.map(c=>'<div class="pw-crit '+(c.met?'met':'')+'"><div class="pw-crit-mark">'+(c.met?'✓':'')+'</div>'+c.label+'</div>').join('');
+}
+function evalPw(val){
+  const lv=pwLevels[pgIdx];
+  let score=0;
+  if(val.length>=lv.minLen)score+=30;else score+=Math.floor((val.length/lv.minLen)*20);
+  if(/[A-Z]/.test(val))score+=15;
+  if(/[0-9]/.test(val))score+=15;
+  if(/[^A-Za-z0-9]/.test(val))score+=20;
+  if(val.length>=16)score+=10;if(val.length>=20)score+=10;
+  score=Math.min(100,score);
+  const f=document.getElementById('pw-fill');
+  f.style.width=score+'%';
+  f.style.background=score>=75?'var(--success)':score>=45?'#f1c21b':'var(--danger)';
+  const s=document.getElementById('pw-slabel');
+  if(score>=75){s.textContent='Хүчтэй нууц үг';s.style.color='var(--success)'}
+  else if(score>=45){s.textContent='Дунд зэрэг';s.style.color='var(--warn)'}
+  else if(val.length>0){s.textContent='Сул нууц үг';s.style.color='var(--danger)'}
+  else{s.textContent='Нууц үг оруулна уу';s.style.color='var(--text3)'}
+  renderPwCrits(val);
+  document.getElementById('pw-result').className='pw-result-box';
+}
+function submitPw(){
+  const val=document.getElementById('pw-input').value;
+  const lv=pwLevels[pgIdx];
+  if(!val){alert('Нууц үг оруулна уу.');return;}
+  const fails=[];
+  if(val.length<lv.minLen)fails.push('Урт: '+lv.minLen+'+ тэмдэгт шаардлагатай (одоо: '+val.length+')');
+  if(lv.upper&&!/[A-Z]/.test(val))fails.push('Том үсэг байхгүй (A-Z)');
+  if(lv.num&&!/[0-9]/.test(val))fails.push('Тоо байхгүй (0-9)');
+  if(lv.special&&!/[^A-Za-z0-9]/.test(val))fails.push('Тусгай тэмдэгт байхгүй (!@#$...)');
+  if(lv.forbid.some(f=>val.toLowerCase().includes(f)))fails.push('Таних боломжтой үг агуулж байна');
+  const res=document.getElementById('pw-result');
+  if(fails.length>0){
+    res.className='pw-result-box show r-fail';
+    res.innerHTML='<strong>Шаардлага хангахгүй байна:</strong><ul style="margin:.5rem 0 0 1rem;font-size:.78rem">'+fails.map(f=>'<li>'+f+'</li>').join('')+'</ul>';
+    document.getElementById('pw-input').classList.add('shake');
+    setTimeout(()=>document.getElementById('pw-input').classList.remove('shake'),300);
+  } else {
+    pgC++;document.getElementById('pg-c').textContent=pgC;
+    res.className='pw-result-box show r-ok';
+    res.innerHTML='<strong>Шатлал амжилттай давлаа.</strong> Нууц үг бүх шаардлагыг хангаж байна.';
+    setTimeout(()=>{pgIdx++;renderPwLevel();},1600);
+  }
+}
+function togglePwEye(){
+  pwEye=!pwEye;
+  document.getElementById('pw-input').type=pwEye?'text':'password';
+  document.getElementById('pw-eye-btn').textContent=pwEye?'Нуух':'Харах';
+}
+function showPwEnd(){
+  document.getElementById('pw-box').style.display='none';
+  document.getElementById('pw-levels').style.display='none';
+  document.querySelector('.pw-submit-btn').style.display='none';
+  document.getElementById('pw-result').className='pw-result-box';
+  const end=document.getElementById('pw-end');end.className='game-end-panel show';
+  document.getElementById('pe-n').textContent=pgC;
+  document.getElementById('pe-s').textContent=pgC===5?'Бүх шатлалыг амжилттай давлаа. Нууц үгийн аюулгүй байдлын мэргэжилтэн!':pgC>=3?pgC+' шатлал давлаа. Дадлага үргэлжлүүлснээр улам сайжрана.':'Нууц үгийн шаардлагуудыг дахин судлах хэрэгтэй.';
+}
+
+// QUICK DECISION GAME
+const qdData=[
+  {type:'t-call',typeLabel:'УТАСНЫ ДУУДЛАГА',scene:'Ажлын цагт "Голомт банк"-ны дугаараас дуудлага ирлээ.',detail:'"Та сүүлийн 30 минутад 5 удаа нэвтрэх оролдлого хийсэн байна. Акаунтаа хамгаалахын тулд нууц үгийг баталгаажуулна уу."',choices:['Нууц үгийг хэлнэ — яаралтай шийдвэрлэх хэрэгтэй','Тасалж, картын ар талын дугаараар залгана','Зарим мэдээллийг хэлнэ','Утсандаа банкны апп нэвтэрнэ'],correct:1,exp:'Банк хэзээ ч утсаар нууц үг асуудаггүй. Тасалж, картын ар талаас дугаарыг шалгаж дахин залгана.'},
+  {type:'t-msg',typeLabel:'TELEGRAM МЕССЕЖ',scene:'Найзын дугаараас мессеж ирлээ: "Яаралтай туслаарай!"',detail:'"Гадаадад гацсан, гэр рүүгээ харихад 150,000 MNT хэрэгтэй байна. Дансандаа хийгээч, ирэхэд буцааж өгнө."',choices:['Найз учраас мөнгө хийнэ','Утсаар залгаж найздаа шалгана','Telegram-аар дэлгэрэнгүй асуух болно','Мөнгөний хэмжээ асуух болно'],correct:1,exp:'Найзын акаунтыг хулгайлсан байж болно. Мөнгө хийхийн өмнө заавал утсаар залгаж баталгаажуул.'},
+  {type:'t-email',typeLabel:'АЖЛЫН ИМЭЙЛ',scene:'Гүйцэтгэх захирлаасаа гэх имэйл ирлээ.',detail:'"Нууц гүйлгээ. Нягтлан болон аль нэг ажилтантай ярилцалгүйгээр 2,000,000 MNT шилжүүлнэ үү. Шалтгааныг хожим тайлбарлана."',choices:['Захирлын хүсэлт учраас шилжүүлнэ','Нягтлан болон удирдлагатай шалгана','Захирлын имэйлд хариу бичнэ','Нууц учраас чимээгүй гүйлгэнэ'],correct:1,exp:'Бизнесийн имэйлийн луйвар (BEC). Яаралтай нууц гүйлгээний хүсэлт нь луйврын шинж тэмдэг. Заавал шалгана.'},
+  {type:'t-site',typeLabel:'ВЭБСАЙТ',scene:'"Хаан банк нэвтрэх" гэж хайхад нэг сайт гарав.',detail:'Сайтын URL: haanbank-mn.haanbank-login.com — харагдах байдал жинхэнэ шиг.',choices:['URL нь монгол нэртэй учраас итгэж нэвтэрнэ','URL-ийг шалгаж haanbank.mn мөн эсэхийг харна','Гүүглийн эхний дүн бол найдвартай','Дизайн нь жинхэнэ шиг тул нэвтэрнэ'],correct:1,exp:'URL нь haanbank.mn биш — хуурамч сайт. Банкны сайтыг хайлтаас олохгүй, шууд хаягийг бичнэ.'},
+  {type:'t-msg',typeLabel:'SMS',scene:'Банкны нэрийн хамт SMS ирлээ.',detail:'"Таны данс хязгаарлагдлаа. 24 цагт баталгаажуулахын тулд: http://haan-bank-verify.tk/confirm"',choices:['Холбоос дарж нэвтэрнэ','SMS-г устгаж банкны апп-аас шалгана','Найздаа дамжуулж санал авна','Гарсан дугаараар залгана'],correct:1,exp:'".tk" домэйн луйврын шинж тэмдэг. Банк ийм холбоос илгээдэггүй. Апп-аасаа шалга.'},
+  {type:'t-call',typeLabel:'ДУУДЛАГА',scene:'"Цагдаагийн газар"-аас залгаж байна гэв.',detail:'"Таны нэр дээр гэмт хэрэг нээгдлээ. Дансаа хамгаалахын тулд бүх мөнгийг биткойнд хөрвүүлж манайд хадгалуулах хэрэгтэй."',choices:['Цагдаа байж болох учраас дагана','Утсыг тасалж 102 дугаараар залгана','Нэрийн хуудсыг нь нэхнэ','Дансны мэдээллийг хуваалцана'],correct:1,exp:'Цагдаа биткойн руу хөрвүүлэхийг хэзээ ч шаарддаггүй. 102 дугаараар залгаж шалга.'},
+  {type:'t-email',typeLabel:'ИМЭЙЛ',scene:'iTunes-ийн нэрийн хамт имэйл ирлээ.',detail:'"Таны iPhone-оос $299 хасагдлаа. Зөвшөөрөөгүй бол дараах дугаарт залга: +1-888-555-0199"',choices:['Дугаарт залгаж цуцлуулна','Apple-ийн жинхэнэ сайтаас шалгана','Имэйлийн холбоос дарна','Банкаа залгаж хааж өгнө'],correct:1,exp:'Хуурамч залгах дугаар заасан луйвар. Зөвхөн apple.com эсвэл тохиргооноосоо шалга.'},
+  {type:'t-site',typeLabel:'QR КОД',scene:'Гудамжны самбарт QR код байлаа.',detail:'"Скан хийж 50,000 MNT авна уу!" — QR нь bit.ly руу чиглүүлж байна.',choices:['Сонирхолтой тул скан хийнэ','Скан хийхгүй — гудамжны QR бүрт итгэж болохгүй','Скан хийхийн өмнө URL-г сканнераар шалгана','Найзтайгаа хамт скан хийнэ'],correct:2,exp:'Гудамжны QR-г сканнераар URL-г эхлээд харж шалга. Зарим QR нь хортой сайт руу чиглүүлдэг.'},
+  {type:'t-msg',typeLabel:'MESSENGER',scene:'Facebook-т танихгүй хүнээс мессеж ирлээ.',detail:'"Сайн байна уу? Чамайг сонирхож байна. Instagram байна уу? Дугаараа өгөөч."',choices:['Instagram болон утасны дугаараа өгнө','Зөвхөн Instagram-аа өгнө','Хариу өгөхгүй, хааж тайлагнана','Найзуудаасаа асуух болно'],correct:2,exp:'Танихгүй хүнд хувийн холбоо барих мэдээлэл өгөх эрсдэлтэй. Хааж тайлагнах нь хамгийн зөв алхам.'},
+  {type:'t-email',typeLabel:'IT ИМЭЙЛ',scene:'IT хэлтсийн нэрийн хамт имэйл ирлээ.',detail:'"Системийн шинэчлэлтийн ажлын хүрээнд бүх ажилтан нэвтрэх нууц үгийг шинэчлэх шаардлагатай. Доорх холбоосыг дарна уу."',choices:['IT хэлтэс учраас дагана','IT хэлтэстэй шууд холбогдож баталгаажуулна','Холбоос дарч нэвтэрнэ','Хамт ажилагчдад дамжуулна'],correct:1,exp:'Жинхэнэ IT хэлтэс имэйлийн холбоосоор нууц үг өөрчлүүлдэггүй. Утсаар дуудаж баталгаажуул.'}
+];
+let qdIdx=0,qdC=0,qdW=0,qdTo=0,qdTimer=null,qdAns=false;
+const QD_SEC=12;
+function startQuickGame(){
+  qdIdx=0;qdC=0;qdW=0;qdTo=0;
+  document.getElementById('games-hub').style.display='none';
+  const ga=document.getElementById('game-quick');ga.classList.add('active');
+  document.getElementById('qd-end').className='game-end-panel';
+  document.getElementById('qg-c').textContent=0;document.getElementById('qg-w').textContent=0;
+  document.getElementById('qd-scenario-wrap').style.display='';
+  document.getElementById('qd-progress-txt').style.display='';
+  document.getElementById('qd-score-txt').style.display='';
+  renderQD();
+}
+function renderQD(){
+  if(qdIdx>=qdData.length){showQDEnd();return;}
+  qdAns=false;
+  if(qdTimer)clearInterval(qdTimer);
+  const s=qdData[qdIdx];
+  document.getElementById('qd-progress-txt').textContent='НӨХЦӨЛ '+(qdIdx+1)+' / '+qdData.length;
+  document.getElementById('qd-score-txt').textContent=qdC+' зөв';
+  document.getElementById('qd-prog').style.width=Math.round((qdIdx/qdData.length)*100)+'%';
+  const tt=document.getElementById('qd-type');
+  tt.className='qd-type-tag '+s.type;tt.textContent=s.typeLabel;
+  document.getElementById('qd-scene').textContent=s.scene;
+  document.getElementById('qd-detail').textContent=s.detail;
+  document.getElementById('qd-fb').className='qd-feedback-box';
+  document.getElementById('qd-next').className='qd-next-btn';
+  document.getElementById('qd-choices').innerHTML=s.choices.map((c,i)=>'<button class="qd-choice-btn" onclick="answerQD('+i+')">'+c+'</button>').join('');
+  let rem=QD_SEC;
+  document.getElementById('qg-t').textContent=rem;
+  const tf=document.getElementById('qd-timer-fill');
+  tf.style.transition='none';tf.style.width='100%';
+  setTimeout(()=>{tf.style.transition='width '+QD_SEC+'s linear';tf.style.width='0%';},30);
+  qdTimer=setInterval(()=>{rem--;document.getElementById('qg-t').textContent=rem;if(rem<=0){clearInterval(qdTimer);timeoutQD();}},1000);
+}
+function answerQD(i){
+  if(qdAns)return;qdAns=true;clearInterval(qdTimer);
+  const s=qdData[qdIdx];
+  const btns=document.querySelectorAll('.qd-choice-btn');
+  btns.forEach(b=>b.disabled=true);
+  btns[s.correct].classList.add('qd-ok');
+  const fb=document.getElementById('qd-fb');
+  if(i===s.correct){qdC++;document.getElementById('qg-c').textContent=qdC;btns[i].classList.add('qd-ok');fb.className='qd-feedback-box show fb-ok';fb.innerHTML='<strong>Зөв шийдвэр.</strong> '+s.exp;}
+  else{qdW++;document.getElementById('qg-w').textContent=qdW;btns[i].classList.add('qd-ng');fb.className='qd-feedback-box show fb-ng';fb.innerHTML='<strong>Буруу шийдвэр.</strong> '+s.exp;}
+  document.getElementById('qd-next').className='qd-next-btn show';
+}
+function timeoutQD(){
+  if(qdAns)return;qdAns=true;qdTo++;
+  const s=qdData[qdIdx];
+  document.querySelectorAll('.qd-choice-btn').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.qd-choice-btn')[s.correct].classList.add('qd-missed');
+  const fb=document.getElementById('qd-fb');
+  fb.className='qd-feedback-box show fb-to';
+  fb.innerHTML='<strong>Хугацаа дууслаа.</strong> '+s.exp;
+  document.getElementById('qd-next').className='qd-next-btn show';
+}
+function nextQD(){qdIdx++;renderQD();}
+function showQDEnd(){
+  if(qdTimer)clearInterval(qdTimer);
+  document.getElementById('qd-scenario-wrap').style.display='none';
+  document.getElementById('qd-progress-txt').style.display='none';
+  document.getElementById('qd-score-txt').style.display='none';
+  document.getElementById('qd-fb').className='qd-feedback-box';
+  document.getElementById('qd-next').className='qd-next-btn';
+  const pct=Math.round((qdC/qdData.length)*100);
+  const end=document.getElementById('qd-end');end.className='game-end-panel show';
+  document.getElementById('qde-n').textContent=qdC;
+  document.getElementById('qde-t').textContent=pct>=80?'Аюулгүй байдлын мэргэжилтэн':pct>=50?'Сайн ажиллалаа':'Дадлага шаардлагатай';
+  document.getElementById('qde-s').textContent=pct>=80?'Та хурдан, зөв шийдвэр гаргах чадвартай байна.':pct>=50?'Зарим нөхцөлд зөв шийдлэа — хугацааны дарамттай нөхцөлд болгоомжтой байна уу.':'Яаралтай нөхцөлд "Зогс — Бод — Үйлд" зарчмыг дагах нь чухал.';
+  document.getElementById('qde-c').textContent=qdC;
+  document.getElementById('qde-w').textContent=qdW;
+  document.getElementById('qde-to').textContent=qdTo;
+}
+
+function closeGame(id){
+  if(qdTimer)clearInterval(qdTimer);
+  document.getElementById(id).classList.remove('active');
+  document.getElementById('games-hub').style.display='';
+  if(id==='game-quick'){
+    document.getElementById('qd-scenario-wrap').style.display='';
+    document.getElementById('qd-progress-txt').style.display='';
+    document.getElementById('qd-score-txt').style.display='';
+  }
+  if(id==='game-password'){
+    document.getElementById('pw-box').style.display='';
+    document.getElementById('pw-levels').style.display='';
+    document.querySelector('.pw-submit-btn').style.display='';
+  }
+  if(id==='game-email'){
+    document.getElementById('verdict-row').style.display='';
+  }
+}
+
+// ── MOBILE NAV ──────────────────────────────────────
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+function goToMobile(id) {
+  goTo(id);
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.querySelectorAll('.nav-mobile-btn').forEach(b => b.classList.remove('active'));
+  const idx = ['home','quiz','lessons','games','bigfive','checker','news'].indexOf(id);
+  if (idx >= 0) document.querySelectorAll('.nav-mobile-btn')[idx].classList.add('active');
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('hamburger');
+  if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+  }
+});
+
+// LESSONS
+function renderLessons(f='all'){
+  const g=document.getElementById('lgrid');
+  const list=f==='all'?lessons:lessons.filter(l=>l.age===f);
+  const lvMap={e:'Суурь',m:'Дунд',h:'Дэвшилтэт'};
+  const lvCls={e:'lv-e',m:'lv-m',h:'lv-h'};
+  const ageMap={child:'Хүүхэд',teen:'Залуус',adult:'Насанд хүрэгч',senior:'Ахмад'};
+  g.innerHTML=list.map(l=>`
+    <div class="lcard" onclick="openLesson(${l.id})">
+      <div class="lcard-main">
+        <div class="lcard-top">
+          <div class="lcard-cat">${l.cat}</div>
+          <span class="lv-badge ${lvCls[l.lv]}">${lvMap[l.lv]}</span>
+        </div>
+        <div class="lcard-title">${l.title}</div>
+        <div class="lcard-desc">${l.desc}</div>
+        <div class="lcard-body-preview">${l.content}</div>
+        <div class="lcard-tips-preview">
+          ${l.tips.slice(0,3).map((t,i)=>`<div class="lcard-tip-item"><span class="lcard-tip-num">${String(i+1).padStart(2,'0')}</span><span>${t.t}</span></div>`).join('')}
+          ${l.tips.length>3?`<div class="lcard-tip-item" style="color:var(--text3);font-style:italic"><span class="lcard-tip-num">+${l.tips.length-3}</span><span>нэмэлт зөвлөмж</span></div>`:''}
+        </div>
+        <div class="lcard-foot"><span>${l.mins} мин</span><span>${ageMap[l.age]}</span></div>
+      </div>
+      <div class="lcard-side">
+        <div class="lcard-meta-stack">
+          <div class="lcard-age-badge">${ageMap[l.age]}</div>
+          <div class="lcard-read-time">${l.mins} мин</div>
+          <button class="lcard-open-btn" onclick="event.stopPropagation();openLesson(${l.id})">Дэлгэрэнгүй</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function setFilter(f,btn){
+  renderLessons(f);
+  if(btn){document.querySelectorAll('.flt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+}
+// ── LESSON DATA (theory + scenarios + quiz) ──────────────────
+const lessonExtra={
+  1:{
+    theory:`<div class="theory-block">
+      <h3>Нууц үг яагаад чухал вэ?</h3>
+      <p>Нууц үг бол таны онлайн гэрийн хаалганы түлхүүр юм. Хэн нэгэн таны нууц үгийг мэдвэл таны мэдэлд нэвтэрч, найзуудтай чинь харилцаж болно.</p>
+      <div class="theory-highlight">Хамгийн хурдан таслагддаг нууц үг: "123456", "password", "нэр+он" — секундэд таслагддаг</div>
+      <h3>Хүчтэй нууц үгний шинж</h3>
+      <ul class="theory-list">
+        <li>8-с дээш тэмдэгт урт байх</li>
+        <li>Том болон жижиг үсэг хоёуланг агуулах</li>
+        <li>Тоо болон тэмдэгт (!@#) агуулах</li>
+        <li>Нэр, огноо, утасны дугаар биш байх</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Найздаа нууц үг хэлэх үү?',text:'Таны найз "Facebook акаунтаа мартсан, чинийхийг аваад орохоор зөвшөөрнө үү?" гэж хүслээ.',q:'Та юу хийх вэ?',a:'Хэзээ ч нууц үгээ хэнтэй ч хуваалцаж болохгүй — найзтайгаа ч. Найзаасаа "нууц үг сэргээх" аргыг ашиглахыг хүс.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'"Шагнал хожсон" мессеж',text:'Утсанд "Та 1 сая төгрөгийн шагнал хожлоо! Нууц үгийг оруулна уу" гэсэн мессеж ирлээ.',q:'Энэ мессеж найдвартай юу?',a:'Энэ луйвар! Жинхэнэ шагнал ганц ч удаа нууц үг асуудаггүй. Мессежийг устга, хэнд ч хэлж болохгүй.'}
+    ],
+    quiz:[
+      {q:'Хамгийн хүчтэй нууц үг аль нь вэ?',opts:['нохой123','Н0х0й@2024!','нохойгийн_нэр','1234567890'],ans:1,exp:'"Н0х0й@2024!" нь том жижиг үсэг, тоо, тэмдэгтийг агуулсан хүчтэй нууц үг.'},
+      {q:'Нууц үгийг хэнд хэлж болох вэ?',opts:['Найдвартай найздаа','Багшдаа','Гэр бүлийн гишүүнд','Хэнд ч хэлж болохгүй'],ans:3,exp:'Нууц үгийг хэнд ч хэлж болохгүй — гэр бүлийн гишүүнд ч.'},
+      {q:'Аюулгүй нууц үгний хамгийн бага урт хэд вэ?',opts:['4 тэмдэгт','6 тэмдэгт','8 тэмдэгт','16 тэмдэгт'],ans:2,exp:'8-с дээш тэмдэгт байх нь суурь шаардлага. 12+ байвал бүр сайн.'}
+    ]
+  },
+  2:{
+    theory:`<div class="theory-block">
+      <h3>Онлайн танихгүй хүн</h3>
+      <p>Интернэтэд хэн нэгэн таныг найзалхыг хүсвэл болгоомжтой байгаарай — тэд бодит хүн шиг дүр эсгэж болно.</p>
+      <div class="theory-highlight">Онлайн "найз" нь бодит амьдрал дахь найзынхаа адил биш байж болно.</div>
+      <h3>Аюулт мессежийн шинж тэмдэг</h3>
+      <ul class="theory-list">
+        <li>"Чамд шагнал хожсон" гэсэн мессеж</li>
+        <li>Холбоос дарахыг яаруулах</li>
+        <li>Хувийн мэдээлэл хүсэх</li>
+        <li>Танихгүй хүнээс бэлэг санал болгох</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Тоглоомын танихгүй найз',text:'Онлайн тоглоом дотор танихгүй хүн "Чиний гэрийн хаяг хаана вэ?" гэж асуулаа.',q:'Та юу хийх вэ?',a:'Хэзээ ч гэрийн хаягаа хэлж болохгүй! Тоглоом дотор ч гэсэн хувийн мэдээлэл хуваалцахгүй. Эцэг эхдээ хэлнэ үү.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Сэжигтэй холбоос',text:'"Энд дарвал үнэгүй тоглоом авна!" гэсэн мессеж ирлээ.',q:'Та холбоос дарах уу?',a:'Үгүй! Үнэгүй зүйл санал болгосон бол ихэвчлэн луйвар байдаг. Эцэг эхдээ хэлж шалгуулаарай.'}
+    ],
+    quiz:[
+      {q:'Танихгүй хүн онлайнд гэрийн хаягыг асуувал?',opts:['Хэлнэ','Зөвхөн хотоо хэлнэ','Татгалзаж эцэг эхдээ хэлнэ','Хуурамч хаяг хэлнэ'],ans:2,exp:'Татгалзаж, тэр дарааль эцэг эхдээ мэдэгдэх нь зөв.'},
+      {q:'"Чамд шагнал хожсон" мессеж ирвэл?',opts:['Холбоос дарна','Найздаа дамжуулна','Устгаад эцэг эхдээ хэлнэ','Шагналаа авна'],ans:2,exp:'Энэ луйвар. Устгаж эцэг эхдээ хэлэх нь хамгийн зөв.'},
+      {q:'Онлайн тоглоомын "найз" гэж хэн байж болох вэ?',opts:['Зөвхөн найзууд','Бүр бүгд — танихгүй хүн ч байж болно','Зөвхөн хүүхэд','Зөвхөн том хүмүүс'],ans:1,exp:'Онлайн хүн хэн ч байж болно — болгоомжтой байх нь чухал.'}
+    ]
+  },
+  3:{
+    theory:`<div class="theory-block">
+      <h3>Интернэт ашиглахын 5 алтан дүрэм</h3>
+      <p>Интернэт бол мэдлэг, хөгжил, харилцааны гайхалтай орчин. Гэхдээ аюулгүй байхын тулд дараах дүрмийг санаж яваарай.</p>
+      <div class="theory-highlight">Онлайнд нийтэлсэн зүйл хэзээ ч бүрэн устдаггүй — нийтэлэхийн өмнө бод!</div>
+      <ul class="theory-list">
+        <li>Хувийн мэдээллээ хэзээ ч нийтлэх хэрэггүй</li>
+        <li>Танихгүй хүнтэй бодит газар уулзахаар тохирж болохгүй</li>
+        <li>Нууц үгийг хэнд ч хэлж болохгүй</li>
+        <li>Сэжигтэй зүйл тохиолдвол эцэг эхдээ хэл</li>
+        <li>Дэлгэцийн цагаа хязгаарла</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Зураг нийтлэх',text:'Найздаа зориулж гэрийнхээ урд дэргэд зураг авч Instagram-д нийтлэх гэж байна.',q:'Ямар зүйлд анхаарах хэрэгтэй вэ?',a:'Гэрийн хаяг харагдах зураг нийтлэхгүй! Байршлын геотэгийг унтраасан байгаа эсэхийг шалга.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Танихгүй хүнтэй уулзах',text:'Онлайн танилцсан хүн "парк дээр уулзацгаая" гэж хүсэв.',q:'Та юу хийх вэ?',a:'Хэзээ ч эцэг эхдээ мэдэгдэлгүйгээр онлайн танилтайгаа уулзаж болохгүй. Эхлээд эцэг эхдээ хэл.'}
+    ],
+    quiz:[
+      {q:'Онлайнд нийтэлсэн зураг дараа нь?',opts:['Бүр устдаг','Зөвхөн найзуудад харагддаг','Хэзээ ч бүрэн устдаггүй','Зөвхөн чамд л харагддаг'],ans:2,exp:'Интернэтэд нийтэлсэн зүйл дараа нь хуулагдаж, хадгалагдаж болдог.'},
+      {q:'Онлайн танилтай уулзахын өмнө юу хийх вэ?',opts:['Шууд уулзана','Найздаа хэлнэ','Заавал эцэг эхдээ мэдэгдэнэ','Хаягийг нь шалгана'],ans:2,exp:'Эцэг эхдээ мэдэгдэж, зөвшөөрөл авах нь хамгийн аюулгүй.'},
+      {q:'Сэжигтэй мессеж ирвэл юу хийх вэ?',opts:['Хариу бичнэ','Эцэг эхдээ хэлнэ','Устгана','Найздаа дамжуулна'],ans:1,exp:'Эцэг эхдээ хэлж, хамтдаа шийдвэрлэх нь зөв.'}
+    ]
+  },
+  4:{
+    theory:`<div class="theory-block">
+      <h3>Онлайн тоглоом ба аюулгүй байдал</h3>
+      <p>Онлайн тоглоом хөгжилтэй — гэхдээ тоглоомын найзууд нь бодит найзуудтайгаа адил биш.</p>
+      <div class="theory-highlight">Тоглоомд хэзээ ч бодит нэр, хаяг, сургуулийн нэр, утасны дугаараа хэлж болохгүй!</div>
+      <h3>Тоглоом дахь аюулгүй байдлын дүрэм</h3>
+      <ul class="theory-list">
+        <li>Хуурамч нэр (nickname) ашигла</li>
+        <li>Тоглоомд мөнгө хийхэд эцэг эхийнхээ зөвшөөрөл ав</li>
+        <li>Тоглоомын найзаа бодит найзтайгаа адилтгаж болохгүй</li>
+        <li>Дарамтлал мэдрэвэл тэр даруй мэдэгд</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Тоглоомд мөнгө',text:'Онлайн тоглоомд "Premium карт" авах боломж гарав. "Зөвхөн 5000 төг, маш хямд!" гэж байна.',q:'Та юу хийх вэ?',a:'Эцэг эхдээ хүснэ. Хэзээ ч зөвшөөрөлгүйгээр тоглоомд мөнгө оруулж болохгүй.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Тоглоомд дарамтлал',text:'Тоглоомд нэг тоглогч тасралтгүй муу зүйл бичиж, доромжилж байна.',q:'Та яах вэ?',a:'Тэр хүнийг хаа (block), мэдэгд (report), эцэг эхдээ хэл. Доромжлолыг тэвчих шаардлагагүй.'}
+    ],
+    quiz:[
+      {q:'Тоглоомд ямар нэр ашиглах вэ?',opts:['Бодит нэрээ','Сургуулийнхаа нэр','Хуурамч nickname','Утасны дугаараа'],ans:2,exp:'Хуурамч нэр (nickname) ашиглах нь хувийн мэдээллийг хамгаалдаг.'},
+      {q:'Тоглоомд мөнгө хийхийн өмнө?',opts:['Шууд хийнэ','Найздаа хэлнэ','Эцэг эхийнхээ зөвшөөрөл авна','Бага хэмжээ хийнэ'],ans:2,exp:'Эцэг эхийн зөвшөөрөл авах нь заавал шаардлагатай.'},
+      {q:'Тоглоомд дарамтлал мэдрэвэл?',opts:['Хариулна','Чимээгүй байна','Block, report хийж эцэг эхдээ хэлнэ','Тоглоомоо орхина'],ans:2,exp:'Хааж, мэдэгдэж, эцэг эхдээ хэлэх нь зөв алхам.'}
+    ]
+  },
+  5:{
+    theory:`<div class="theory-block">
+      <h3>Нийгмийн сүлжээ ба нууцлал</h3>
+      <p>Instagram, Facebook, TikTok зэрэг платформд нийтэлсэн зүйл интернэтэд мөнхөд үлддэг — ажил олгогч, сургууль, хэн ч харж болно.</p>
+      <div class="theory-highlight">Нийтийн профайл = дэлхий нийтэд харагдана. "Хувийн" тохиргоо хийх нь чухал!</div>
+      <h3>Нууцлалын гол тохиргоонууд</h3>
+      <ul class="theory-list">
+        <li>Акаунтаа "Хувийн" (Private) болгох</li>
+        <li>Байршлын тэмдэглэл (геотэг) унтраах</li>
+        <li>Танихгүй хүнийг найзаар нэмэхгүй байх</li>
+        <li>Хуучин нэвтрэлтийн мэдээллийг тогтмол шалгах</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Нийтийн профайл',text:'Таны Instagram профайл нийтийн (public) байдалд байна. Сургуулийнхаа фото, хаягаа нийтэлжээ.',q:'Ямар эрсдэл байна?',a:'Хэн ч таны байршил, сургуулийг мэдэж болно. Нэн даруй акаунтаа "Хувийн" болгож, байршлын тэмдэглэлийг унтраа.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Танихгүй хүний follow хүсэлт',text:'Танихгүй хүн follow хүсэлт илгээлээ. Профайлд нь ердөө 2 нийтлэл, 0 дагагч байна.',q:'Та зөвшөөрөх үү?',a:'Хүлээн авахгүй. Шинэ, хоосон профайл нь луйврын шинж тэмдэг байдаг.'}
+    ],
+    quiz:[
+      {q:'Нийгмийн сүлжээний профайлыг ямар байлгах нь аюулгүй вэ?',opts:['Нийтийн — бүгдэд харагдана','Хувийн — зөвхөн найзуудад','Хаасан','Нэр дурдаагүй'],ans:1,exp:'"Хувийн" тохиргоо нь зөвхөн зөвшөөрсөн хүмүүст харуулдаг.'},
+      {q:'Геотэг (байршлын тэмдэглэл) гэж юу вэ?',opts:['Зургийн шүүлтүүр','Байршлын мэдээлэл нийтлэгддэг тохиргоо','Найзуудад мессеж','Профайлын зураг'],ans:1,exp:'Геотэг нь зургийн байршлыг нийтэлдэг — аюулгүй байхын тулд унтраах хэрэгтэй.'},
+      {q:'Танихгүй хүн follow хүсэхэд?',opts:['Зөвшөөрнө','Профайлыг нь шалгаж, сэжигтэй бол татгалзана','Хариу follow хийнэ','Блок хийнэ'],ans:1,exp:'Сэжигтэй профайлыг шалгаж, татгалзах нь зөв.'}
+    ]
+  },
+  6:{
+    theory:`<div class="theory-block">
+      <h3>Фишинг гэж юу вэ?</h3>
+      <p>Фишинг бол хуурамч имэйл, мессеж, сайтаар хувийн мэдээлэл хулгайлах арга. Монголд оролцогчдын 14.8% фишинг имэйлд өртсөн байна.</p>
+      <div class="theory-highlight">Банк, засгийн газар, компани хэзээ ч имэйл/SMS-ээр нууц үг, банкны мэдээлэл асуудаггүй!</div>
+      <h3>Фишинг таних шинж тэмдэг</h3>
+      <ul class="theory-list">
+        <li>Домэйн нэр: bank.com биш bank-secure.tk</li>
+        <li>"Яаралтай!" — цаг хязгаарлах дарамт</li>
+        <li>Нууц үг, картын мэдээлэл хүсэх</li>
+        <li>Холбоос нь харагдаж байгаатай өөр газар чиглүүлэх</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Банкны имэйл',text:'"Хаан банк: Таны карт 24 цагт хаагдана. Нууц үгийг доорх линкэнд шинэчилнэ үү: khan-bank-secure.tk"',q:'Энэ аюулгүй юу?',a:'Фишинг! "khan-bank-secure.tk" нь Хаан банкны жинхэнэ домэйн биш. Банк имэйлээр нууц үг асуудаггүй. Банкны жинхэнэ дугаарт залгаж шалга.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'SMS-ийн луйвар',text:'"Та 100,000 төг-ийн шагнал хожлоо. 10 минутын дотор энд дарна уу: prize-mn.xyz"',q:'Та юу хийх вэ?',a:'Устга! .xyz домэйн, яаралтай байдал, оролцоогүй тоглоомын шагнал — бүгд фишингийн шинж тэмдэг.'}
+    ],
+    quiz:[
+      {q:'Банкнаас имэйлээр нууц үг асуувал?',opts:['Хэлнэ — итгэмжтэй','Татгалзана — банк имэйлээр нууц үг асуудаггүй','Зөвхөн сүүлийн 4 оронг хэлнэ','Имэйлийн холбоос дарна'],ans:1,exp:'Банк хэзээ ч имэйлээр нууц үг асуудаггүй. Энэ фишинг.'},
+      {q:'Сэжигтэй домэйны жишээ аль нь вэ?',opts:['mongolbank.mn','golomt.com','bank-secure.tk','khanbank.mn'],ans:2,exp:'.tk домэйн нь луйврын сайтуудад нийтлэг ашиглагддаг.'},
+      {q:'Фишингийн гол шинж тэмдэг аль нь вэ?',opts:['Мэндчилгээ байгаа','Яаралтай байдал, холбоос дарахыг шаардах','Лого байгаа','Монгол хэлтэй'],ans:1,exp:'Яаралтай байдал үүсгэж, хурдан шийдвэр гаргуулах нь фишингийн гол арга.'}
+    ]
+  },
+  7:{
+    theory:`<div class="theory-block">
+      <h3>2FA — Хоёр шатлалт баталгаажуулалт</h3>
+      <p>2FA нь нууц үг дээр нэмэлт баталгаажуулалт шаарддаг. Нууц үг алдагдсан ч 2FA идэвхтэй бол акаунт хамгаалагдана.</p>
+      <div class="theory-highlight">2FA идэвхжүүлсэн акаунт нь 99% -иар илүү хамгаалагдсан байдаг!</div>
+      <h3>2FA-ийн хэлбэрүүд</h3>
+      <ul class="theory-list">
+        <li>SMS код — хамгийн энгийн, харьцангуй сул</li>
+        <li>Authenticator апп (Google/Authy) — найдвартай</li>
+        <li>Физик түлхүүр (YubiKey) — хамгийн хүчтэй</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'2FA код хүсэх',text:'"Таны Gmail-д нэвтэрч байна. 2FA кодыг надад илгээнэ үү" гэж мессеж ирлээ.',q:'Та 2FA кодоо илгээх үү?',a:'Хэзээ ч 2FA кодоо хэнд ч илгээж болохгүй! Энэ нь луйварчдын нийтлэг арга — кодыг авбал нэвтэрч чадна.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'SMS vs Authenticator',text:'Банкны апп 2FA-д SMS ашиглаж байна. Найз чинь "Authenticator апп ашигла" гэж зөвлөлөө.',q:'Яагаад Authenticator дээр байдаг вэ?',a:'SMS-г SIM swap халдлагаар таслаж болно. Authenticator апп нь интернэтгүй ч ажиллаж, таслах боломжгүй — илүү найдвартай.'}
+    ],
+    quiz:[
+      {q:'2FA идэвхжүүлэхэд хамгийн найдвартай арга аль вэ?',opts:['SMS код','Authenticator апп','Имэйл код','Аюулгүй асуулт'],ans:1,exp:'Authenticator апп нь SMS-ийн оронд илүү найдвартай — SIM swap халдлагаас хамгаалдаг.'},
+      {q:'2FA кодыг хэнд илгээж болох вэ?',opts:['Банкны ажилтанд','Найздаа','Хэнд ч болохгүй','Гэр бүлдээ'],ans:2,exp:'2FA кодыг хэзээ ч хэнд ч илгээж болохгүй — энэ таны акаунтын сүүлийн хамгаалалт.'},
+      {q:'2FA-ийн гол зорилго юу вэ?',opts:['Нууц үгийг сольж чадна','Нууц үг алдагдсан ч нэмэлт хамгаалалт болдог','Нэвтрэлтийг хурдасгадаг','Нууц үгийг санаж байдаг'],ans:1,exp:'2FA нь нууц үг дээр нэмэлт давхар хамгаалалт нэмдэг.'}
+    ]
+  },
+  8:{
+    theory:`<div class="theory-block">
+      <h3>Хуурамч мэдээлэл (Disinformation)</h3>
+      <p>Хуурамч мэдээлэл нийгмийн сүлжээгээр хурдтай тархдаг. Шалгалгүй дамжуулах нь аюул нэмдэг.</p>
+      <div class="theory-highlight">Сэтгэл хөдлөл төрүүлдэг мэдээнд хамгийн болгоомжтой хандаарай!</div>
+      <h3>Хуурамч мэдээ таних арга</h3>
+      <ul class="theory-list">
+        <li>Эх сурвалжийг шалга (.gov.mn, томоохон медиа)</li>
+        <li>Огноог шалга — хуучин мэдээ дахин тарах нийтлэг</li>
+        <li>Олон эх сурвалжаар баталгаажуулах</li>
+        <li>Зургийг reverse image search хийж шалга</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Цочмог мэдээ',text:'Facebook дээр "Монголд аюулт вирус тархаж байна — бүгд гэрт байх!" гэсэн мессеж маш хурдан тарж байна. Эх сурвалж нь танихгүй хуудас.',q:'Та энэ мэдээг дамжуулах уу?',a:'Үгүй! Эхлээд Засгийн газрын мэдэгдэл, МҮОНР, томоохон мэдиагаас шалга. Шалгалгүй дамжуулах нь хуурамч мэдээг тараах аюул дагуулдаг.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Зургийн хуурамч байдал',text:'Гамшгийн тухай гайхалтай зураг нийтлэгдсэн боловч огноо, байршил тодорхойгүй.',q:'Та энэ зургийг найдвартай гэж үзэх үү?',a:'Сэжигтэй. Google Reverse Image Search ашиглан зургийн эх сурвалжийг шалга. Огноо, байршил тодорхойгүй зураг ихэвчлэн хуурамч.'}
+    ],
+    quiz:[
+      {q:'Хуурамч мэдээний хамгийн нийтлэг шинж аль нь вэ?',opts:['Монгол хэлтэй','Сэтгэл хөдлөл их төрүүлдэг, эх сурвалж байхгүй','Урт текст','Зургийн тоо ихтэй'],ans:1,exp:'Хуурамч мэдээ ихэвчлэн айдас, уур хилэн, гайхшрал төрүүлж хурдан тарахад зориулагддаг.'},
+      {q:'Мэдээний үнэн эсэхийг хэрхэн шалгах вэ?',opts:['Найзаасаа асуух','Зөвхөн нэг сайтаас харах','Олон найдвартай эх сурвалжаар баталгаажуулах','Like тоогоор шалгах'],ans:2,exp:'Олон найдвартай эх сурвалж (gov.mn, томоохон медиа) шалгах нь хамгийн найдвартай.'},
+      {q:'Шалгаагүй мэдээг дамжуулбал юу болох вэ?',opts:['Асуудалгүй','Хуурамч мэдээ тарахад хувь нэмнэ','Хэн ч анзаарахгүй','Найзуудад тустай'],ans:1,exp:'Шалгаагүй мэдээ дамжуулах нь хуурамч мэдээг тараах аюул дагуулдаг.'}
+    ]
+  },
+  9:{
+    theory:`<div class="theory-block">
+      <h3>Кибер дарамт (Cyberbullying)</h3>
+      <p>Кибер дарамт нь онлайн орчинд доромжлох, заналхийлэх, хэрцгийгээр харьцах явдал. Монголын хуулиар хориглосон үйлдэл.</p>
+      <div class="theory-highlight">Кибер дарамтад өртвөл чамайг буруутгахгүй — тусламж хүсэх эрхтэй!</div>
+      <h3>Хамгаалах арга хэмжээ</h3>
+      <ul class="theory-list">
+        <li>Дарамтын мессежийг дэлгэцийн зургаар хадгал</li>
+        <li>Дарамтлагчийг хааж (block), мэдэгд (report)</li>
+        <li>Найдвартай насанд хүрэгчид мэдэгд</li>
+        <li>Аюул заналхийлбэл цагдаад мэдэгд (102)</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Группэд доромжлол',text:'Ангийн группэд нэг сурагч чиний зургийг хуваалцаж доромжилж байна.',q:'Та юу хийх вэ?',a:'Дэлгэцийн зураг хадгал (нотлох баримт), тухайн хүнийг хааж мэдэгд, багш эсвэл эцэг эхдээ даруй мэдэгд.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Нууцаар заналхийлэх',text:'Танихгүй акаунтаас "чамайг харж байна" гэж аюул заналхийлэх мессеж ирлээ.',q:'Та яах вэ?',a:'Мессежийг хадгал, акаунтыг block хийж, тэр дарааль эцэг эхдээ хэлж цагдаад (102) мэдэгд.'}
+    ],
+    quiz:[
+      {q:'Кибер дарамтад өртвөл эхлээд юу хийх вэ?',opts:['Хариу бичнэ','Дэлгэцийн зураг хадгалж насанд хүрэгчид хэлнэ','Акаунтаа устгана','Чимээгүй байна'],ans:1,exp:'Нотлох баримт хадгалах нь хуулийн хүрээнд чухал алхам.'},
+      {q:'Кибер дарамт нь Монголд?',opts:['Зөвшөөрөгдсөн','Хуулиар хориглосон','Шийтгэлгүй','Зөвхөн насанд хүрэгчдэд хамаарна'],ans:1,exp:'Монгол Улсын хуулиар кибер дарамт хориглогдсон.'},
+      {q:'Аюул заналхийлбэл хэн рүү залгах вэ?',opts:['102 — цагдаа','Найз руугаа','Банкны утас','Интернэтийн компани'],ans:0,exp:'102 нь цагдаагийн яаралтай утас — аюул заналхийллийн тохиолдолд залгана.'}
+    ]
+  },
+  10:{
+    theory:`<div class="theory-block">
+      <h3>Байгууллагын мэдээлэл хамгаалах</h3>
+      <p>Нэг ажилтны алдаа бүхэл байгууллагад хохирол учруулж болно. Байгууллагын мэдээллийг зөв хамгаалах нь хамтын үүрэг.</p>
+      <div class="theory-highlight">Байгууллагын нууц мэдээллийг хувийн имэйл, мессенжерт дамжуулж болохгүй!</div>
+      <h3>Гол дүрмүүд</h3>
+      <ul class="theory-list">
+        <li>Нууц мэдээллийг зөвхөн корпорацийн сувгаар дамжуулах</li>
+        <li>VPN ашиглах</li>
+        <li>Нийтийн Wi-Fi-д ажлын мэдээлэл ашиглахаас зайлсхийх</li>
+        <li>Гаднаас олдсон USB холбогч компьютерт холбохгүй байх</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'USB олдсон',text:'Оффисын гадна "НЭН НУУЦ" гэж бичсэн USB флаш диск байна.',q:'Та USB-г компьютерт холбох уу?',a:'Холбохгүй! Энэ "Baiting" халдлага байж болно — хортой код агуулсан USB байж болзошгүй. IT хэлтэст шууд мэдэгд.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Нийтийн Wi-Fi',text:'Кофе шопоос ажиллаж байхад компанийн CRM системд нийтийн Wi-Fi-гаар нэвтэрч байна.',q:'Ямар эрсдэл байна?',a:'Нийтийн Wi-Fi дэх мэдээлэл таслагдаж болно. VPN ашиглаагүй бол нэвтрэхгүй байх эсвэл VPN идэвхжүүл.'}
+    ],
+    quiz:[
+      {q:'Нийтийн Wi-Fi дээр ажлын нууц мэдээлэл ашиглах үед?',opts:['Болно','VPN ашиглавал болно','Болохгүй — хэзээ ч','Хурдан хийвэл болно'],ans:1,exp:'VPN ашиглавал сүлжээний урсгал шифрлэгдэж аюулгүй болно.'},
+      {q:'Гаднаас олдсон USB-г яах вэ?',opts:['Компьютерт холбоно','IT хэлтэст өгнө','Хогийн савд хийнэ','Гэртээ авна'],ans:1,exp:'IT хэлтэст мэдэгдэх нь зөв — тэд тусгай тоног төхөөрөмжөөр шалгана.'},
+      {q:'Ажлын нууц мэдээллийг хэрхэн дамжуулах вэ?',opts:['Gmail-ээр','WhatsApp-аар','Байгууллагын официал сувгаар','Шуудангаар'],ans:2,exp:'Байгууллагын официал суваг (корпорацийн имэйл, систем) ашиглах нь шаардлагатай.'}
+    ]
+  },
+  11:{
+    theory:`<div class="theory-block">
+      <h3>Нийгмийн инженерчлэл гэж юу вэ?</h3>
+      <p>Нийгмийн инженерчлэл нь технологийн биш, хүний сэтгэл зүйг ашиглан мэдээлэл хулгайлах арга. Яаралтай байдал, айдас, итгэлийг ашигладаг.</p>
+      <div class="theory-highlight">Зогс — Бод — Үйлд: Яаралтай мэдэгдэл ирвэл тэр даруй хариу өгөхгүй байх!</div>
+      <h3>Нийтлэг аргууд</h3>
+      <ul class="theory-list">
+        <li>CEO Fraud — удирдлагын нэрийг дуурайх</li>
+        <li>Техникийн дэмжлэг залгах — IT-ийн нэрийн өмнөөс</li>
+        <li>Яаралтай мөнгө шилжүүлэх хүсэлт</li>
+        <li>Найзын нэрийн өмнөөс тусламж хүсэх</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Захирлын нэрийн өмнөөс',text:'Ерөнхий захирлын нэрээс имэйл ирэв: "Яаралтай! Нийлүүлэгчид 50 сая төг шилжүүлнэ үү. Одоо утсаар холбогдох боломжгүй."',q:'Та яах вэ?',a:'ЗОГС! Захирлынх руу шууд утсаар залгаж баталгаажуул. Имэйл хаягийг нарийн шалга — жижиг ялгаа байгаа байж болно.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'IT-ийн нэрийн өмнөөс',text:'"Microsoft-ийн ажилтан" залгаж "Таны компьютерт вирус илэрсэн, TeamViewer суулгаж нэвтрэх код өгнө үү" гэлээ.',q:'Та юу хийх вэ?',a:'Утсаа тас! Microsoft болон жинхэнэ IT компани иймэрхүү дуудлага хийдэггүй. Байгууллагынхаа IT хэлтэст мэдэгд.'}
+    ],
+    quiz:[
+      {q:'"Зогс — Бод — Үйлд" аргыг хэзээ хэрэглэх вэ?',opts:['Зөвхөн банкны гүйлгээнд','Яаралтай байдал мэдрэх бүрт','Зөвхөн имэйл уншихад','Зөвхөн компьютер ашиглахад'],ans:1,exp:'Яаралтай байдал мэдрэх бүрт энэ аргыг хэрэглэх нь луйвраас хамгаалдаг.'},
+      {q:'Нийгмийн инженерчлэл юуг ашигладаг вэ?',opts:['Компьютерийн алдаа','Хүний сэтгэл зүй (яаралтай байдал, итгэл, айдас)','Вирус програм','Хакерын код'],ans:1,exp:'Нийгмийн инженерчлэл нь технологийн биш хүний сэтгэл зүйг ашигладаг.'},
+      {q:'Захирлын нэрийн өмнөөс яаралтай мөнгө шилжүүлэх хүсэлт ирвэл?',opts:['Шууд шилжүүлнэ','Захирлынд шууд утсаар залгаж баталгаажуулна','Имэйлд хариулна','Санхүүгийн хэлтэст дамжуулна'],ans:1,exp:'Үргэлж хоёр дахь суваг (утас) ашиглан баталгаажуулах нь BEC халдлагаас хамгаалдаг.'}
+    ]
+  },
+  12:{
+    theory:`<div class="theory-block">
+      <h3>Онлайн худалдааны аюулгүй байдал</h3>
+      <p>Цахим худалдааны хэрэглэгч нэмэгдэхийн хэрээр луйврын тоо ч нэмэгдэж байна.</p>
+      <div class="theory-highlight">HTTPS болон жинхэнэ домэйнийг заавал шалгаарай — URL-ийн жижиг ялгаанд анхаарна уу!</div>
+      <h3>Аюулгүй гүйлгээний дүрэм</h3>
+      <ul class="theory-list">
+        <li>Зөвхөн HTTPS сайтад картын мэдээлэл оруулах</li>
+        <li>Хэт хямд санал нь сэжигтэй</li>
+        <li>Банкны апп-аа зөвхөн App Store/Play Store-оос татах</li>
+        <li>Гүйлгээний мэдэгдэл идэвхжүүлэх</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Хэт хямд санал',text:'Facebook дээр "iPhone 16 Pro — 500,000 төгрөг, зөвхөн өнөөдөр!" гэсэн зар байна.',q:'Та юу бодох вэ?',a:'Сэжигтэй! Жинхэнэ бараа ийм хямдаар зарагдахгүй. Худалдагчийн профайл, урьдчилгаа, нийтлэлийн түүхийг шалга.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Хуурамч банкны апп',text:'SMS-ээр ирсэн линкэнд "Шинэ Хаан банкны апп татна уу" гэж байна.',q:'Та татах уу?',a:'Татахгүй! Зөвхөн App Store (iOS) эсвэл Google Play Store (Android)-аас банкны официал аппыг татах.'}
+    ],
+    quiz:[
+      {q:'Онлайн худалдаанд картын мэдээлэл оруулахад юуг шалгах вэ?',opts:['Сайтын дизайн','HTTPS болон жинхэнэ домэйн','Хамгийн хямд үнэ','Хэдэн хүн худалдаж авсан'],ans:1,exp:'HTTPS ба жинхэнэ домэйн нь хамгийн гол шалгуур.'},
+      {q:'Банкны аппыг хаанаас татах вэ?',opts:['Банкны SMS-ийн линк','Найзын зөвлөсөн линк','Зөвхөн App Store / Play Store','Google-оос хайж олсон'],ans:2,exp:'Зөвхөн App Store эсвэл Play Store-оос татах нь хуурамч аппаас хамгаалдаг.'},
+      {q:'Хэт хямд санал ирвэл?',opts:['Яаралтай авна','Эхлээд шалгаж, сэжигтэй бол татгалзана','Найзаа дуудна','Хагасыг авна'],ans:1,exp:'Хэт хямд санал нь луйврын шинж тэмдэг — эхлээд шалгах нь зөв.'}
+    ]
+  },
+  13:{
+    theory:`<div class="theory-block">
+      <h3>Нууц үгийн менежер</h3>
+      <p>Дундаж хэрэглэгч 100 гаруй акаунттай. Тус бүрд өөр хүчтэй нууц үг цээжлэх боломжгүй — менежер хэрэгтэй.</p>
+      <div class="theory-highlight">Нэг Master Password цээжилж, бусад нууц үгийг менежерт даатга!</div>
+      <h3>Алдартай менежерүүд</h3>
+      <ul class="theory-list">
+        <li>Bitwarden — нээлттэй эх код, үнэгүй</li>
+        <li>1Password — хувийн болон корпорацийн хэрэглээ</li>
+        <li>KeePass — офлайн, орон нутагт хадгалах</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Нэг нууц үг бүх газар',text:'Та Gmail, Facebook, банкны апп, ажлын системд ижил нууц үг ашиглаж байна.',q:'Ямар эрсдэл байна?',a:'Нэг сайт халдвар авбал бүх акаунт өртнө. Menежер ашиглан тус бүрд өөр нууц үг тохируулах хэрэгтэй.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Нууц үг хаана хадгалах',text:'Нууц үгүүдийг Excel файлд бичиж хадгалдаг.',q:'Энэ аюулгүй юу?',a:'Аюулгүй биш! Excel шифрлэгддэггүй. Нууц үгийн менежер нь шифрлэгдсэн байдлаар хадгалдаг — хамаагүй найдвартай.'}
+    ],
+    quiz:[
+      {q:'Нууц үгийн менежерийн давуу тал юу вэ?',opts:['Нэг нууц үгийг бүгдэд ашигладаг','Хүчтэй нууц үг үүсгэж шифрлэгдсэн байдлаар хадгалдаг','Нууц үгийг санаж байдаг','Хэн ч нэвтэрч болдоггүй'],ans:1,exp:'Менежер нь хүчтэй нууц үг үүсгэж, шифрлэгдсэн байдлаар хадгалдаг.'},
+      {q:'Master Password гэж юу вэ?',opts:['Нийт бүх нууц үг','Менежерт нэвтрэх цорын ганц нууц үг','Банкны нууц үг','Gmail-ийн нууц үг'],ans:1,exp:'Master Password нь менежерт нэвтрэх цорын ганц нууц үг — маш хүчтэй байх шаардлагатай.'},
+      {q:'Нууц үгийг хаана хадгалах нь хамгийн аюулгүй вэ?',opts:['Excel файлд','Цаасан тэмдэглэлд','Нууц үгийн менежерт','Имэйлд'],ans:2,exp:'Нууц үгийн менежер нь AES-256 шифрлэлтийг ашиглан хамгийн аюулгүй хадгалдаг.'}
+    ]
+  },
+  14:{
+    theory:`<div class="theory-block">
+      <h3>VPN ба аюулгүй сүлжээ</h3>
+      <p>Нийтийн Wi-Fi дэх мэдээлэл шифрлэгдэхгүй тул хэн ч таслаж болно. VPN нь бүх урсгалыг шифрлэдэг.</p>
+      <div class="theory-highlight">Нийтийн Wi-Fi = Нийтийн талбай. Хэн ч таны харилцааг сонсож болно!</div>
+      <h3>VPN ашиглах нөхцөл</h3>
+      <ul class="theory-list">
+        <li>Нийтийн Wi-Fi (кофе шоп, нисэх онгоцны буудал)</li>
+        <li>Алсаас ажиллах үед</li>
+        <li>Байгууллагын системд гаднаас нэвтрэх</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Нийтийн Wi-Fi дэх банк',text:'Нисэх онгоцны буудалд нийтийн Wi-Fi-гаар банкны апп нэвтэрч гүйлгээ хийх гэж байна.',q:'Та яах вэ?',a:'VPN идэвхжүүлж байж нэвтэр. VPN байхгүй бол гар утасны 4G/LTE ашигла — нийтийн Wi-Fi-д банкны апп ашиглахаас зайлсхий.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Гэрийн чиглүүлэгч',text:'Гэрийн Wi-Fi-н нууц үг "12345678" байна.',q:'Ямар эрсдэл байна?',a:'Маш сул нууц үг! Хөршүүд болон гаднынхан холбогдоод, таны интернэтийг ашиглаж, сүлжээг хянах боломжтой. WPA3 шифрлэлт болон хүчтэй нууц үг тохируул.'}
+    ],
+    quiz:[
+      {q:'VPN юу хийдэг вэ?',opts:['Интернэтийн хурдыг нэмдэг','Бүх сүлжээний урсгалыг шифрлэдэг','Вирусаас хамгаалдаг','Нийтийн Wi-Fi-г унтраадаг'],ans:1,exp:'VPN нь бүх сүлжээний урсгалыг шифрлэж, гуравдагч этгээдэд харагдахаас хамгаалдаг.'},
+      {q:'Нийтийн Wi-Fi дэх хамгийн аюулгүй арга аль вэ?',opts:['Хурдан гүйлгээ хийх','VPN ашиглах','Нийтийн Wi-Fi ашиглахгүй байх','Шифрлэлт байгааг шалгах'],ans:1,exp:'VPN ашиглах нь нийтийн Wi-Fi дэх хамгийн найдвартай хамгаалалт.'},
+      {q:'Гэрийн Wi-Fi-н хамгийн аюулгүй шифрлэлт аль вэ?',opts:['WEP','WPA','WPA2','WPA3'],ans:3,exp:'WPA3 нь хамгийн шинэ, хамгийн аюулгүй Wi-Fi шифрлэлтийн стандарт.'}
+    ]
+  },
+  15:{
+    theory:`<div class="theory-block">
+      <h3>Утасны луйварт хэрхэн хандах</h3>
+      <p>Ахмад настнуудыг онилсон утасны луйвар нэмэгдэж байна. Банк, цагдаа, татварын нэрийг дуурайдаг.</p>
+      <div class="theory-highlight">Банк, цагдаа хэзээ ч утсаар нууц үг, картын дугаар, мөнгө шилжүүлэхийг шаарддаггүй!</div>
+      <h3>Хамгаалах арга</h3>
+      <ul class="theory-list">
+        <li>Ямар ч мэдрэмж төрөхгүйгээр тасалж болно</li>
+        <li>Тухайн байгууллагын жинхэнэ дугаарт дахин залга</li>
+        <li>Эргэлзвэл хүүхэд, гэр бүлдээ хэл</li>
+        <li>Картын ар талаас жинхэнэ дугаарыг шалга</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Банкны ажилтан',text:'"Хаан банк"-наас залгаж "Таны данс хаагдах гэж байна, нууц үгийг хэлнэ үү" гэлээ.',q:'Та юу хийх вэ?',a:'Тасла! Банк утсаар нууц үг асуудаггүй. Картын ар дэх дугаарт дахин залгаж шалга.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Цагдаагийн ажилтан',text:'"Цагдаагийн газраас залгаж байна. Таны нэрийн өмнөөс гэмт хэрэг бүртгэгдсэн, 500,000 төг торгуул төлнэ үү" гэлээ.',q:'Та яах вэ?',a:'Тасла! Цагдаа утсаар мөнгө нэхдэггүй. Тухайн харьяа цагдаагийн хэлтсийн жинхэнэ дугаарт залгаж шалга, эсвэл хүүхэддээ хэл.'}
+    ],
+    quiz:[
+      {q:'Банк утсаар юу асуудаггүй вэ?',opts:['Нэр, овог','Нууц үг болон картын дугаар','Данс байгаа эсэх','Хаяг'],ans:1,exp:'Банк хэзээ ч утсаар нууц үг, CVV, PIN код асуудаггүй.'},
+      {q:'Яаралтай мөнгө шилжүүлэхийг шаардвал?',opts:['Шилжүүлнэ','Татгалзаж, жинхэнэ дугаарт дахин залгана','Хүүхэддээ хэлнэ','Хоёулаа'],ans:1,exp:'Татгалзаж, жинхэнэ байгууллагын дугаарт дахин залгаж баталгаажуулах.'},
+      {q:'Сэжигтэй дуудлага ирвэл?',opts:['Хариу өгнө','Мэдээлэл хэлнэ','Утсаа тасалж, жинхэнэ дугаарт дахин залгана','Чимээгүй байна'],ans:2,exp:'Тасалж, тухайн байгууллагын жинхэнэ дугаарт (картын ар тал, вэб сайт) дахин залгах нь зөв.'}
+    ]
+  },
+  16:{
+    theory:`<div class="theory-block">
+      <h3>Имэйл, мессежийн луйвар</h3>
+      <p>Хуурамч мэдэгдлүүд улам боловсронгуй болж, жинхэнэ байгууллагын нэрийг дуурайдаг болсон.</p>
+      <div class="theory-highlight">"Чамд шагнал хождог" — энэ мессеж 100% луйвар!</div>
+      <h3>Луйварын мессежийн шинж тэмдэг</h3>
+      <ul class="theory-list">
+        <li>Оролцоогүй тоглоомын шагнал</li>
+        <li>Апп татаж авахыг шаардах</li>
+        <li>Нэхэмжлэх, мөнгийн мэдэгдэл</li>
+        <li>Яаралтай дарамт</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Шагналын мессеж',text:'WhatsApp-д "Та Монголын Телекомын сугалаанаас 1,000,000 төг хожлоо! 24 цагт иргэний үнэмлэхээ илгээнэ үү" гэж ирлээ.',q:'Та юу хийх вэ?',a:'Устга! Оролцоогүй сугалаанаас шагнал хожих боломжгүй. Иргэний үнэмлэхийн мэдээлэл хүсэх нь таниулга хулгайн оролдлого.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Нэхэмжлэх имэйл',text:'"Монгол Улсын Татварын Ерөнхий Газар" нэрийн өмнөөс нэхэмжлэх имэйл ирлээ.',q:'Та юу хийх вэ?',a:'Татварын газрын жинхэнэ вэб сайт (mta.mn) -аас эсвэл утсаар шалга. Имэйлийн холбоосыг дарахаас өмнө домэйнийг нарийн шалга.'}
+    ],
+    quiz:[
+      {q:'"Чамд 1 сая төг хождог" мессеж ирвэл?',opts:['Шагналаа авна','Найзуудтайгаа хуваалцана','Устга — луйвар','Дэлгэрэнгүй мэдэхийн тулд холбоос дарна'],ans:2,exp:'Оролцоогүй тоглоомоос шагнал хожих боломжгүй — энэ луйвар.'},
+      {q:'Иргэний үнэмлэхийн мэдээлэл хэзээ онлайнд илгээх вэ?',opts:['Шагнал авахад','Найдвартай сайтад баталгаажуулахад','Хэзээ ч хэнд ч илгээж болохгүй','Банкны мэдэгдэлд'],ans:2,exp:'Иргэний үнэмлэхийн мэдээлэл нь хамгийн нууц мэдээлэл — хэнд ч онлайнд илгээж болохгүй.'},
+      {q:'Сэжигтэй нэхэмжлэх ирвэл юу хийх вэ?',opts:['Төлнө','Жинхэнэ байгууллагын вэб/утсаар баталгаажуулна','Нэхэмжлэхийн холбоос дарна','Хариу бичнэ'],ans:1,exp:'Байгууллагын жинхэнэ суваг (вэб сайт, утас) ашиглан баталгаажуулах.'}
+    ]
+  },
+  17:{
+    theory:`<div class="theory-block">
+      <h3>Ухаалаг утасны аюулгүй байдал</h3>
+      <p>Утас бол орчин үеийн хамгийн чухал дижитал хэрэгсэл — хувийн мэдээлэл, банк, харилцаа бүгд утсанд.</p>
+      <div class="theory-highlight">Утсандаа PIN, хурууны хээ, нүүрийн таних тохиргоо заавал хийгээрэй!</div>
+      <h3>Суурь хамгаалалтын арга хэмжээ</h3>
+      <ul class="theory-list">
+        <li>PIN/хурууны хээ/нүүрийн таних тохиргоо</li>
+        <li>Апп болон системийн шинэчлэлт тогтмол хийх</li>
+        <li>Зөвхөн App Store/Play Store-оос апп татах</li>
+        <li>Нийтийн цэнэглэгч ашиглахдаа болгоомжтой байх</li>
+      </ul>
+    </div>`,
+    scenarios:[
+      {tag:'Тохиолдол 1',color:'#dc2626',title:'Нийтийн цэнэглэгч',text:'Нисэх онгоцны буудалд нийтийн USB цэнэглэгч бий. Утасны цэнэг дуусч байна.',q:'Та ашиглах уу?',a:'Болгоомжтой! "Juice Jacking" халдлага байж болно — нийтийн USB-ийг мэдээлэл хулгайлахад ашиглаж болно. Өөрийн цэнэглэгч эсвэл Power Bank ашигла.'},
+      {tag:'Тохиолдол 2',color:'#b45309',title:'Гаднах дэлгүүрийн апп',text:'WhatsApp-д "Энэ аппыг суулга, сайхан наадана" гэсэн холбоос ирлээ.',q:'Та татах уу?',a:'Татахгүй! Зөвхөн App Store (iOS) эсвэл Google Play Store (Android)-аас апп татах. Гаднах эх сурвалжийн апп хортой код агуулж болно.'}
+    ],
+    quiz:[
+      {q:'Утасны хамгийн аюулгүй түгжих арга аль вэ?',opts:['Ямар ч тохиргоогүй','Зөвхөн swipe','PIN болон биометр (хуруу/нүүр)','Зөвхөн 4 оронтой PIN'],ans:2,exp:'PIN болон биометрийн хосолсон тохиргоо нь хамгийн найдвартай.'},
+      {q:'Аппыг хаанаас татах нь аюулгүй вэ?',opts:['Найзын илгээсэн линк','Вэб сайтаас','Зөвхөн App Store / Play Store','Telegram-аас'],ans:2,exp:'Зөвхөн App Store эсвэл Play Store-оос татах нь хортой кодоос хамгаалдаг.'},
+      {q:'Нийтийн USB цэнэглэгч ашиглах үед?',opts:['Аюулгүй — цэнэглэхэд л ашигладаг','Juice Jacking аюул байж болно','Зөвхөн утас цэнэглэхэд болно','Хурдан цэнэглэвэл аюулгүй'],ans:1,exp:'"Juice Jacking" нь нийтийн USB-ийг мэдээлэл хулгайлахад ашиглах халдлага.'}
+    ]
+  }
+};
+
+// ── LESSON QUIZ STATE ───────────────────────────────
+let lessonQuizAnswered = {};
+
+function openLesson(id) {
+  const l = lessons.find(x => x.id === id);
+  const ex = lessonExtra[id];
+  const ageMap = {child:'Хүүхэд', teen:'Залуус', adult:'Насанд хүрэгч', senior:'Ахмад'};
+  lessonQuizAnswered = {};
+
+  const scenariosHtml = ex ? ex.scenarios.map((sc, i) => `
+    <div class="sc-card">
+      <span class="sc-tag" style="color:${sc.color}">${sc.tag}</span>
+      <div class="sc-title">${sc.title}</div>
+      <div class="sc-text">${sc.text}</div>
+      <div class="sc-q">${sc.q}</div>
+      <button class="sc-toggle" onclick="toggleScAnswer(this)">Хариулт харах</button>
+      <div class="sc-answer">${sc.a}</div>
+    </div>`).join('') : '<p style="color:var(--text3);font-size:.85rem;">Сценари тун удахгүй нэмэгдэнэ.</p>';
+
+  const quizHtml = ex ? ex.quiz.map((q, qi) => `
+    <div class="quiz-q-block" id="lqb-${id}-${qi}">
+      <div class="quiz-q-text">${qi+1}. ${q.q}</div>
+      <div class="quiz-opts">
+        ${q.opts.map((opt, oi) => `
+          <button class="quiz-opt" id="lqo-${id}-${qi}-${oi}" onclick="ansLessonQuiz(${id},${qi},${oi},${q.ans},'${q.exp.replace(/'/g,"\'")}')">
+            <div class="quiz-opt-letter">${String.fromCharCode(65+oi)}</div>
+            ${opt}
+          </button>`).join('')}
+      </div>
+      <div class="quiz-fb" id="lqf-${id}-${qi}"></div>
+    </div>`).join('') +
+    `<div class="quiz-score" id="lqs-${id}">
+      <div class="quiz-score-num" id="lqsn-${id}">0/${ex ? ex.quiz.length : 0}</div>
+      <div class="quiz-score-lbl">Таны оноо</div>
+    </div>` : '<p style="color:var(--text3);font-size:.85rem;">Quiz тун удахгүй нэмэгдэнэ.</p>';
+
+  document.getElementById('mbody').innerHTML = `
+    <div class="mbox-head" style="padding-bottom:0">
+      <div class="mbox-hl">
+        <div>
+          <div class="mbox-cat-tag">${l.cat} · ${ageMap[l.age]}</div>
+          <div class="mbox-title">${l.title}</div>
+          <div class="mbox-meta-line">${l.mins} мин унших хугацаа</div>
+        </div>
+      </div>
+      <button class="mclose" onclick="closeMod()">X</button>
+    </div>
+    <div class="lesson-tabs" id="ltabs-${id}">
+      <button class="lesson-tab active" onclick="switchLTab(${id},'theory',this)">Онол</button>
+      <button class="lesson-tab" onclick="switchLTab(${id},'scenario',this)">Сценари</button>
+      <button class="lesson-tab" onclick="switchLTab(${id},'quiz',this)">Quiz</button>
+    </div>
+    <div class="lesson-section active" id="lt-theory-${id}">
+      <div class="mbody-intro">${l.content}</div>
+      ${ex ? ex.theory : ''}
+      <div class="tip-list">${l.tips.map((t,i)=>`<div class="tip"><div class="tip-marker">${String(i+1).padStart(2,'0')}</div><div class="tip-label">${t.t}</div></div>`).join('')}</div>
+      <button class="mbtn" onclick="switchLTab(${id},'scenario',document.querySelectorAll('#ltabs-${id} .lesson-tab')[1])">Сценари харах →</button>
+    </div>
+    <div class="lesson-section" id="lt-scenario-${id}">${scenariosHtml}<button class="mbtn" style="margin-top:1rem" onclick="switchLTab(${id},'quiz',document.querySelectorAll('#ltabs-${id} .lesson-tab')[2])">Quiz эхлэх →</button></div>
+    <div class="lesson-section" id="lt-quiz-${id}">${quizHtml}</div>`;
+
+  document.getElementById('mov').classList.add('open');
+}
+
+function switchLTab(id, tab, btn) {
+  document.querySelectorAll('#ltabs-' + id + ' .lesson-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['theory','scenario','quiz'].forEach(t => {
+    const el = document.getElementById('lt-' + t + '-' + id);
+    if (el) el.classList.toggle('active', t === tab);
+  });
+}
+
+function toggleScAnswer(btn) {
+  const ans = btn.nextElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? 'Нуух' : 'Хариулт харах';
+}
+
+function ansLessonQuiz(lid, qi, oi, correct, exp) {
+  const key = lid + '-' + qi;
+  if (lessonQuizAnswered[key] !== undefined) return;
+  lessonQuizAnswered[key] = oi;
+  const ex = lessonExtra[lid];
+  ex.quiz[qi].opts.forEach((_, i) => {
+    const el = document.getElementById('lqo-' + lid + '-' + qi + '-' + i);
+    el.classList.add('disabled');
+    if (i === correct) el.classList.add('correct');
+    else if (i === oi && oi !== correct) el.classList.add('wrong');
+  });
+  const fb = document.getElementById('lqf-' + lid + '-' + qi);
+  fb.classList.add('show');
+  if (oi === correct) { fb.classList.add('ok'); fb.textContent = 'Зөв! ' + exp; }
+  else { fb.classList.add('fail'); fb.textContent = 'Буруу. ' + exp; }
+  const total = ex.quiz.length;
+  const answered = Object.keys(lessonQuizAnswered).filter(k => k.startsWith(lid + '-')).length;
+  if (answered === total) {
+    const score = Object.entries(lessonQuizAnswered).filter(([k, v]) => k.startsWith(lid + '-') && v === ex.quiz[parseInt(k.split('-')[1])].ans).length;
+    const sc = document.getElementById('lqs-' + lid);
+    sc.classList.add('show');
+    document.getElementById('lqsn-' + lid).textContent = score + '/' + total;
+  }
+}
+function closeMod(e){if(!e||e.target===document.getElementById('mov'))document.getElementById('mov').classList.remove('open');}
+
+// QUIZ
+let qi=0,qs=0,qa=false;
+function renderQ(){
+  const q=quizData[qi];
+  document.getElementById('qpbar').style.width=Math.round((qi/quizData.length)*100)+'%';
+  document.getElementById('qnum').textContent='АСУУЛТ '+(qi+1)+' / '+quizData.length;
+  document.getElementById('qq').textContent=q.q;
+  const ltrs=['А','Б','В','Г'];
+  document.getElementById('qopts').innerHTML=q.opts.map((o,i)=>`<button class="qopt" onclick="ansQ(${i})"><span class="qopt-letter">${ltrs[i]}</span>${o}</button>`).join('');
+  document.getElementById('qfb').className='qfb';
+  document.getElementById('qnext').className='qnext';
+  qa=false;
+}
+function ansQ(i){
+  if(qa)return;qa=true;
+  const q=quizData[qi];
+  document.querySelectorAll('.qopt').forEach(o=>o.disabled=true);
+  document.querySelectorAll('.qopt')[q.ans].classList.add('correct');
+  const fb=document.getElementById('qfb');
+  if(i===q.ans){qs++;fb.className='qfb show ok';fb.textContent='Зөв. '+q.exp;document.querySelectorAll('.qopt')[i].classList.add('correct');}
+  else{fb.className='qfb show fail';fb.textContent='Буруу. '+q.exp;document.querySelectorAll('.qopt')[i].classList.add('wrong');}
+  document.getElementById('qnext').className='qnext show';
+}
+function nextQ(){qi++;if(qi>=quizData.length)showQScore();else renderQ();}
+function showQScore(){
+  document.getElementById('qcard').style.display='none';
+  const sc=document.getElementById('qscore');sc.className='qscore show';
+  document.getElementById('qpbar').style.width='100%';
+  document.getElementById('sn').textContent=qs;
+  const pct=qs/quizData.length;
+  document.getElementById('stitle').textContent=pct>=.8?'Маш сайн':pct>=.6?'Сайн байна':'Дахин суралцаарай';
+  document.getElementById('ssub').textContent=pct>=.8?'Та кибер аюулгүй байдлын сайн мэдлэгтэй байна.':pct>=.6?'Зарим сэдвийг дахин үзэхийг зөвлөж байна.':'Сургалтын хэсгийг дахин уншихыг зөвлөж байна.';
+}
+function restartQ(){qi=0;qs=0;document.getElementById('qcard').style.display='block';document.getElementById('qscore').className='qscore';renderQ();}
+
+// BIG FIVE
+let bfAnswers={},bfPage=0;
+const bfPerPage=3;
+function renderBF(){
+  const total=bfQuestions.length,start=bfPage*bfPerPage,end=Math.min(start+bfPerPage,total),pct=(start/total)*100;
+  document.getElementById('bfpbar').style.width=pct+'%';
+  const c=document.getElementById('bf-questions');c.innerHTML='';
+  for(let i=start;i<end;i++){
+    const q=bfQuestions[i],sel=bfAnswers[q.id];
+    c.innerHTML+=`<div class="bf-qcard ${sel?'active-q':''}"><div class="bf-qnum">АСУУЛТ ${i+1} / ${total}</div><div class="bf-qq">${q.q}</div><div class="bf-scale"><div class="bf-scale-label">Огт санал нийлэхгүй</div><div class="bf-opts">${[1,2,3,4,5].map(v=>`<button class="bf-opt ${sel===v?'sel':''}" onclick="bfSel('${q.id}',${v})">${v}</button>`).join('')}</div><div class="bf-scale-label">Бүрэн санал нийлнэ</div></div></div>`;
+  }
+  const isLast=(end>=total);
+  c.innerHTML+=`<div class="bf-nav"><button class="bf-back" onclick="bfBack()" ${bfPage===0?'style="opacity:.3;pointer-events:none"':''}>Буцах</button><div class="bf-progress-info">${start+1}–${end} / ${total}</div><button class="bf-fwd" onclick="${isLast?'bfFinish()':'bfNext()'}"> ${isLast?'Үр дүн харах':'Үргэлжлүүлэх'}</button></div>`;
+}
+function bfSel(id,val){bfAnswers[id]=val;renderBF();}
+function bfNext(){const start=bfPage*bfPerPage,end=Math.min(start+bfPerPage,bfQuestions.length);for(let i=start;i<end;i++){if(!bfAnswers[bfQuestions[i].id]){alert('Бүх асуултад хариулна уу.');return;}}bfPage++;renderBF();}
+function bfBack(){if(bfPage>0){bfPage--;renderBF();}}
+function bfFinish(){for(const q of bfQuestions){if(!bfAnswers[q.id]){alert('Бүх асуултад хариулна уу.');return;}}computeBF();}
+function computeBF(){
+  const scores={C:0,N:0,A:0,O:0,E:0},counts={C:0,N:0,A:0,O:0,E:0};
+  for(const q of bfQuestions){let v=bfAnswers[q.id];if(q.r)v=6-v;scores[q.trait]+=v;counts[q.trait]++;}
+  const avg={};for(const t in scores)avg[t]=scores[t]/counts[t];showBFResult(avg);
+}
+function showBFResult(avg){
+  document.getElementById('bf-questions').style.display='none';document.getElementById('bfpbar').style.width='100%';
+  const rw=document.getElementById('bf-result');rw.className='result-wrap show';
+  const rs=(avg.N*0.35)+(avg.A*0.3)+((5-avg.C)*0.2)+(avg.O*0.1)+(avg.E*0.05);
+  const rl=rs>3.5?'high':rs>2.5?'mid':'low';
+  const rLabel={high:'Өндөр эрсдэлтэй',mid:'Дунд зэргийн эрсдэлтэй',low:'Бага эрсдэлтэй'};
+  const dom=Object.entries(avg).sort((a,b)=>b[1]-a[1])[0][0];
+  const typeMap={C:{title:'Ухамсартай хамгаалагч',sub:'Та дүрэм дагах, зохион байгуулалттай байх хандлагатай.'},N:{title:'Мэдрэмтгий шийдвэр гаргагч',sub:'Стресст нөхцөлд яаралтай шийдвэр гаргах хандлагатай. "Зогс — Бод — Үйлд" арга зүй хамгийн чухал хэрэгсэл болно.'},A:{title:'Итгэмтгий найрсаг хүн',sub:'Найрсаг байдал нь хүмүүнлэгийн онцлог боловч онлайн орчинд эрсдэл дагуулж болно.'},O:{title:'Нээлттэй судлаач',sub:'Шинэ зүйлийг туршихдаа хурдан итгэх хандлагатай. Шүүмжлэлт сэтгэлгээ дадлага хийх нь чухал.'},E:{title:'Идэвхтэй нийгмийн хүн',sub:'Цахим харилцаандаа нээлттэй байдаг. Хувийн мэдээллийн хуваалцах хязгаарыг тогтооход анхаарлаа хандуулна уу.'}};
+  const tinfo=typeMap[dom];
+  const tMap={
+    C:{code:'C',name:'Conscientiousness',label:'Ухамсартай байдал',color:'#0f62fe',risk:'Өндөр үзүүлэлт нь аюулгүй зан үйлтэй холбоотой; бага үзүүлэлт нь нууц үгийг давтан ашиглах эрсдэлтэй'},
+    N:{code:'N',name:'Neuroticism',label:'Мэдрэмтгий байдал',color:'#da1e28',risk:'Өндөр үзүүлэлт нь стресст буруу шийдвэр гаргах (r=-.199), яаралтай халдлагад өртөмтгий байдалтай холбоотой'},
+    A:{code:'A',name:'Agreeableness',label:'Найрсаг байдал',color:'#f97316',risk:'Өндөр үзүүлэлт нь итгэмтгий байдал (r=.573), "үгүй" гэж хэлж чадахгүй байдалтай холбоотой'},
+    O:{code:'O',name:'Openness',label:'Нээлттэй байдал',color:'#6929c4',risk:'Өндөр үзүүлэлт нь шинэ технологид хурдан итгэх, сэжигтэй холбоосыг туршиж үзэх хандлагатай холбоотой'},
+    E:{code:'E',name:'Extraversion',label:'Экстраверт байдал',color:'#8a3800',risk:'Өндөр үзүүлэлт нь нийгмийн сүлжээнд хэт нээлттэй байдал, хувийн мэдээлэл хуваалцахтай холбоотой'}
+  };
+  const tipsMap={C:['Нууц үгийн менежер хэрэглэх','Шинэчлэлтийг автоматаар тохируулах','Хяналтын жагсаалт бүрдүүлэх'],N:['"Зогс — Бод — Үйлд" дадлага хийх','Яаралтай мессежид 10 секунд зогсох дадал болгох','Стресст нөхцөлийн загвар дадлага хийх'],A:['"Үгүй" гэж хэлэх дадлага хийх','Танихгүй хүний хүсэлтэд хил тогтоох','Хуваалцахын өмнө эх сурвалжийг шалгах'],O:['Эх сурвалж шалгах аргачлал хэрэглэх','Шинэ апп татахын өмнө нарийн унших','Хэт сайн саналд шүүмжлэлтэй хандах'],E:['Нийгмийн сүлжээний нууцлалын тохиргоог шалгах','Байршлын мэдээллийг нийтлэхгүй байх','Онлайн танилцахдаа ерөнхий мэдээллээс эхлэх']};
+  rw.innerHTML=`
+    <div class="result-header">
+      <div class="result-type-label">ЗАН ЧАНАРЫН ХЭВШИЛ · BIG FIVE ШИНЖИЛГЭЭ</div>
+      <div class="result-title-main">${tinfo.title}</div>
+      <div class="result-summary">${tinfo.sub}</div>
+      <span class="risk-badge risk-${rl}">Кибер эрсдэлийн үнэлгээ: ${rLabel[rl]}</span>
+      <div class="trait-bars-wrap">${Object.entries(avg).map(([t,v])=>`<div class="tbar-row"><div class="tbar-label">${tMap[t].label}</div><div class="tbar-track"><div class="tbar-fill" style="width:${(v/5)*100}%;background:${tMap[t].color}"></div></div><div class="tbar-val">${v.toFixed(1)}</div></div>`).join('')}</div>
+    </div>
+    <div class="result-cards">${Object.entries(avg).map(([t,v])=>`
+      <div class="result-card">
+        <div class="rc-head">
+          <div class="rc-trait-code">${tMap[t].code}</div>
+          <div><div class="rc-title">${tMap[t].label}</div><div class="rc-subtitle">${tMap[t].name} · ${v.toFixed(1)}/5</div></div>
+        </div>
+        <div class="rc-body">${tMap[t].risk}</div>
+        <div class="rc-tips-list">${tipsMap[t].map(tip=>`<div class="rc-tip-item">${tip}</div>`).join('')}</div>
+      </div>`).join('')}</div>
+    <div style="padding:1.25rem 0;display:flex;gap:.75rem;flex-wrap:wrap">
+      <button class="restart-btn" onclick="restartBF()">Дахин хийх</button>
+      <button class="btn-primary" onclick="goTo('lessons')">Сургалт үзэх</button>
+    </div>`;
+}
+function restartBF(){bfAnswers={};bfPage=0;document.getElementById('bf-questions').style.display='block';document.getElementById('bf-result').className='result-wrap';renderBF();}
+
+// CHECKER
+function renderChecker(){
+  document.getElementById('cgrid').innerHTML=checkerData.map((cat,ci)=>`
+    <div class="ccard">
+      <div class="ccard-head"><div class="ccard-icon-box">${cat.code}</div><div class="ccard-title">${cat.title}</div></div>
+      <ul class="citems">${cat.items.map((item,ii)=>`<li class="citem" onclick="toggleC(this,${ci})"><div class="cbox"></div><span class="clabel">${item}</span></li>`).join('')}</ul>
+      <div class="cbar-wrap"><div class="cbar" id="cb-${ci}" style="width:0%"></div></div>
+      <div class="cscore" id="cs-${ci}">0 / ${cat.items.length}</div>
+    </div>`).join('');
+}
+function toggleC(el,ci){
+  el.classList.toggle('done');
+  const card=el.closest('.ccard');
+  const done=card.querySelectorAll('.citem.done').length,total=card.querySelectorAll('.citem').length;
+  document.getElementById('cb-'+ci).style.width=Math.round((done/total)*100)+'%';
+  document.getElementById('cs-'+ci).textContent=done+' / '+total;
+}
+
+// NEWS
+const newsData=[
+  {id:'n1',cat:'Анхааруулга',catCls:'cat-warn',title:'Telegram луйвар эрчимжиж байна',text:'Монголд найзын нэрийг дуурайсан Telegram луйвар нэмэгдсэн. Мөнгө шилжүүлэхийн өмнө дуудлагаар баталгаажуулаарай.',body:'2026 оны эхний улиралд Telegram-аар дамжсан луйврын тохиолдол 340%-иар өсжээ. Луйварчид эхлээд найзын акаунтыг хулгайлж, дараа нь тухайн хүний нэрийн өмнөөс яаралтай мөнгө хүсдэг. Хохирогчдын 68% нь гүйлгээ хийсний дараа луйварт өртсөнийг мэдсэн байна.',points:['Найзынхаа нэрийн өмнөөс яаралтай мөнгө хүсэх мессеж нь луйврын шинж тэмдэг','Утсаар залгаж эхлээд баталгаажуулаарай','2FA идэвхжүүлж акаунтаа хамгаалаарай'],date:'2025.04',read:'3 мин'},
+  {id:'n2',cat:'Арга зүй',catCls:'cat-tip',title:'Зогс — Бод — Үйлд аргачлал',text:'Яаралтай мэдэгдэлд тэр даруй хариу өгөхгүй байх нь кибер халдлагаас хамгаалах хамгийн энгийн арга.',body:'Энэхүү гурван үгэн зарчим нь нийгмийн инженерчлэлийн халдлагад хамгийн үр дүнтэй хамгаалалт болдог. Судалгаагаар яаралтай шийдвэр гаргах хандлага (r=.657) луйварт өртөх эрсдэлтэй хамааралтай болохыг тогтоосон байна.',points:['ЗОГС: Яаралтай мэдэгдэл ирвэл тэр даруй хариу өгөхгүй байх','БОД: Энэ хүсэлт хэнд ашигтай вэ? Яагаад яаралтай байна вэ?','ҮЙЛД: Баталгаажуулсны дараа л арга хэмжээ авах'],date:'2025.03',read:'4 мин'},
+  {id:'n3',cat:'Мэдлэг',catCls:'cat-know',title:'Фишинг халдлагын шинэ хэлбэрүүд',text:'Хуурамч банкны SMS-ний дизайн улам боловсронгуй болж байна. URL-ийг нарийн шалгаарай.',body:'Орчин үеийн фишинг халдлагад хуурамч сайт болон мессеж нь жинхэнэ байгууллагынхтай ялгаагүй харагддаг болжээ. Домэйн нэрийн нэг үсгийг өөрчлөх (typosquatting), IDN homograph халдлага зэрэг нь хамгийн түгээмэл аргуудын нэг.',points:['URL-г үсэг бүрээр нягталж шалгаарай — нэг ялгаа ч чухал','Банкны официал апп-аасаа нэвтэрч мэдэгдлийг баталгаажуулаарай','SMS-ний холбоос дарахаас зайлсхийж, шууд хаягийг бичэж орно уу'],date:'2025.03',read:'5 мин'},
+  {id:'n4',cat:'Судалгаа',catCls:'cat-research',title:'МУ-ын иргэдийн 60% кибер халдлагад өртдөг',text:'Судалгааны үр дүнд оролцогчдын 60.1% ямар нэгэн кибер халдлагад өртөж байсан байна.',body:'2024 онд хийгдсэн үндэсний судалгаанд 500 гаруй иргэн оролцсон. Хамгийн их тархалттай халдлага нь мессежийн луйвар (24.6%), фишинг имэйл (18.3%), утасны луйвар (14.8%) байлаа. Хамгийн харамсалтай нь оролцогчдын 57.1% нь сургалтад хэзээ ч хамрагдаагүй байсан.',points:['Луйвар мессеж хамгийн түгээмэл халдлага — 24.6%','Сургалтад хамрагдсан хүмүүс 3.2 дахин бага өртдөг','Ахмад настнуудын дунд банкны луйвар хамгийн их'],date:'2025.02',read:'6 мин'},
+  {id:'n5',cat:'Зөвлөмж',catCls:'cat-tip',title:'Нууц үгийн менежер яагаад чухал вэ?',text:'Дундаж хэрэглэгч 100 гаруй онлайн акаунттай. Нууц үгийн менежер хамгийн тохиромжтой шийдэл.',body:'Нийтлэг нууц үгийн алдааны дотор хамгийн аюултай нь нэг нууц үгийг олон сайтад хэрэглэх явдал юм. Нэг сайтын мэдээллийн санд задралт гарвал бусад бүх акаунт аюулд орж болно (credential stuffing халдлага).',points:['Нэг нууц үгийг хэрэглэж болохгүй — бүр ижил төстэй ч болохгүй','Bitwarden (үнэгүй) эсвэл 1Password (төлбөртэй) ашиглана уу','Мастер нууц үгээ маш хүчтэй болгож, хаана ч бичиж болохгүй'],date:'2025.02',read:'4 мин'},
+  {id:'n6',cat:'Мэдлэг',catCls:'cat-know',title:'VPN-ийн талаар мэдэх ёстой зүйлс',text:'VPN бол бүх асуудлыг шийдэх гайхамшгийн хэрэгсэл биш. Зөв хэрэглэх аргыг мэдэж байх нь чухал.',body:'VPN (Virtual Private Network) нь сүлжээний урсгалыг шифрлэж, IP хаягийг нуудаг. Гэхдээ VPN ашиглах нь бүх кибер эрсдэлийг арилгадаггүй. Фишинг сайт, хортой апп, нийгмийн инженерчлэлийн халдлагаас VPN хамгаалж чадахгүй.',points:['Нийтийн Wi-Fi дээр VPN заавал ашиглаарай','VPN нь таны онлайн үйл ажиллагааг бүрэн нуудаггүй','Найдвартай VPN үйлчилгээ сонгохдоо log-less бодлоготойг нь шалга'],date:'2025.01',read:'5 мин'}
+];
+let expandedNews=new Set();
+function toggleFeatured(){const d=document.getElementById('featured-detail');d.style.display=d.style.display==='none'?'block':'none';}
+function toggleNews(id){
+  if(expandedNews.has(id)){expandedNews.delete(id);}else{expandedNews.add(id);}
+  renderNews();
+}
+function renderNews(){
+  document.getElementById('ngrid').innerHTML=newsData.map(n=>{
+    const expanded=expandedNews.has(n.id);
+    return `<div class="ncard">
+      <div>
+        <div class="ncat-tag ${n.catCls}">${n.cat}</div>
+        <div class="ntitle">${n.title}</div>
+        <div class="ntext">${n.text}</div>
+        <div class="nbody-full ${expanded?'expanded':''}"><p style="margin-bottom:.75rem">${n.body}</p></div>
+        <div class="nkey-points ${expanded?'expanded':''}">
+          <div class="nkp-label">Гол дүгнэлт</div>
+          ${n.points.map(p=>`<div class="nkp-item">${p}</div>`).join('')}
+        </div>
+        <button class="nread-more" onclick="toggleNews('${n.id}')">${expanded?'Хураах':'Дэлгэрэнгүй унших'}</button>
+      </div>
+      <div class="nmeta"><span>${n.date}</span><span>${n.read}</span></div>
+    </div>`;
+  }).join('');
+}
+
+// NAV
+const secMap={home:0,quiz:1,lessons:2,games:3,bigfive:4,checker:5,news:6};
+function goTo(id){
+  const target=document.getElementById(id);
+  if(!target)return;
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  if(secMap[id]!==undefined)document.querySelectorAll('.nav-btn')[secMap[id]].classList.add('active');
+  if(id==='games')document.getElementById('games-hub').style.display='';
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(qdTimer)clearInterval(qdTimer);
+}
+
+// INIT
+renderLessons();renderQ();renderBF();renderChecker();renderNews();
+</script>
+</body>
+</html>
